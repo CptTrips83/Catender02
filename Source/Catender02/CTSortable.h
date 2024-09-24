@@ -15,7 +15,9 @@ public:
 	ACTSortable();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCTSortingComponent* SortingComponent = nullptr;
-	
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateRotation();
 protected:
 	ACTGameModeLevel* GameModeLevel = nullptr;
 	

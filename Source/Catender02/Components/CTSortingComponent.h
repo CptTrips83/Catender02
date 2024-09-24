@@ -55,9 +55,21 @@ public:
 	virtual void SetSortingLayer(ESortingLayer NewSortingLayer);
 	UFUNCTION(BlueprintCallable)
 	virtual void SetSortingIndex(int NewSortingIndex);
-		
+
+	/**
+	 * This delegate is broadcast whenever the sorting layer of a component changes.
+	 * It allows subscribers to respond to changes in the actor's sorting layer.
+	 *
+	 * Signature: void OnSortingLayerChanged(ESortingLayer OldSortingLayer, ESortingLayer NewSortingLayer)
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FSortingLayerChanged OnSortingLayerChanged;
+	/**
+	 * This delegate is broadcast whenever the sorting index of a component changes.
+	 * It allows subscribers to respond to changes in the actor's sorting index.
+	 *
+	 * Signature: void OnSortingIndexChanged(int NewSortingIndex, int OldSortingIndex)
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FSortingIndexChanged OnSortingIndexChanged;
 };

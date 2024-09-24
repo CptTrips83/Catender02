@@ -43,8 +43,14 @@ protected:
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	/**
+	 * Delegate for handling events when an interactable item is added to the player's interaction component.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FAddedInteractable OnAddedInteractable;
+	/**
+	 * Delegate for handling events when an interactable item is removed from the player's interaction component.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FRemoveInteractable OnRemovedInteractable;
 };

@@ -28,15 +28,16 @@ UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CATENDER02_API UCTSortingComponent : public UActorComponent
 {
 	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true, Category="Sorting"))
+	ESortingLayer SortingLayer = ESortingLayer::Background;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 9, AllowPrivateAccess = true, Category="Sorting"))
+	int SortingIndex = 0;
 
 public:	
 	UCTSortingComponent();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ESortingLayer SortingLayer = ESortingLayer::Background;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 9))
-	int SortingIndex = 0;
 
 protected:
 	ACTSortable* Owner = nullptr;

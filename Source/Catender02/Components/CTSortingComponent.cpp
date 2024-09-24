@@ -46,8 +46,8 @@ void UCTSortingComponent::SetSortingLayer(const ESortingLayer NewSortingLayer)
 void UCTSortingComponent::SetSortingIndex(int NewSortingIndex)
 {
 	int OldSortingLayer = SortingIndex;
-	SortingIndex = NewSortingIndex;
-
+	SortingIndex = FMath::Clamp(NewSortingIndex, 0, 9);
+	
 	SetSpriteLayerIndex();
 	
 	OnSortingIndexChanged.Broadcast(NewSortingIndex, OldSortingLayer);

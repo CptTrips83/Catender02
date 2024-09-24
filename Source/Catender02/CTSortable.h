@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "PaperZDCharacter.h"
-#include "PaperFlipbook.h"
 #include "Components/CTSortingComponent.h"
 #include "GameMode/CTGameModeLevel.h"
 #include "CTSortable.generated.h"

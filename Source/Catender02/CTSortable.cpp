@@ -15,7 +15,5 @@ void ACTSortable::BeginPlay()
 
 	GameModeLevel = static_cast<ACTGameModeLevel*>(GetWorld()->GetAuthGameMode());
 
-	UPaperFlipbookComponent* Flipbook = GetSprite();
-
 	
 }

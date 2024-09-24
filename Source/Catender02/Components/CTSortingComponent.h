@@ -32,10 +32,10 @@ class CATENDER02_API UCTSortingComponent : public UActorComponent
 public:	
 	UCTSortingComponent();
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESortingLayer SortingLayer = ESortingLayer::Background;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 9))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 9))
 	int SortingIndex = 0;
 
 protected:

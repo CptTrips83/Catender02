@@ -25,16 +25,12 @@ class CATENDER02_API UCTSortingLayerDataComponent : public UActorComponent
 	GENERATED_BODY()
 	
 	void UpdateSortingLayers();
+
+	int SortingLayerWidth = 10;
+	int SortingLayerStart = 0;
 	
 public:	
-	UCTSortingLayerDataComponent();
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int SortingLayerWidth = 10;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int SortingLayerStart = -50;
-	
+	UCTSortingLayerDataComponent();	
 
 protected:	
 	TMap<ESortingLayer, int> SortingLayers;

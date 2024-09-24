@@ -52,6 +52,8 @@ void ACTCharacter::Move(const float MoveX)
 	
 	AddMovementInput(FVector(MoveX, 0, 0));
 
+	UpdateRotation();
+
 	OnMoveInput.Broadcast(MoveX);
 }
 

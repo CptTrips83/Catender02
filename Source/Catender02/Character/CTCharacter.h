@@ -26,6 +26,7 @@ class CATENDER02_API ACTCharacter : public ACTSortable
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void UpdateRotation();
+	
 	virtual void Move(float MoveX);
 	virtual bool CanMove();
 

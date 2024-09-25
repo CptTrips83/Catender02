@@ -7,9 +7,8 @@
 #include "CTSortable.generated.h"
 
 
-
 UCLASS()
-class CATENDER02_API ACTSortable : public APaperZDCharacter
+class CATENDER02_API ACTSortable : public APaperZDCharacter, public IInteract
 {
 public:
 	ACTSortable();
@@ -22,4 +21,5 @@ protected:
 	GENERATED_BODY()
 
 	virtual void BeginPlay() override;
+	virtual void Interact(ACTSortable* OtherSortable);
 };

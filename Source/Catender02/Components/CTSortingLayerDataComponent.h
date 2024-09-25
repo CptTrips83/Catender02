@@ -8,13 +8,16 @@ UENUM(BlueprintType)
 enum class ESortingLayer : uint8
 {
 	Background,
-	Building,
+	BuildingBackground,
+	DestroyableBackground,
 	InteractableBackground,
 	Pickup,
 	FriendlyNPC,
 	Enemy,
 	Player,
+	BuildingForeground,
 	InteractableForeground,
+	DestroyableForeground,
 	Count UMETA(Hidden)
 };
 ENUM_RANGE_BY_COUNT(ESortingLayer, ESortingLayer::Count);

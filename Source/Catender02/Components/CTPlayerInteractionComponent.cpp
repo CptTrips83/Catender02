@@ -1,6 +1,7 @@
 #include "CTPlayerInteractionComponent.h"
 
 #include "Catender02/Objects/CTInteractable.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 /**
  * Sorts the interactable objects in the `OverlappingInteractables` array
@@ -37,6 +38,8 @@ void UCTPlayerInteractionComponent::AddToOverlappingInteractables(ACTInteractabl
 	this->OverlappingInteractables.AddUnique(Interactable);
 	SortInteractablesBySortingLayer();
 	this->OnAddedInteractable.Broadcast(Interactable);
+
+	UKismetSystemLibrary::PrintString(this, "Added Interactable" + Interactable->GetName());
 }
 
 /**
@@ -52,6 +55,8 @@ void UCTPlayerInteractionComponent::RemoveFromOverlappingInteractables(ACTIntera
 	this->OverlappingInteractables.Remove(Interactable);
 	SortInteractablesBySortingLayer();
 	this->OnRemovedInteractable.Broadcast();
+
+	UKismetSystemLibrary::PrintString(this, "Removed Interactable" + Interactable->GetName());
 }
 
 /**

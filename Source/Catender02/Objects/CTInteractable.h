@@ -10,9 +10,7 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 {
 	GENERATED_BODY()
 
-	// TODO AddDynamic Binding to Capsule Component
-	UFUNCTION()
-	void OnBoxBeginOverlap
+	virtual void OnBoxBeginOverlap
 	(
 		UPrimitiveComponent* OverlappedComp, 
 		AActor* OtherActor, 
@@ -20,17 +18,17 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 		int32 OtherBodyIndex, 
 		bool bFromSweep, 
 		const FHitResult& SweepResult
-	);
+	) override;
 
-	// TODO AddDynamic Binding to Capsule Component
-	UFUNCTION()
-	void OnBoxEndOverlap
+	virtual void OnBoxEndOverlap 
 	(
 		UPrimitiveComponent* OverlappedComp, 
 		AActor* OtherActor, 
 		UPrimitiveComponent* OtherComp, 
-		int32 OtherBodyIndex, 
-		bool bFromSweep, 
-		const FHitResult& SweepResult
-	);
+		int32 OtherBodyIndex
+	) override;
+
+public:
+	UFUNCTION(BlueprintCallable, Category = "Interaction")
+	virtual void Interact(ACTSortable* OtherSortable) override;
 };

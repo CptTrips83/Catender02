@@ -18,3 +18,8 @@ void ACTSortable::BeginPlay()
 
 	
 }
+
+void ACTSortable::Interact(ACTSortable* OtherSortable)
+{
+
+}

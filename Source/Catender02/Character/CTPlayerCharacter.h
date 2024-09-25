@@ -15,9 +15,6 @@
 
 #include "CTPlayerCharacter.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class CATENDER02_API ACTPlayerCharacter : public ACTCharacter
 {
@@ -45,10 +42,10 @@ public:
 
 	
 	ACTPlayerCharacter();
+	
+	UFUNCTION(BlueprintCallable)
 	UCTPlayerInteractionComponent* GetPlayerInteractionComponent() const;
 
-	UFUNCTION(BlueprintCallable)
-	UCTPlayerInteractionComponent* GetPlayerInteractionComponent();
 protected:
 
 	virtual void BeginPlay() override;

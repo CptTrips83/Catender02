@@ -15,12 +15,12 @@ ACTPlayerCharacter::ACTPlayerCharacter()
 	Camera->SetupAttachment(SpringArm);
 }
 
+/**
+ * Retrieves the player's interaction component.
+ *
+ * @return A pointer to the player's interaction component.
+ */
 UCTPlayerInteractionComponent* ACTPlayerCharacter::GetPlayerInteractionComponent() const
-{
-	return PlayerInteractionComponent;
-}
-
-UCTPlayerInteractionComponent* ACTPlayerCharacter::GetPlayerInteractionComponent()
 {
 	return PlayerInteractionComponent;
 }
@@ -41,6 +41,12 @@ void ACTPlayerCharacter::BeginPlay()
 	}
 }
 
+/**
+ * Configures player input component and binds actions to corresponding methods.
+ *
+ * @param PlayerInputComponent The input component to set up.
+ *
+ */
 void ACTPlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -74,6 +80,11 @@ void ACTPlayerCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 	}
 }
 
+/**
+ * Handles movement input triggered by the player.
+ *
+ * @param Value The input action value containing movement information.
+ */
 void ACTPlayerCharacter::MoveTriggered(const FInputActionValue& Value)
 {
 	const FVector2d MoveActionValue = Value.Get<FVector2d>();
@@ -82,10 +93,26 @@ void ACTPlayerCharacter::MoveTriggered(const FInputActionValue& Value)
 	Move(MoveX);
 }
 
+/**
+ * Handles the actions to be taken when the movement input is completed or canceled.
+ *
+ * @param Value The input action value associated with the completed or canceled movement action.
+ */
 void ACTPlayerCharacter::MoveCompleted(const FInputActionValue& Value)
 {
 }
 
+/**
+ * Handles interaction input action when triggered.
+ *
+ * Retrieves the front interactable object from the player's interaction component.
+ * If an interactable object exists, triggers the interaction process.
+ *
+ * @param Value The value associated with the input action trigger.
+ *
+ * @see UCTPlayerInteractionComponent::GetFrontInteractable()
+ * @see ACTPlayerCharacter::Interact()
+ */
 void ACTPlayerCharacter::InteractTriggered(const FInputActionValue& Value)
 {
 	ACTInteractable* Interactable = GetPlayerInteractionComponent()->GetFrontInteractable();

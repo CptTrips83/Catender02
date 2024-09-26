@@ -81,9 +81,10 @@ int UCTWorldResourceComponent::TryAddResourceAmount(const EResourceType Resource
 		return 0;
 	}
 
+	const int OldAmount = ResourceData->Resource.Amount;
 	int ReturningAmount = 0; // Variable für die Menge, die nach dem Hinzufügen verbleibt
-	int MaxResourceAmount = GetMaxResources(); // Maximal erlaubte Gesamtmenge an Ressourcen
-	int CurrentResourceAmount = GetAmountAllResources(); // Aktuelle Gesamtmenge aller Ressourcen
+	const int MaxResourceAmount = GetMaxResources(); // Maximal erlaubte Gesamtmenge an Ressourcen
+	const int CurrentResourceAmount = GetAmountAllResources(); // Aktuelle Gesamtmenge aller Ressourcen
 
 	// Überprüfe die Konsistenz der Gesamtsummen
 	if (CurrentResourceAmount > MaxResourceAmount)
@@ -113,6 +114,10 @@ int UCTWorldResourceComponent::TryAddResourceAmount(const EResourceType Resource
 		return 0;
 	}
 
+	const int NewAmount = ResourceData->Resource.Amount;
+
+	OnResourceAmountChanged.Broadcast(ResourceType, OldAmount, NewAmount);
+	
 	return ReturningAmount; // Gebe die Menge zurück, die nicht hinzugefügt werden konnte
 }
 
@@ -140,12 +145,18 @@ bool UCTWorldResourceComponent::TrySubtractResourceAmount(const EResourceType Re
 		return false;
 	}
 
+	const int OldAmount = ResourceData->Resource.Amount;
+	
 	if (ResourceData->Resource.Amount < Amount)
 	{
 		return false;
 	}
 
 	ResourceData->Resource.Amount -= Amount;
+
+	const int NewAmount = ResourceData->Resource.Amount;
+
+	OnResourceAmountChanged.Broadcast(ResourceType, OldAmount, NewAmount);
 	
 	return true;
 }

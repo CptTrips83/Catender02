@@ -37,6 +37,14 @@ struct FResourceData
 	bool IsUnlockResource = false;
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams
+(
+	FResourceAmountChanged,
+	EResourceType, Resource,
+	int, OldAmount,
+	int, NewAmount	
+);
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CATENDER02_API UCTWorldResourceComponent : public UActorComponent
 {
@@ -58,6 +66,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FResourceData> Resources;
 
+	UPROPERTY(BlueprintAssignable)
+	FResourceAmountChanged OnResourceAmountChanged;
+	
 	UFUNCTION(BlueprintPure)
 	int GetResourceAmount(const EResourceType ResourceType);
 	UFUNCTION(BlueprintCallable)

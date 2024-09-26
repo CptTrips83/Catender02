@@ -21,7 +21,7 @@ struct FResource
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TEnumAsByte<EResourceType> ResourceType;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 20))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0))
 	int Amount = 0;	
 };
 
@@ -58,16 +58,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FResourceData> Resources;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintPure)
 	int GetResourceAmount(const EResourceType ResourceType);
 	UFUNCTION(BlueprintCallable)
 	int TryAddResourceAmount(const EResourceType ResourceType, int Amount);
 	UFUNCTION(BlueprintCallable)
 	bool TrySubtractResourceAmount(const EResourceType ResourceType, int Amount);
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintPure)
 	bool IsUnlockResource(const EResourceType ResourceType);
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintPure)
 	int GetAmountAllResources();
-	UFUNCTION(BlueprintCallable)
-	int GetMaxResources();
+	UFUNCTION(BlueprintPure)
+	int GetMaxResources() const;
 };

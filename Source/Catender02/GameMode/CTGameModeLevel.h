@@ -26,4 +26,5 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UCTWorldResourceComponent* WorldResourceComponent = nullptr;
+	
 };

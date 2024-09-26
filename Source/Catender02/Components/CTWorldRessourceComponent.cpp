@@ -18,6 +18,12 @@ void UCTWorldResourceComponent::BeginPlay()
 	Super::BeginPlay();
 }
 
+/**
+ * Retrieves the data of a specified resource type.
+ *
+ * @param ResourceType The type of the resource whose data is to be retrieved.
+ * @return A pointer to the FResourceData of the specified resource type. Returns nullptr if the resource type is not found.
+ */
 FResourceData* UCTWorldResourceComponent::GetResourceData(const EResourceType ResourceType)
 {
 	for (FResourceData& ResourceData : Resources)
@@ -36,6 +42,12 @@ void UCTWorldResourceComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
+/**
+ * Retrieves the amount of a specified resource type currently available.
+ *
+ * @param ResourceType The type of resource whose amount is to be retrieved.
+ * @return The amount of the specified resource type available. Returns 0 if the resource type is not found.
+ */
 int UCTWorldResourceComponent::GetResourceAmount(const EResourceType ResourceType)
 {
 	const FResourceData* ResourceData = GetResourceData(ResourceType);
@@ -45,6 +57,13 @@ int UCTWorldResourceComponent::GetResourceAmount(const EResourceType ResourceTyp
 	return ResourceData->Resource.Amount;
 }
 
+/**
+ * Attempts to add a specified amount of a given resource type.
+ *
+ * @param ResourceType The type of resource to add.
+ * @param Amount The amount of the resource to add.
+ * @return The amount that could not be added due to capacity constraints.
+ */
 int UCTWorldResourceComponent::TryAddResourceAmount(const EResourceType ResourceType, const int Amount)
 {
 	// Erhalte die Daten der angeforderten Ressource
@@ -97,9 +116,15 @@ int UCTWorldResourceComponent::TryAddResourceAmount(const EResourceType Resource
 	return ReturningAmount; // Gebe die Menge zurück, die nicht hinzugefügt werden konnte
 }
 
+/**
+ * Attempts to subtract a specified amount of a given resource type.
+ *
+ * @param ResourceType The type of resource to subtract.
+ * @param Amount The amount of the resource to subtract.
+ * @return true if the resource amount was successfully subtracted; false otherwise.
+ */
 bool UCTWorldResourceComponent::TrySubtractResourceAmount(const EResourceType ResourceType, int Amount)
 {
-	bool Result = false;
 	FResourceData* ResourceData = GetResourceData(ResourceType);
 
 	if (!ResourceData)
@@ -112,12 +137,25 @@ bool UCTWorldResourceComponent::TrySubtractResourceAmount(const EResourceType Re
 	if (Amount < 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Amount is negative."));
-		return 0;
+		return false;
 	}
 
-	return Result;
+	if (ResourceData->Resource.Amount < Amount)
+	{
+		return false;
+	}
+
+	ResourceData->Resource.Amount -= Amount;
+	
+	return true;
 }
 
+/**
+ * Determines if a specified resource type is unlocked.
+ *
+ * @param ResourceType The type of the resource to check for being unlocked.
+ * @return True if the specified resource type is unlocked, false otherwise.
+ */
 bool UCTWorldResourceComponent::IsUnlockResource(const EResourceType ResourceType)
 {
 	const FResourceData* ResourceData = GetResourceData(ResourceType);	
@@ -125,13 +163,18 @@ bool UCTWorldResourceComponent::IsUnlockResource(const EResourceType ResourceTyp
 	return !ResourceData ? false : ResourceData->IsUnlockResource;;
 }
 
+/**
+ * Calculates the total amount of all resources, excluding unlock resources.
+ *
+ * @return The total amount of non-unlock resources.
+ */
 int UCTWorldResourceComponent::GetAmountAllResources()
 {
 	int Result = 0;
 
 	for (FResourceData ResourceData : Resources)
 	{
-		// Don't take Amount from UnlockResources
+		// Amount nicht berücksichtigen wenn IsUnlockResource == true
 		if (IsUnlockResource(ResourceData.Resource.ResourceType)) continue;
 
 		Result += ResourceData.Resource.Amount;
@@ -140,17 +183,13 @@ int UCTWorldResourceComponent::GetAmountAllResources()
 	return Result;
 }
 
-int UCTWorldResourceComponent::GetMaxResources()
-{
-	int Result = 0;
-
-	for (FResourceData ResourceData : Resources)
-	{
-		if(IsUnlockResource(ResourceData.Resource.ResourceType)) continue;
-
-		Result += ResourceData.Resource.Amount;
-	}
-	
-	return Result;
+/**
+ * Retrieves the maximum allowable number of resources.
+ *
+ * @return The maximum number of resources that can be held.
+ */
+int UCTWorldResourceComponent::GetMaxResources() const
+{	
+	return MaxResources;
 }
 

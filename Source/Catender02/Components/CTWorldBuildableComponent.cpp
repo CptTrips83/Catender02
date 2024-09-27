@@ -11,9 +11,9 @@
  */
 void UCTWorldBuildableComponent::SortBuildablesByNearest(ACTSortable* Sortable)
 {
-	Buildables.Sort([&Sortable] (ACTBuildable* Buildable1, ACTBuildable* Buildable2)
+	Buildables.Sort([&Sortable] (ACTBuildable& Buildable1, ACTBuildable& Buildable2)
 	{
-		return Buildable1->GetDistanceTo(Sortable) < Buildable2->GetDistanceTo(Sortable);
+		return Buildable1.GetDistanceTo(Sortable) < Buildable2.GetDistanceTo(Sortable);
 	});
 }
 
@@ -26,9 +26,9 @@ void UCTWorldBuildableComponent::SortBuildablesByNearest(ACTSortable* Sortable)
 void UCTWorldBuildableComponent::SortBuildablesByNearestAndDirection(ACTSortable* Sortable,
                                                                     EBuildableDirection BuildableDirection)
 {
-	Buildables.Sort([&Sortable, BuildableDirection] (const ACTBuildable* Buildable1, const ACTBuildable* Buildable2)
+	Buildables.Sort([&Sortable, BuildableDirection] (ACTBuildable& Buildable1, ACTBuildable& Buildable2)
 	{
-		const FVector Direction = Sortable->GetActorLocation() - Buildable2->GetActorLocation();
+		const FVector Direction = Sortable->GetActorLocation() - Buildable2.GetActorLocation();
 		const float DirectionX = Direction.X;
 
 		bool CorrectDirection = false;
@@ -46,7 +46,7 @@ void UCTWorldBuildableComponent::SortBuildablesByNearestAndDirection(ACTSortable
 				}
 		}
 		
-		return (Buildable1->GetDistanceTo(Sortable) < Buildable2->GetDistanceTo(Sortable)) && CorrectDirection;
+		return (Buildable1.GetDistanceTo(Sortable) < Buildable2.GetDistanceTo(Sortable)) && CorrectDirection;
 	});
 }
 

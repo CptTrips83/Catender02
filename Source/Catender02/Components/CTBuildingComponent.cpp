@@ -220,6 +220,11 @@ bool UCTBuildingComponent::CheckResourceRequirements()
 		Result = ResourceComponent->CheckResource(Resource.ResourceType, Resource.Amount);
 		if (!Result) break;
 	}
+
+	if (!Result)
+	{
+		OnConstructionFailed.Broadcast(OwningBuildable, LevelInformation.Resources);
+	}
 	
 	return Result;
 }
@@ -249,6 +254,7 @@ bool UCTBuildingComponent::UpgradeBuilding()
 	if(!CheckResourceRequirements())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Not enough Resources to Upgrade Buildable!"));
+		
 		return false;
 	}
 

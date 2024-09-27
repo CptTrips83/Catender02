@@ -104,6 +104,10 @@ public:
 	virtual float GetProgressNeededForCurrentBuildingLevel();		
 	UFUNCTION(BlueprintPure)
 	virtual bool CheckResourceRequirements();	
+	UFUNCTION(BlueprintCallable)
+	virtual bool UpgradeBuilding();
+	UFUNCTION (BlueprintCallable)
+	virtual void UpdateBuilding();
 	
 protected:
 	ACTBuildable* OwningBuildable = nullptr;	
@@ -112,7 +116,7 @@ protected:
 	virtual void SetCurrentBuildingLevel(int NewLevel);
 	virtual void UpdateSprite();
 	virtual void UpdateCollision(EBuildingState NewBuildingState);
-	virtual bool PayResources();
+	virtual void PayResources();
 	virtual bool HasLevel();
 	virtual void SetBuildingState(EBuildingState NewBuildingState);
 

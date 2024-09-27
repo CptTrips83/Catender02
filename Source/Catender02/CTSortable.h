@@ -15,6 +15,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCTSortingComponent* SortingComponent = nullptr;
 
+	UFUNCTION(BlueprintPure)
+	virtual ACTGameModeLevel* GetGameMode() const;
+	
 protected:
 	
 	UFUNCTION()

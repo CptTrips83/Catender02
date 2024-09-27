@@ -3,7 +3,6 @@
 
 #include "Components/CapsuleComponent.h"
 #include "Components/CTSortingComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 
 ACTSortable::ACTSortable()
 {
@@ -14,8 +13,13 @@ ACTSortable::ACTSortable()
 	GetCapsuleComponent()->OnComponentEndOverlap.AddDynamic(this, &ACTSortable::OnBoxEndOverlap);
 }
 
+ACTGameModeLevel* ACTSortable::GetGameMode() const
+{
+	return GameModeLevel;
+}
+
 void ACTSortable::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                    UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 }
 
@@ -35,5 +39,5 @@ void ACTSortable::BeginPlay()
 
 void ACTSortable::Interact(ACTSortable* OtherSortable)
 {
-
+	OtherSortable->Interact(this);
 }

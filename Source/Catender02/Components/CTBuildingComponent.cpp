@@ -247,61 +247,51 @@ bool UCTBuildingComponent::CheckResourceRequirements()
  *
  * @return True if the building was successfully upgraded, false otherwise.
  */
-bool UCTBuildingComponent::UpgradeBuilding()
-{
-	if(!OwningBuildable) return false;
-
-	if(!CheckResourceRequirements())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Not enough Resources to Upgrade Buildable!"));
-		
-		return false;
-	}
-
-	switch (GetBuildingState())
-	{
-		case EBuildingState::Invisible:
-			{
-				return false;
-			}
-		case EBuildingState::Inactive:
-			{
-				SetBuildingState(EBuildingState::Construction);
-				CurrentProgress = 0;
-				
-				break;
-			}
-		case EBuildingState::Active:
-			{
-				if(GetMaxBuildingLevel() == GetCurrentBuildingLevel()) return false;
-				SetBuildingState(EBuildingState::Construction);
-				SetCurrentBuildingLevel(GetCurrentBuildingLevel() + 1);
-				CurrentProgress = 0;
-				
-				break;
-			}
-		case EBuildingState::Destroyed:
-			{
-				SetBuildingState(EBuildingState::Construction);
-				CurrentProgress = 0;	
-
-				break;
-			}
-		case EBuildingState::Construction:
-			{
-				return false;
-			}
-		default:
-			{
-				return false;
-			}	
-	}
-
-	PayResources();
-	UpdateBuilding();
-			
-	return true;	
-}
+cpp
+ bool UCTBuildingComponent::UpgradeBuilding()
+ {
+     if (!OwningBuildable)
+         return false;
+   
+     if (!CheckResourceRequirements())
+     {
+         UE_LOG(LogTemp, Warning, TEXT("Not enough Resources to Upgrade Buildable!"));
+         return false;
+     }
+   
+     switch (GetBuildingState())
+     {
+         case EBuildingState::Invisible:
+         case EBuildingState::Construction:
+             return false;
+   
+         case EBuildingState::Inactive:
+             UpdateBuilding();
+             return true;
+ 
+         case EBuildingState::Active:
+         {
+             if (GetMaxBuildingLevel() == GetCurrentBuildingLevel())
+                 return false;
+   
+             SetBuildingState(EBuildingState::Construction);
+             SetCurrentBuildingLevel(GetCurrentBuildingLevel() + 1);
+             PayResources();
+             return true;
+         }
+ 
+         case EBuildingState::Destroyed:
+         {
+             SetBuildingState(EBuildingState::Construction);
+             UpdateBuilding();
+             PayResources();
+             return true;
+         }
+   
+         default:
+             return false;
+     }
+ }
 
 /**
  * @brief Updates the building's visual appearance and collision settings.

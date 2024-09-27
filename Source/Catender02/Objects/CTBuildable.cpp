@@ -23,4 +23,16 @@ ACTBuildable::ACTBuildable()
 void ACTBuildable::Interact(ACTSortable* OtherSortable)
 {
 	Super::Interact(OtherSortable);
+
+	BuildingComponent->UpgradeBuilding();
+}
+
+UBoxComponent* ACTBuildable::GetConstructionBoxComponent() const
+{
+	return ConstructionBoxComponent;
+}
+
+UBoxComponent* ACTBuildable::GetWaitingBoxComponent() const
+{
+	return WaitingBoxComponent;
 }

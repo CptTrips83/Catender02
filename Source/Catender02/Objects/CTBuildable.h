@@ -16,18 +16,20 @@ class CATENDER02_API ACTBuildable : public ACTInteractable
 {
 	GENERATED_BODY()
 
-	
-public:
-	ACTBuildable();
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UCTBuildingComponent* BuildingComponent = nullptr;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* ConstructionBoxComponent = nullptr;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* WaitingBoxComponent = nullptr;
 	
+public:
+	ACTBuildable();	
+	
 	virtual void Interact(ACTSortable* OtherSortable) override;
+
+	UBoxComponent* GetConstructionBoxComponent() const;
+	UBoxComponent* GetWaitingBoxComponent() const;
 };

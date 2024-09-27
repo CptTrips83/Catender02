@@ -3,16 +3,16 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "CTWorldInteractableComponent.generated.h"
+#include "CTWorldBuildableComponent.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class CATENDER02_API UCTWorldInteractableComponent : public UActorComponent
+class CATENDER02_API UCTWorldBuildableComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
-	UCTWorldInteractableComponent();
+	UCTWorldBuildableComponent();
 
 protected:
 	virtual void BeginPlay() override;

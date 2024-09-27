@@ -66,6 +66,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FResourceData> Resources;
 
+	/**
+	 * Delegate called when the amount of a resource changes.
+	 * It broadcasts information about the resource type, old amount, and new amount.
+	 *
+	 * Usage scenarios:
+	 * - When resource amounts are adjusted by adding or subtracting.
+	 * - For UI or other gameplay elements to update based on resource changes.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FResourceAmountChanged OnResourceAmountChanged;
 	

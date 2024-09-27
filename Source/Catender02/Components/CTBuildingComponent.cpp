@@ -247,7 +247,6 @@ bool UCTBuildingComponent::CheckResourceRequirements()
  *
  * @return True if the building was successfully upgraded, false otherwise.
  */
-cpp
  bool UCTBuildingComponent::UpgradeBuilding()
  {
      if (!OwningBuildable)

@@ -7,6 +7,7 @@
 #include "Catender02/Components/CTBuildingComponent.h"
 #include "CTBuildable.generated.h"
 
+class UBoxComponent;
 /**
  * 
  */
@@ -22,5 +23,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCTBuildingComponent* BuildingComponent = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* ConstructionBoxComponent = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* WaitingBoxComponent = nullptr;
+	
 	virtual void Interact(ACTSortable* OtherSortable) override;
 };

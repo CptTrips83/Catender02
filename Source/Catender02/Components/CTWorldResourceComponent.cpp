@@ -204,3 +204,23 @@ int UCTWorldResourceComponent::GetMaxResources() const
 	return MaxResources;
 }
 
+/**
+ * Checks whether the specified resource meets the needed amount.
+ *
+ * @param Resource The type of the resource to be checked.
+ * @param NeededAmount The amount of the resource required.
+ * @return true if the resource is unlocked and its amount is greater than or equal to the needed amount, false otherwise.
+ */
+bool UCTWorldResourceComponent::CheckResource(EResourceType Resource, int NeededAmount)
+{
+	if (const FResourceData* ResourceData = GetResourceData(Resource))
+	{
+		if(ResourceData->IsUnlockResource)
+		{
+			return ResourceData->Resource.Amount >= 1;
+		}		
+		return ResourceData->Resource.Amount >= NeededAmount;
+	}
+	return false;
+}
+

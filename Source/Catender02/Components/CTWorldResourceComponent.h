@@ -89,4 +89,6 @@ public:
 	int GetAmountAllResources();
 	UFUNCTION(BlueprintPure)
 	int GetMaxResources() const;
+	UFUNCTION(BlueprintPure)
+	bool CheckResource(EResourceType Resource, int NeededAmount);
 };

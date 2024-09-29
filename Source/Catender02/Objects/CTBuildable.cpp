@@ -27,6 +27,11 @@ void ACTBuildable::Interact(ACTSortable* OtherSortable)
 	BuildingComponent->UpgradeBuilding();
 }
 
+UCTBuildingComponent* ACTBuildable::GetBuildingComponent()
+{
+	return BuildingComponent;
+}
+
 UBoxComponent* ACTBuildable::GetConstructionBoxComponent() const
 {
 	return ConstructionBoxComponent;

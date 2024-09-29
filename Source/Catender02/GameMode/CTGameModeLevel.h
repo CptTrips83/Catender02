@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "Catender02/Components/CTWorldBuildableComponent.h"
 #include "Catender02/Components/CTSortingLayerDataComponent.h"
+#include "Catender02/Components/CTWorldBuildingVisibilityComponent.h"
 #include "Catender02/Components/CTWorldResourceComponent.h"
 #include "GameFramework/GameModeBase.h"
 #include "CTGameModeLevel.generated.h"
@@ -26,4 +27,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UCTWorldBuildableComponent* WorldBuildableComponent = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UCTWorldBuildingVisibilityComponent* WorldBuildingVisibilityComponent = nullptr;
 };

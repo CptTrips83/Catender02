@@ -11,4 +11,7 @@ ACTGameModeLevel::ACTGameModeLevel()
 
 	WorldBuildableComponent = CreateDefaultSubobject<UCTWorldBuildableComponent>(TEXT("World Buildable Component"));
 	AddOwnedComponent(WorldBuildableComponent);
+
+	WorldBuildingVisibilityComponent = CreateDefaultSubobject<UCTWorldBuildingVisibilityComponent>(TEXT("World Builting Visibility Component"));
+	AddOwnedComponent(WorldBuildingVisibilityComponent);
 }

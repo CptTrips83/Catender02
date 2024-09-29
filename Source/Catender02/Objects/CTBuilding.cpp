@@ -1,7 +1,5 @@
-﻿
-#include "CTBuilding.h"
 
-#include "CTDestroyable.h"
+#include "CTBuilding.h"
 
 
 ACTBuilding::ACTBuilding()

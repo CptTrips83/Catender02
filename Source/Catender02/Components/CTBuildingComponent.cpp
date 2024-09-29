@@ -265,6 +265,8 @@ bool UCTBuildingComponent::CheckResourceRequirements()
              return false;
    
          case EBuildingState::Inactive:
+         	 SetBuildingState(EBuildingState::Construction);
+             PayResources();
              UpdateBuilding();
              return true;
  

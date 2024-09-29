@@ -3,6 +3,28 @@
 
 #include "Catender02/Objects/CTBuildable.h"
 #include "Kismet/GameplayStatics.h"
+#include "CTBuildingComponent.h"
+
+/**
+ * Sorts the Buildables array by the nearest distance to the given Sortable actor .
+ *
+ * @param Sortable Pointer to the actor used as the reference point for sorting the buildables by distance.
+ */
+ACTBuildable* UCTWorldBuildableComponent::GetNearestConstructionSite(ACTSortable* Sortable)
+{
+	TArray<ACTBuildable*> Result;
+
+	for(ACTBuildable* Buildable : this->Buildables)
+	{
+		if(Buildable->GetBuildingComponent()->GetBuildingState() == EBuildingState::Construction)
+		{
+			Result.Add(Buildable);
+		}
+	}
+
+	if(Result.Num() > 0) return Result[0];
+	return nullptr;
+}
 
 /**
  * Sorts the Buildables array by the nearest distance to the given Sortable actor.

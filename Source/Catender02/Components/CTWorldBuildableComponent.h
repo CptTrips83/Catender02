@@ -29,7 +29,8 @@ public:
 	UCTWorldBuildableComponent();
 	void PopulateBuildables();
 	ACTBuildable* GetNearestBuildable(ACTSortable* Sortable);
-	ACTBuildable* GetNearestBuildableByDirection(ACTSortable* Sortable, EBuildableDirection BuildableDirection);
+	ACTBuildable* GetNearestBuildableByDirection(ACTSortable* Sortable, EBuildableDirection BuildableDirection);	
+	ACTBuildable* GetNearestConstructionSite(ACTSortable* Sortable);
 protected:
 	virtual void BeginPlay() override;
 

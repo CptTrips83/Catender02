@@ -108,7 +108,6 @@ public:
 	virtual bool UpgradeBuilding();
 	UFUNCTION (BlueprintCallable)
 	virtual void UpdateBuilding();
-//todo SetActive
 	
 protected:
 	ACTBuildable* OwningBuildable = nullptr;	

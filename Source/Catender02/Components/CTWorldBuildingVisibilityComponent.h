@@ -1,18 +1,17 @@
-﻿
-#pragma once
+﻿#pragma once
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "WorldBuildingVisibilityComponent.generated.h"
+#include "CTWorldBuildingVisibilityComponent.generated.h"
 
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class CATENDER02_API UWorldBuildingVisibilityComponent : public UActorComponent
+class CATENDER02_API UCTWorldBuildingVisibilityComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:
-	UWorldBuildingVisibilityComponent();
+	UCTWorldBuildingVisibilityComponent();
 
 protected:
 	virtual void BeginPlay() override;

@@ -1,28 +1,28 @@
 ﻿
-#include "WorldBuildingVisibilityComponent.h"
+#include "CTWorldBuildingVisibilityComponent.h"
 
 #include "Catender02/Objects/CTDestroyable.h"
 
 
-UWorldBuildingVisibilityComponent::UWorldBuildingVisibilityComponent()
+UCTWorldBuildingVisibilityComponent::UCTWorldBuildingVisibilityComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
 
-void UWorldBuildingVisibilityComponent::BeginPlay()
+void UCTWorldBuildingVisibilityComponent::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
 
-void UWorldBuildingVisibilityComponent::TickComponent(float DeltaTime, ELevelTick TickType,
+void UCTWorldBuildingVisibilityComponent::TickComponent(float DeltaTime, ELevelTick TickType,
                                                       FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-bool UWorldBuildingVisibilityComponent::HasLineOfSight(FVector Start, FVector End)
+bool UCTWorldBuildingVisibilityComponent::HasLineOfSight(FVector Start, FVector End)
 {
 	TArray<FHitResult> Hit;
 	GetWorld()->LineTraceMultiByProfile(Hit, Start, End, "Buildable");

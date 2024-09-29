@@ -1,12 +1,33 @@
 #include "CTInteractable.h"
 
 #include "Catender02/Character/CTPlayerCharacter.h"
+#include "Components/CapsuleComponent.h"
 
-void ACTInteractable::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-                                        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+ACTInteractable::ACTInteractable()
 {
-	Super::OnBoxBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
+	BoxComponentInteraction = CreateDefaultSubobject<UBoxComponent>("Box Interaction");
+	BoxComponentInteraction->SetupAttachment(GetRootComponent());
+	
+	GetCapsuleComponent()->OnComponentBeginOverlap.Clear();
+	GetCapsuleComponent()->OnComponentEndOverlap.Clear();
+	
+	BoxComponentInteraction->OnComponentBeginOverlap.AddDynamic(this, &ACTInteractable::OnBoxBeginOverlapInteraction);
+	BoxComponentInteraction->OnComponentEndOverlap.AddDynamic(this, &ACTInteractable::OnBoxEndOverlapInteraction);
+}
 
+UBoxComponent* ACTInteractable::GetBoxComponentInteraction() const
+{
+	return BoxComponentInteraction;
+}
+
+void ACTInteractable::SetActive(const bool Active)
+{
+	GetBoxComponentInteraction()->SetCollisionEnabled(Active == true ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+}
+
+void ACTInteractable::OnBoxBeginOverlapInteraction(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+                                                   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
 	ACTPlayerCharacter* PlayerCharacter = Cast<ACTPlayerCharacter>(OtherActor);
 
 	if (!PlayerCharacter) return;
@@ -14,11 +35,9 @@ void ACTInteractable::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AAc
 	PlayerCharacter->GetPlayerInteractionComponent()->AddToOverlappingInteractables(this);
 }
 
-void ACTInteractable::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void ACTInteractable::OnBoxEndOverlapInteraction(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	Super::OnBoxEndOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);
-
 	ACTPlayerCharacter* PlayerCharacter = Cast<ACTPlayerCharacter>(OtherActor);
 
 	if (!PlayerCharacter) return;

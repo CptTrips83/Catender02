@@ -10,14 +10,20 @@
 #include "CTGameModeLevel.generated.h"
 
 
+class ACTBuildingHQ;
+
 UCLASS()
 class CATENDER02_API ACTGameModeLevel : public AGameModeBase
 {
 	GENERATED_BODY()
 
+	ACTBuildingHQ* BuildingHQ = nullptr;
+	
 public:
 
 	ACTGameModeLevel();
+
+	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UCTSortingLayerDataComponent* SortingLayerDataComponent = nullptr;
@@ -30,4 +36,6 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UCTWorldBuildingVisibilityComponent* WorldBuildingVisibilityComponent = nullptr;
+
+	ACTBuildingHQ* GetBuildingHQ();
 };

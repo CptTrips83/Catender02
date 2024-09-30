@@ -15,7 +15,8 @@ ACTDestroyable::ACTDestroyable()
 void ACTDestroyable::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	GetBuildingComponent()->OnConstructionFinished.AddDynamic(this, &ACTDestroyable::ConstructionFinished);
 }
 
 // Called every frame
@@ -28,5 +29,10 @@ void ACTDestroyable::Tick(float DeltaTime)
 void ACTDestroyable::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+
+void ACTDestroyable::ConstructionFinished(ACTBuildable* Buildable)
+{
+	Destroy();
 }
 

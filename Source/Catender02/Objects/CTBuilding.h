@@ -14,10 +14,13 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	
+	virtual bool HasLineOfSightToHQ();
+	virtual void UpdateInteractionCollision();
 
 public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 };

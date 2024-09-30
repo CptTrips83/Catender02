@@ -12,7 +12,7 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	UBoxComponent* BoxComponentInteraction;
+	UBoxComponent* InteractionBoxComponent;
 	
 public:
 
@@ -21,7 +21,7 @@ public:
 	ACTInteractable();
 
 	UFUNCTION(BlueprintCallable)
-	UBoxComponent* GetBoxComponentInteraction() const;
+	UBoxComponent* GetInteractionBoxComponent() const;
 	
 	UFUNCTION(BlueprintCallable)
 	virtual void SetActive(bool Active);

@@ -5,24 +5,24 @@
 
 ACTInteractable::ACTInteractable()
 {
-	BoxComponentInteraction = CreateDefaultSubobject<UBoxComponent>("Box Interaction");
-	BoxComponentInteraction->SetupAttachment(GetRootComponent());
+	InteractionBoxComponent = CreateDefaultSubobject<UBoxComponent>("Box Interaction");
+	InteractionBoxComponent->SetupAttachment(GetRootComponent());
 	
 	GetCapsuleComponent()->OnComponentBeginOverlap.Clear();
 	GetCapsuleComponent()->OnComponentEndOverlap.Clear();
 	
-	BoxComponentInteraction->OnComponentBeginOverlap.AddDynamic(this, &ACTInteractable::OnBoxBeginOverlapInteraction);
-	BoxComponentInteraction->OnComponentEndOverlap.AddDynamic(this, &ACTInteractable::OnBoxEndOverlapInteraction);
+	InteractionBoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ACTInteractable::OnBoxBeginOverlapInteraction);
+	InteractionBoxComponent->OnComponentEndOverlap.AddDynamic(this, &ACTInteractable::OnBoxEndOverlapInteraction);
 }
 
-UBoxComponent* ACTInteractable::GetBoxComponentInteraction() const
+UBoxComponent* ACTInteractable::GetInteractionBoxComponent() const
 {
-	return BoxComponentInteraction;
+	return InteractionBoxComponent;
 }
 
 void ACTInteractable::SetActive(const bool Active)
 {
-	GetBoxComponentInteraction()->SetCollisionEnabled(Active == true ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+	GetInteractionBoxComponent()->SetCollisionEnabled(Active == true ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
 }
 
 void ACTInteractable::OnBoxBeginOverlapInteraction(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

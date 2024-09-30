@@ -40,9 +40,10 @@ bool ACTBuilding::HasLineOfSightToHQ()
 
 	for(FHitResult HitResult : Hit)
 	{
-		if(AActor* Test = HitResult.GetActor(); Test->IsA(ACTDestroyable::StaticClass()))
+		AActor* Test = HitResult.GetActor();
+		ACTDestroyable* Destroyable = Cast<ACTDestroyable>(Test);
+		if(Destroyable)
 		{
-			ACTDestroyable* Destroyable = Cast<ACTDestroyable>(Test);
 			if(Destroyable->GetBuildingComponent()->GetBuildingState() == EBuildingState::Invisible) continue;
 			DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 5.0f, 0, 1.0f);
 			return false;

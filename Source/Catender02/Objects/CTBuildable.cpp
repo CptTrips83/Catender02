@@ -24,7 +24,10 @@ void ACTBuildable::Interact(ACTSortable* OtherSortable)
 {
 	Super::Interact(OtherSortable);
 
-	BuildingComponent->UpgradeBuilding();
+	if(!BuildingComponent->UpgradeBuilding()) return;
+
+	const ACTPlayerCharacter* Player = Cast<ACTPlayerCharacter>(OtherSortable);
+	Player->PlayInteractSound();
 }
 
 void ACTBuildable::Destroyed()

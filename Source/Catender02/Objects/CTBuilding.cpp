@@ -4,6 +4,7 @@
 #include "CTDestroyable.h"
 #include "Catender02/Objects/CTBuildingHQ.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "ProfilingDebugging/CookStats.h"
 
 ACTBuilding::ACTBuilding()
 {
@@ -30,27 +31,23 @@ void ACTBuilding::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 bool ACTBuilding::HasLineOfSightToHQ()
 {	
 	const ACTBuildingHQ* HQ = GetGameMode()->GetBuildingHQ();
-	TArray<FHitResult> Hit; 
+	TArray<FHitResult> HitResult; 
 	const FVector Start = FVector(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
 	const FVector End = FVector(HQ->GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
-	GetWorld()->LineTraceMultiByChannel(Hit, Start, End, ECC_WorldDynamic, QueryParams);
+    ECollisionChannel CollisionChannel = GetGameMode()->WorldBuildingVisibilityComponent->BuildingVisibilityChannel;
 	
+	GetWorld()->LineTraceMultiByChannel(HitResult, Start, End, CollisionChannel, QueryParams);
 
-	for(FHitResult HitResult : Hit)
-	{
-		AActor* Test = HitResult.GetActor();
-		ACTDestroyable* Destroyable = Cast<ACTDestroyable>(Test);
-		if(Destroyable)
-		{
-			if(Destroyable->GetBuildingComponent()->GetBuildingState() == EBuildingState::Invisible) continue;
-			DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 5.0f, 0, 1.0f);
-			return false;
-		}		
+	for(FHitResult Hit : HitResult)
+	{		
+		FVector HitLocation = FVector(Hit.Location.X, GetActorLocation().Y, GetActorLocation().Z); 
+		DrawDebugLine(GetWorld(), Start, HitLocation, FColor::Red, false, 5.0f, 0, 1.0f);
 		
+		return false;
 	}
-
+	
 	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 5.0f, 0, 1.0f);
 	return true;
 }

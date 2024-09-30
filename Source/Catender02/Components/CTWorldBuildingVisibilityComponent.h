@@ -13,6 +13,9 @@ class CATENDER02_API UCTWorldBuildingVisibilityComponent : public UActorComponen
 public:
 	UCTWorldBuildingVisibilityComponent();
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TEnumAsByte<ECollisionChannel> BuildingVisibilityChannel;
+	
 protected:
 	virtual void BeginPlay() override;
 
@@ -20,5 +23,4 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 
-	virtual bool HasLineOfSight(FVector Start, FVector End);
 };

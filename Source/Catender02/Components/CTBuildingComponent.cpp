@@ -4,6 +4,11 @@
 #include "Catender02/Objects/CTBuildable.h"
 #include "Components/BoxComponent.h"
 
+void UCTBuildingComponent::ResetCurrentProgress()
+{
+	CurrentProgress = 0;
+}
+
 UCTBuildingComponent::UCTBuildingComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
@@ -248,52 +253,59 @@ bool UCTBuildingComponent::CheckResourceRequirements()
  * @return True if the building was successfully upgraded, false otherwise.
  */
  bool UCTBuildingComponent::UpgradeBuilding()
- {
-     if (!OwningBuildable)
-         return false;
+{
+	if (!OwningBuildable)
+		return false;
    
-     if (!CheckResourceRequirements())
-     {
-         UE_LOG(LogTemp, Warning, TEXT("Not enough Resources to Upgrade Buildable!"));
-         return false;
-     }
+	if (!CheckResourceRequirements())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Not enough Resources to Upgrade Buildable!"));
+		return false;
+	}
    
-     switch (GetBuildingState())
-     {
-         case EBuildingState::Invisible:
-         case EBuildingState::Construction:
-             return false;
+	switch (GetBuildingState())
+	{
+	case EBuildingState::Invisible:
+	case EBuildingState::Construction:
+		return false;
    
-         case EBuildingState::Inactive:
-         	 SetBuildingState(EBuildingState::Construction);
-             PayResources();
-             UpdateBuilding();
-             return true;
+	case EBuildingState::Inactive:
+		{
+			SetBuildingState(EBuildingState::Construction);
+			PayResources();
+			UpdateBuilding();
+			ResetCurrentProgress();
+			OnConstructionStarted.Broadcast(OwningBuildable);
+			return true;
+		}
+	case EBuildingState::Active:
+		{
+			if (GetMaxBuildingLevel() == GetCurrentBuildingLevel())
+				return false;
+   
+			SetBuildingState(EBuildingState::Construction);
+			SetCurrentBuildingLevel(GetCurrentBuildingLevel() + 1);
+			PayResources();
+			UpdateBuilding();
+			ResetCurrentProgress();
+			OnConstructionStarted.Broadcast(OwningBuildable);	
+			return true;
+		}
  
-         case EBuildingState::Active:
-         {
-             if (GetMaxBuildingLevel() == GetCurrentBuildingLevel())
-                 return false;
+	case EBuildingState::Destroyed:
+		{
+			SetBuildingState(EBuildingState::Construction);
+			UpdateBuilding();
+			PayResources();
+			ResetCurrentProgress();
+			OnConstructionStarted.Broadcast(OwningBuildable);
+			return true;
+		}
    
-             SetBuildingState(EBuildingState::Construction);
-             SetCurrentBuildingLevel(GetCurrentBuildingLevel() + 1);
-             PayResources();
-             UpdateBuilding();
-             return true;
-         }
- 
-         case EBuildingState::Destroyed:
-         {
-             SetBuildingState(EBuildingState::Construction);
-             UpdateBuilding();
-             PayResources();
-             return true;
-         }
-   
-         default:
-             return false;
-     }
- }
+	default:
+		return false;
+	}
+}
 
 /**
  * @brief Updates the building's visual appearance and collision settings.

@@ -41,6 +41,12 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam
 	ACTBuildable*, Building
 );
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam
+(
+	FConstructionStarted,
+	ACTBuildable*, Building
+);
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams
 (
 	FConstructionProgressChanged,
@@ -88,6 +94,8 @@ class CATENDER02_API UCTBuildingComponent : public UActorComponent
 	TArray<FBuildingLevelInformation> BuildingLevelInformation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	float CurrentProgress = 0;
+
+	void ResetCurrentProgress();
 	
 public:	
 	UCTBuildingComponent();
@@ -141,6 +149,8 @@ public:
 	FCurrentLevelChange OnCurrentLevelChanged;
 	UPROPERTY(BlueprintAssignable)
 	FConstructionProgressChanged OnConstructionProgressChanged;
+	UPROPERTY(BlueprintAssignable)
+	FConstructionStarted OnConstructionStarted;
 	UPROPERTY(BlueprintAssignable)
 	FConstructionFinished OnConstructionFinished;
 	UPROPERTY(BlueprintAssignable)

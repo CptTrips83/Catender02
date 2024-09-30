@@ -27,6 +27,11 @@ void ACTBuildable::Interact(ACTSortable* OtherSortable)
 	BuildingComponent->UpgradeBuilding();
 }
 
+void ACTBuildable::Destroyed()
+{		
+	Super::Destroyed();			
+}
+
 UCTBuildingComponent* ACTBuildable::GetBuildingComponent()
 {
 	return BuildingComponent;

@@ -30,6 +30,8 @@ public:
 	
 	virtual void Interact(ACTSortable* OtherSortable) override;
 
+	virtual void Destroyed() override;
+	
 	UCTBuildingComponent* GetBuildingComponent();
 	UBoxComponent* GetConstructionBoxComponent() const;
 	UBoxComponent* GetWaitingBoxComponent() const;

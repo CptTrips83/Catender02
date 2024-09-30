@@ -98,6 +98,7 @@ public:
 	virtual int GetCurrentBuildingLevel();	
 	UFUNCTION(BlueprintPure)
 	virtual EBuildingState GetBuildingState();
+	virtual void SetBuildingState(EBuildingState NewBuildingState);	
 	UFUNCTION(BlueprintCallable)
 	virtual void AddProgressToBuilding(float Amount);	
 	UFUNCTION(BlueprintPure)
@@ -118,7 +119,6 @@ protected:
 	virtual void UpdateCollision(EBuildingState NewBuildingState);
 	virtual void PayResources();
 	virtual bool HasLevel();
-	virtual void SetBuildingState(EBuildingState NewBuildingState);
 
 	UFUNCTION()
 	virtual void ConstructionFinished(ACTBuildable* Buildable);

@@ -28,8 +28,12 @@ class CATENDER02_API UCTWorldBuildableComponent : public UActorComponent
 public:	
 	UCTWorldBuildableComponent();
 	void PopulateBuildables();
+	void RemoveBuildable(ACTBuildable* Buildable);
+	UFUNCTION(BlueprintPure)
 	ACTBuildable* GetNearestBuildable(ACTSortable* Sortable);
-	ACTBuildable* GetNearestBuildableByDirection(ACTSortable* Sortable, EBuildableDirection BuildableDirection);	
+	UFUNCTION(BlueprintPure)
+	ACTBuildable* GetNearestBuildableByDirection(ACTSortable* Sortable, EBuildableDirection BuildableDirection);
+	UFUNCTION(BlueprintPure)
 	ACTBuildable* GetNearestConstructionSite(ACTSortable* Sortable);
 protected:
 	virtual void BeginPlay() override;

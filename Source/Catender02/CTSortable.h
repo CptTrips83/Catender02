@@ -7,6 +7,8 @@
 #include "CTSortable.generated.h"
 
 
+class UBoxComponent;
+
 UCLASS()
 class CATENDER02_API ACTSortable : public APaperZDCharacter
 {
@@ -17,6 +19,7 @@ public:
 
 	UFUNCTION(BlueprintPure)
 	virtual ACTGameModeLevel* GetGameMode() const;
+
 	
 protected:
 	

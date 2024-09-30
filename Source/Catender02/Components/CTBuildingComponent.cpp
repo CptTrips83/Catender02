@@ -278,6 +278,7 @@ bool UCTBuildingComponent::CheckResourceRequirements()
              SetBuildingState(EBuildingState::Construction);
              SetCurrentBuildingLevel(GetCurrentBuildingLevel() + 1);
              PayResources();
+             UpdateBuilding();
              return true;
          }
  
@@ -351,6 +352,7 @@ void UCTBuildingComponent::SetBuildingState(EBuildingState NewBuildingState)
 void UCTBuildingComponent::ConstructionFinished(ACTBuildable* Buildable)
 {
 	SetBuildingState(EBuildingState::Active);
+	UpdateBuilding();
 }
 
 /**

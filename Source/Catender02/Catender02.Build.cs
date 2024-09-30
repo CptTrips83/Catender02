@@ -12,7 +12,7 @@ public class Catender02 : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-		PrivateIncludePaths.AddRange(new string[] { "GameMode", "Components", "Character", "Objects" });
+		PrivateIncludePaths.AddRange(new string[] { "GameMode", "Components", "Character", "Objects"});
 		
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

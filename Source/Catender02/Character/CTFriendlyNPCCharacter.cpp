@@ -1,39 +1,32 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "CTDestroyable.h"
+#include "CTFriendlyNPCCharacter.h"
 
 
 // Sets default values
-ACTDestroyable::ACTDestroyable()
+ACTFriendlyNPCCharacter::ACTFriendlyNPCCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called when the game starts or when spawned
-void ACTDestroyable::BeginPlay()
+void ACTFriendlyNPCCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	GetBuildingComponent()->OnConstructionFinished.AddDynamic(this, &ACTDestroyable::ConstructionFinished);
+	
 }
 
 // Called every frame
-void ACTDestroyable::Tick(float DeltaTime)
+void ACTFriendlyNPCCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
 // Called to bind functionality to input
-void ACTDestroyable::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ACTFriendlyNPCCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
-
-void ACTDestroyable::ConstructionFinished(ACTBuildable* Buildable)
-{
-	GetGameMode()->WorldBuildableComponent->RemoveBuildable(this);
-	Destroy();
 }
 

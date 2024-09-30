@@ -79,6 +79,7 @@ UCTWorldBuildableComponent::UCTWorldBuildableComponent()
 
 void UCTWorldBuildableComponent::PopulateBuildables()
 {
+	Buildables.Empty();
 	TArray<AActor*> OutActors;
 
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACTBuildable::StaticClass(), OutActors);
@@ -89,6 +90,12 @@ void UCTWorldBuildableComponent::PopulateBuildables()
 			Buildables.Add(Buildable);
 		}
 	}
+}
+
+void UCTWorldBuildableComponent::RemoveBuildable(ACTBuildable* Buildable)
+{
+	if (Buildable == nullptr) return;
+	Buildables.Remove(Buildable);
 }
 
 /**

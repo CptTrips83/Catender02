@@ -2,6 +2,7 @@
 #include "CTPlayerCharacter.h"
 
 #include "./Catender02/Objects/CTInteractable.h"
+#include "Kismet/GameplayStatics.h"
 
 ACTPlayerCharacter::ACTPlayerCharacter()
 {
@@ -23,6 +24,13 @@ ACTPlayerCharacter::ACTPlayerCharacter()
 UCTPlayerInteractionComponent* ACTPlayerCharacter::GetPlayerInteractionComponent() const
 {
 	return PlayerInteractionComponent;
+}
+
+void ACTPlayerCharacter::PlayInteractSound() const
+{
+	if(!InteractSound) return;
+
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), InteractSound, GetActorLocation());
 }
 
 void ACTPlayerCharacter::BeginPlay()

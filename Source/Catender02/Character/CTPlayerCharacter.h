@@ -40,12 +40,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UInputAction *InteractAction;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	USoundBase* InteractSound;
+	
 	
 	ACTPlayerCharacter();
 	
 	UFUNCTION(BlueprintCallable)
 	UCTPlayerInteractionComponent* GetPlayerInteractionComponent() const;
 
+	UFUNCTION(BlueprintCallable)
+	void PlayInteractSound() const;
 protected:
 
 	virtual void BeginPlay() override;

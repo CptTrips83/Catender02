@@ -3,8 +3,6 @@
 
 #include "CTDestroyable.h"
 #include "Catender02/Objects/CTBuildingHQ.h"
-#include "Kismet/KismetSystemLibrary.h"
-#include "ProfilingDebugging/CookStats.h"
 
 ACTBuilding::ACTBuilding()
 {
@@ -46,13 +44,13 @@ bool ACTBuilding::HasLineOfSightToHQ()
 	const FVector End = FVector(HQ->GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
-    ECollisionChannel CollisionChannel = GetGameMode()->WorldBuildingVisibilityComponent->BuildingVisibilityChannel;
+	const ECollisionChannel CollisionChannel = GetGameMode()->WorldBuildingVisibilityComponent->BuildingVisibilityChannel;
 	
 	GetWorld()->LineTraceMultiByChannel(HitResult, Start, End, CollisionChannel, QueryParams);
 
-	for(FHitResult Hit : HitResult)
-	{		
-		FVector HitLocation = FVector(Hit.Location.X, GetActorLocation().Y, GetActorLocation().Z); 
+	for(const FHitResult Hit : HitResult)
+	{
+		const FVector HitLocation = FVector(Hit.Location.X, GetActorLocation().Y, GetActorLocation().Z); 
 		DrawDebugLine(GetWorld(), Start, HitLocation, FColor::Red, false, 1.0f, 0, 1.0f);
 		
 		return false;

@@ -28,6 +28,15 @@ void ACTBuilding::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+/**
+ * Checks if there is a direct line of sight between this building and the HQ building.
+ *
+ * The method performs a line trace from this building's location to the HQ building's location.
+ * If any Destroyables are detected along the line trace, it returns false.
+ * If no obstacles are detected, it returns true.
+ *
+ * @return True if there is a direct line of sight to the HQ, false otherwise.
+ */
 bool ACTBuilding::HasLineOfSightToHQ()
 {	
 	const ACTBuildingHQ* HQ = GetGameMode()->GetBuildingHQ();

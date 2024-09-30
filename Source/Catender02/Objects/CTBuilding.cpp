@@ -40,6 +40,7 @@ void ACTBuilding::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 bool ACTBuilding::HasLineOfSightToHQ()
 {	
 	const ACTBuildingHQ* HQ = GetGameMode()->GetBuildingHQ();
+	if(!HQ) return false;
 	TArray<FHitResult> HitResult; 
 	const FVector Start = FVector(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
 	const FVector End = FVector(HQ->GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
@@ -61,6 +62,14 @@ bool ACTBuilding::HasLineOfSightToHQ()
 	return true;
 }
 
+/**
+ * Updates the interaction collision state of the building.
+ *
+ * This method checks the current state of the building. If the building is not in an
+ * Invisible or Inactive state, the method returns early. Otherwise, it checks if there
+ * is a direct line of sight to the HQ. Based on the result, it sets the building's active
+ * state accordingly: active if there is a line of sight, inactive if there is not.
+ */
 void ACTBuilding::UpdateInteractionCollision()
 {
 	if(GetBuildingComponent()->GetBuildingState() != EBuildingState::Invisible &&

@@ -43,12 +43,12 @@ bool ACTBuilding::HasLineOfSightToHQ()
 	for(FHitResult Hit : HitResult)
 	{		
 		FVector HitLocation = FVector(Hit.Location.X, GetActorLocation().Y, GetActorLocation().Z); 
-		DrawDebugLine(GetWorld(), Start, HitLocation, FColor::Red, false, 5.0f, 0, 1.0f);
+		DrawDebugLine(GetWorld(), Start, HitLocation, FColor::Red, false, 1.0f, 0, 1.0f);
 		
 		return false;
 	}
 	
-	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 5.0f, 0, 1.0f);
+	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 1.0f);
 	return true;
 }
 

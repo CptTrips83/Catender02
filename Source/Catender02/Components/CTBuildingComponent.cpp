@@ -4,6 +4,12 @@
 #include "Catender02/Objects/CTBuildable.h"
 #include "Components/BoxComponent.h"
 
+/**
+ * @brief Resets the current progress of the building.
+ *
+ * This method sets the building's current progress to zero, effectively resetting any progress made
+ * towards the current construction or upgrade.
+ */
 void UCTBuildingComponent::ResetCurrentProgress()
 {
 	CurrentProgress = 0;
@@ -14,22 +20,58 @@ UCTBuildingComponent::UCTBuildingComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+/**
+ * @brief Retrieves the maximum building level.
+ *
+ * This method returns the maximum level the building can have, calculated based on the number
+ * of levels defined in the building's level information array.
+ *
+ * @return The maximum level of the building, or 0 if the building has no levels.
+ */
 int UCTBuildingComponent::GetMaxBuildingLevel()
 {
 	if(!HasLevel()) return 0;
 	return BuildingLevelInformation.Num() -1;
 }
 
+/**
+ * @brief Retrieves the current level of the building.
+ *
+ * This method returns the current level of the building, which is an integer
+ * representing the building's progression status.
+ *
+ * @return The current level of the building.
+ */
 int UCTBuildingComponent::GetCurrentBuildingLevel()
 {
 	return CurrentLevel;
 }
 
+/**
+ * @brief Returns the current state of the building.
+ *
+ * This method retrieves the current state of the building, which is represented by the
+ * EBuildingState enumeration. The state can be one of the following: Invisible, Inactive,
+ * Active, Construction, or Destroyed.
+ *
+ * @return The current building state.
+ */
 EBuildingState UCTBuildingComponent::GetBuildingState()
 {
 	return BuildingState;
 }
 
+/**
+ * @brief Sets the current building level, clamping it within valid bounds.
+ *
+ * This method updates the building level based on provided information:
+ * - If no level information is available, it sets the current level to 0 and exits.
+ * - Otherwise, it clamps the new level within the valid range (0 to number of levels - 1).
+ *
+ * After setting the new level, the method broadcasts the change using the `OnCurrentLevelChanged` delegate.
+ *
+ * @param NewLevel The desired new level to set the building to.
+ */
 void UCTBuildingComponent::SetCurrentBuildingLevel(const int NewLevel)
 {
 	const int OldLevel = CurrentLevel;
@@ -163,6 +205,14 @@ void UCTBuildingComponent::AddProgressToBuilding(const float Amount)
     }
 }
 
+/**
+ * @brief Retrieves the progress required to complete the current building level.
+ *
+ * This method checks if the building has a valid level. If no level is set, it returns 0.
+ * Otherwise, it fetches the progress needed for the current building level from the level information.
+ *
+ * @return The amount of progress required for the current building level, or 0 if no valid level is set.
+ */
 float UCTBuildingComponent::GetProgressNeededForCurrentBuildingLevel()
 {
 	if(!HasLevel()) return 0;
@@ -194,6 +244,18 @@ void UCTBuildingComponent::UpdateCollision(EBuildingState NewBuildingState)
 	}
 }
 
+/**
+ * @brief Handles the payment of resources required for a building upgrade or construction.
+ *
+ * This function checks if the owning buildable object exists and then retrieves the `UCTWorldResourceComponent`
+ * instance from the game mode. It fetches the resource requirements for the building's current level and attempts
+ * to subtract the necessary amounts from the world resource component.
+ *
+ * - If `OwningBuildable` is null, the function returns immediately.
+ * - Retrieves resource component via the game mode's `WorldResourceComponent`.
+ * - Gets the resource requirements for the current building level.
+ * - Iterates over each required resource and checks if it is unlocked. If not, attempts to subtract the needed amount.
+ */
 void UCTBuildingComponent::PayResources()
 {
 	if(!OwningBuildable) return;
@@ -210,6 +272,16 @@ void UCTBuildingComponent::PayResources()
 	}
 }
 
+/**
+ * @brief Checks if the necessary resources are available for the building's current level.
+ *
+ * This method verifies whether the required resources are available for the building's current construction level
+ * by comparing the resource requirements against the resource amounts in the world resource component.
+ *
+ * If the resources are insufficient, an OnConstructionFailed event is broadcasted with the building and the needed resources.
+ *
+ * @return true if all required resources are available, false otherwise.
+ */
 bool UCTBuildingComponent::CheckResourceRequirements()
 {
 	if(!OwningBuildable) return false;
@@ -426,6 +498,13 @@ void UCTBuildingComponent::CurrentLevelChanged(ACTBuildable* Buildable, int OldL
 {
 }
 
+/**
+ * @brief Performs initialization when the game starts or when spawned.
+ *
+ * This method sets up the owning buildable object, updates the building state initially,
+ * and binds dynamic delegates to various building-related events such as state changes,
+ * level changes, construction progress, and completion or failure of construction.
+ */
 void UCTBuildingComponent::BeginPlay()
 {
 	Super::BeginPlay();

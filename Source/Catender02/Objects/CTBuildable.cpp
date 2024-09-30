@@ -20,6 +20,14 @@ ACTBuildable::ACTBuildable()
 	WaitingBoxComponent->SetupAttachment(GetRootComponent());
 }
 
+/**
+ * Overrides the Interact method to handle interaction with another sortable object.
+ *
+ * This function first calls the parent class's Interact method. If the building upgrade is successful,
+ * it then plays an interaction sound on the player character.
+ *
+ * @param OtherSortable A pointer to the other sortable object that is interacting with this buildable.
+ */
 void ACTBuildable::Interact(ACTSortable* OtherSortable)
 {
 	Super::Interact(OtherSortable);
@@ -35,7 +43,7 @@ void ACTBuildable::Destroyed()
 	Super::Destroyed();			
 }
 
-UCTBuildingComponent* ACTBuildable::GetBuildingComponent()
+UCTBuildingComponent* ACTBuildable::GetBuildingComponent() const
 {
 	return BuildingComponent;
 }

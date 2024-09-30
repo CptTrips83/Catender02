@@ -32,7 +32,7 @@ public:
 
 	virtual void Destroyed() override;
 	
-	UCTBuildingComponent* GetBuildingComponent();
+	UCTBuildingComponent* GetBuildingComponent() const;
 	UBoxComponent* GetConstructionBoxComponent() const;
 	UBoxComponent* GetWaitingBoxComponent() const;
 };

@@ -77,6 +77,12 @@ UCTWorldBuildableComponent::UCTWorldBuildableComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+/**
+ * Populates the Buildables array with all instances of ACTBuildable actors present in the world.
+ *
+ * Clears the current list of buildable objects and retrieves all actors of class ACTBuildable in the current world.
+ * It then casts the retrieved actors to ACTBuildable and adds them to the Buildables array.
+ */
 void UCTWorldBuildableComponent::PopulateBuildables()
 {
 	Buildables.Empty();
@@ -92,6 +98,11 @@ void UCTWorldBuildableComponent::PopulateBuildables()
 	}
 }
 
+/**
+ * Removes the specified buildable from the Buildables array if it is not null.
+ *
+ * @param Buildable Pointer to the buildable actor to be removed from the Buildables array.
+ */
 void UCTWorldBuildableComponent::RemoveBuildable(ACTBuildable* Buildable)
 {
 	if (Buildable == nullptr) return;
@@ -113,6 +124,14 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildable(ACTSortable* Sorta
 	return Buildables[0];
 }
 
+/**
+ * Returns the nearest buildable to the given sortable actor,
+ * further filtered by the specified direction.
+ *
+ * @param Sortable Pointer to the actor used as the reference point for determining the nearest buildable.
+ * @param BuildableDirection The direction criteria used to filter the buildables.
+ * @return Pointer to the nearest buildable that satisfies the given direction, or nullptr if no buildables are available.
+ */
 ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildableByDirection(ACTSortable* Sortable,
                                                                          const EBuildableDirection BuildableDirection)
 {

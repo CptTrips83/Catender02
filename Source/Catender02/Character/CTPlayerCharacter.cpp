@@ -26,6 +26,11 @@ UCTPlayerInteractionComponent* ACTPlayerCharacter::GetPlayerInteractionComponent
 	return PlayerInteractionComponent;
 }
 
+/**
+ * Plays the interaction sound at the player's location.
+ *
+ * If the interaction sound is not set, the function will return without performing any action.
+ */
 void ACTPlayerCharacter::PlayInteractSound() const
 {
 	if(!InteractSound) return;

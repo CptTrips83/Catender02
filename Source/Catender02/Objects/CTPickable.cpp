@@ -5,6 +5,7 @@
 #include "Catender02/Character/CTPlayerCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Physics/PhysicsFiltering.h"
 
 
 /**
@@ -52,7 +53,10 @@ void ACTPickable::PlayPickAnimation() const
  */
 void ACTPickable::DisableCollision() const
 {
-	GetCapsuleComponent()->SetCollisionResponseToChannel(this->PickupChannel, ECR_Ignore);
+	for(const ECollisionChannel PickupChannel : PickupChannels)
+	{
+		GetCapsuleComponent()->SetCollisionResponseToChannel(PickupChannel, ECR_Ignore);
+	}
 }
 
 /**
@@ -89,6 +93,9 @@ void ACTPickable::DestroyPickup()
 ACTPickable::ACTPickable()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	PickupComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Pickup"));
+	PickupComponent->SetupAttachment(GetRootComponent());
 }
 
 void ACTPickable::BeginPlay()
@@ -96,7 +103,7 @@ void ACTPickable::BeginPlay()
 	Super::BeginPlay();
 
 	GetSprite()->SetLooping(false);
-	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ACTPickable::OnCapsuleBeginOverlap);
+	PickupComponent->OnComponentBeginOverlap.AddDynamic(this, &ACTPickable::OnCapsuleBeginOverlap);
 }
 
 void ACTPickable::Tick(float DeltaTime)
@@ -125,9 +132,9 @@ void ACTPickable::OnCapsuleBeginOverlap(UPrimitiveComponent* OverlappedComp, AAc
 		TimerHandle,
 		this,
 		&ACTPickable::DestroyPickup,
-		5,
+		DestructionTimer,
 		false,
-		5
+		DestructionTimer
 	);
 }
 

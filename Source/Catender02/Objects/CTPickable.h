@@ -13,6 +13,9 @@ class CATENDER02_API ACTPickable : public ACTSortable
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	float DestructionTimer = 1;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	TArray<FResource> Resources; 
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
@@ -22,7 +25,10 @@ class CATENDER02_API ACTPickable : public ACTSortable
 	USoundBase* DropSound = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
-	ECollisionChannel PickupChannel;
+    TArray<TEnumAsByte<ECollisionChannel>> PickupChannels;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	UCapsuleComponent* PickupComponent = nullptr;
 	
 	void PlayPickupSound() const;
 	void PlayDropSound() const;

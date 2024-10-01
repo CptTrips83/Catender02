@@ -25,8 +25,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	virtual void SetActive(bool Active);
-
-	
 	
 	UFUNCTION()
 	virtual void OnBoxBeginOverlapInteraction

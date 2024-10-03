@@ -29,12 +29,12 @@ void UCTPlayerInteractionComponent::SortInteractablesBySortingLayer()
  */
 void UCTPlayerInteractionComponent::RefreshInteractables()
 {
-	for(const ACTInteractable* Interactable : OverlappingInteractables)
+	for(ACTInteractable* Interactable : OverlappingInteractables)
 	{
 		Interactable->Highlight(false);
 	}
 
-	const ACTInteractable* FrontInteractable = GetFrontInteractable();
+	ACTInteractable* FrontInteractable = GetFrontInteractable();
 	if(!FrontInteractable) return;
 	
 	if (FrontInteractable->CanInteract())

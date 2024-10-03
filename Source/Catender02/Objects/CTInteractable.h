@@ -13,13 +13,13 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* InteractionBoxComponent;
-
-	UMaterialInstanceDynamic* MaterialInstanceDynamic;
 	
-	void CreateDynamicMaterialForSprite();	
+		
 public:
 	
 	ACTInteractable();
+
+	void CreateDynamicMaterialForSprite();
 	
 	virtual void BeginPlay() override;
 
@@ -32,7 +32,7 @@ public:
 	virtual void SetActive(bool Active);
 
 	UFUNCTION(BlueprintCallable)
-	virtual void Highlight(bool IsHighlighted) const;
+	virtual void Highlight(bool IsHighlighted);
 	
 	UFUNCTION()
 	virtual void OnBoxBeginOverlapInteraction

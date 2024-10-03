@@ -2,6 +2,7 @@
 
 #include "Catender02/Character/CTPlayerCharacter.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 ACTInteractable::ACTInteractable()
 {
@@ -15,20 +16,15 @@ ACTInteractable::ACTInteractable()
 	InteractionBoxComponent->OnComponentEndOverlap.AddDynamic(this, &ACTInteractable::OnBoxEndOverlapInteraction);
 }
 
-/**
- * Creates a dynamic material instance for the sprite component if it exists.
- *
- * This method checks if the sprite component is valid and retrieves its current material.
- * If the material is valid, a dynamic material instance is created and applied to the sprite component.
- * The dynamic material instance is stored in the `MaterialInstanceDynamic` member variable.
- */
 void ACTInteractable::CreateDynamicMaterialForSprite()
 {
 	if (!GetSprite()) return;
 	
 	UMaterialInterface* MaterialInterface = GetSprite()->GetMaterial(0);
 	if (!MaterialInterface) return;
-		
+
+	if(MaterialInterface->IsA(UMaterialInstanceDynamic::StaticClass())) return nullptr;
+	
 	// Create a dynamic material instance
 	UMaterialInstanceDynamic* DynamicMaterialInstance = UMaterialInstanceDynamic::Create(MaterialInterface, this);
 
@@ -37,8 +33,9 @@ void ACTInteractable::CreateDynamicMaterialForSprite()
 	// Assign the dynamic material instance to the sprite component
 	GetSprite()->SetMaterial(0, DynamicMaterialInstance);
 
-	MaterialInstanceDynamic = DynamicMaterialInstance;
+	return;
 }
+
 
 void ACTInteractable::BeginPlay()
 {
@@ -71,18 +68,28 @@ void ACTInteractable::SetActive(const bool Active)
  * @param IsHighlighted A boolean indicating whether the object should be highlighted or not.
  * If true, the highlight effect is activated; if false, it is deactivated.
  */
-void ACTInteractable::Highlight(const bool IsHighlighted) const
+void ACTInteractable::Highlight(const bool IsHighlighted) 
 {
+	UMaterialInterface* MaterialInterface = GetSprite()->GetMaterial(0);
+
+	UMaterialInstanceDynamic* MaterialInstanceDynamic = Cast<UMaterialInstanceDynamic>(MaterialInterface);
+		
 	if(!MaterialInstanceDynamic) return;
 	
 	if (IsHighlighted)
 	{
-		MaterialInstanceDynamic->SetScalarParameterValue("HighlightMultiplier", 0.05f);
+		MaterialInstanceDynamic->SetScalarParameterValue("HighlightMultiplier", 0.5f);
 	}
 	else
 	{
 		MaterialInstanceDynamic->SetScalarParameterValue("HighlightMultiplier", 0);
 	}
+
+	float Multiplier = 0;
+	
+	MaterialInstanceDynamic->GetScalarParameterValue(FHashedMaterialParameterInfo ("HighlightMultiplier"), Multiplier);
+	
+	UKismetSystemLibrary::PrintString(this, "CanBeBuild(): Active and Max Level not Reached");
 }
 
 /**

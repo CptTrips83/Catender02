@@ -16,13 +16,39 @@
 void UCTPlayerInteractionComponent::SortInteractablesBySortingLayer()
 {
 	OverlappingInteractables.Sort([](const ACTInteractable& A, const ACTInteractable& B) {
-		return A.GetSprite()->TranslucencySortPriority > B.GetSprite()->TranslucencySortPriority;
+		return A.GetSprite()->TranslucencySortPriority > B.GetSprite()->TranslucencySortPriority && A.CanInteract();
 	});
+}
+
+/**
+ * Refreshes the highlighting state of interactable objects in the `OverlappingInteractables` array.
+ *
+ * This function iterates through all interactable objects that are currently overlapping
+ * and disables their highlight. It then highlights the interactable object that is at
+ * the front of the array.
+ */
+void UCTPlayerInteractionComponent::RefreshInteractables()
+{
+	for(const ACTInteractable* Interactable : OverlappingInteractables)
+	{
+		Interactable->Highlight(false);
+	}
+
+	const ACTInteractable* FrontInteractable = GetFrontInteractable();
+	if(!FrontInteractable) return;
+	
+	if (FrontInteractable->CanInteract())
+	{
+		FrontInteractable->Highlight(true);
+	}
 }
 
 UCTPlayerInteractionComponent::UCTPlayerInteractionComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+
+	OnAddedInteractable.AddDynamic(this, &UCTPlayerInteractionComponent::AddedInteractable);
+	OnRemovedInteractable.AddDynamic(this, &UCTPlayerInteractionComponent::RemovedInteractable);
 }
 
 /**
@@ -37,7 +63,7 @@ void UCTPlayerInteractionComponent::AddToOverlappingInteractables(ACTInteractabl
 {	
 	this->OverlappingInteractables.AddUnique(Interactable);
 	SortInteractablesBySortingLayer();
-	this->OnAddedInteractable.Broadcast(Interactable);
+	this->OnAddedInteractable.Broadcast(Interactable);	
 
 	UKismetSystemLibrary::PrintString(this, "Added Interactable" + Interactable->GetName());
 }
@@ -54,7 +80,7 @@ void UCTPlayerInteractionComponent::RemoveFromOverlappingInteractables(ACTIntera
 {
 	this->OverlappingInteractables.Remove(Interactable);
 	SortInteractablesBySortingLayer();
-	this->OnRemovedInteractable.Broadcast();
+	this->OnRemovedInteractable.Broadcast(Interactable);
 
 	UKismetSystemLibrary::PrintString(this, "Removed Interactable" + Interactable->GetName());
 }
@@ -66,14 +92,23 @@ void UCTPlayerInteractionComponent::RemoveFromOverlappingInteractables(ACTIntera
  */
 ACTInteractable* UCTPlayerInteractionComponent::GetFrontInteractable()
 {	
-	return this->OverlappingInteractables.Num() > 0 ? this->OverlappingInteractables[0] : nullptr;
+	return this->OverlappingInteractables.Num() > 0 ? this->OverlappingInteractables[0] : nullptr;	
 }
 
 void UCTPlayerInteractionComponent::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
-	SortInteractablesBySortingLayer();
+void UCTPlayerInteractionComponent::AddedInteractable(ACTInteractable* Interactable)
+{
+	RefreshInteractables();
+}
+
+void UCTPlayerInteractionComponent::RemovedInteractable(ACTInteractable* Interactable)
+{
+	Interactable->Highlight(false);
+	RefreshInteractables();
 }
 
 void UCTPlayerInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

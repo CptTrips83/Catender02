@@ -117,6 +117,8 @@ public:
 	virtual bool UpgradeBuilding();
 	UFUNCTION (BlueprintCallable)
 	virtual void UpdateBuilding();
+	UFUNCTION()
+	virtual bool CanBeBuild();
 	
 protected:
 	ACTBuildable* OwningBuildable = nullptr;	

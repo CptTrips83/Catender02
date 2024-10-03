@@ -15,6 +15,44 @@ ACTInteractable::ACTInteractable()
 	InteractionBoxComponent->OnComponentEndOverlap.AddDynamic(this, &ACTInteractable::OnBoxEndOverlapInteraction);
 }
 
+/**
+ * Creates a dynamic material instance for the sprite component if it exists.
+ *
+ * This method checks if the sprite component is valid and retrieves its current material.
+ * If the material is valid, a dynamic material instance is created and applied to the sprite component.
+ * The dynamic material instance is stored in the `MaterialInstanceDynamic` member variable.
+ */
+void ACTInteractable::CreateDynamicMaterialForSprite()
+{
+	if (!GetSprite()) return;
+	
+	UMaterialInterface* MaterialInterface = GetSprite()->GetMaterial(0);
+	if (!MaterialInterface) return;
+		
+	// Create a dynamic material instance
+	UMaterialInstanceDynamic* DynamicMaterialInstance = UMaterialInstanceDynamic::Create(MaterialInterface, this);
+
+	if (!DynamicMaterialInstance) return;
+			
+	// Assign the dynamic material instance to the sprite component
+	GetSprite()->SetMaterial(0, DynamicMaterialInstance);
+
+	MaterialInstanceDynamic = DynamicMaterialInstance;
+}
+
+void ACTInteractable::BeginPlay()
+{
+	Super::BeginPlay();
+
+	CreateDynamicMaterialForSprite();
+}
+
+bool ACTInteractable::CanInteract() const
+{
+	return true;
+}
+
+
 UBoxComponent* ACTInteractable::GetInteractionBoxComponent() const
 {
 	return InteractionBoxComponent;
@@ -23,6 +61,28 @@ UBoxComponent* ACTInteractable::GetInteractionBoxComponent() const
 void ACTInteractable::SetActive(const bool Active)
 {
 	GetInteractionBoxComponent()->SetCollisionEnabled(Active == true ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+}
+
+/**
+ * Toggles the highlight effect on the interactive object.
+ *
+ * Adjusts the "HighlightMultiplier" parameter in the material instance dynamic to either enable or disable the highlight effect.
+ *
+ * @param IsHighlighted A boolean indicating whether the object should be highlighted or not.
+ * If true, the highlight effect is activated; if false, it is deactivated.
+ */
+void ACTInteractable::Highlight(const bool IsHighlighted) const
+{
+	if(!MaterialInstanceDynamic) return;
+	
+	if (IsHighlighted)
+	{
+		MaterialInstanceDynamic->SetScalarParameterValue("HighlightMultiplier", 0.05f);
+	}
+	else
+	{
+		MaterialInstanceDynamic->SetScalarParameterValue("HighlightMultiplier", 0);
+	}
 }
 
 /**

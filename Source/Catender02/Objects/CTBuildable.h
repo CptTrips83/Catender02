@@ -35,4 +35,6 @@ public:
 	UCTBuildingComponent* GetBuildingComponent() const;
 	UBoxComponent* GetConstructionBoxComponent() const;
 	UBoxComponent* GetWaitingBoxComponent() const;
+
+	virtual bool CanInteract() const override;
 };

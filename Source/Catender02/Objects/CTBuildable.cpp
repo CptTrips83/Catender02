@@ -36,6 +36,8 @@ void ACTBuildable::Interact(ACTSortable* OtherSortable)
 
 	const ACTPlayerCharacter* Player = Cast<ACTPlayerCharacter>(OtherSortable);
 	Player->PlayInteractSound();
+
+	Highlight(false);
 }
 
 void ACTBuildable::Destroyed()
@@ -56,4 +58,9 @@ UBoxComponent* ACTBuildable::GetConstructionBoxComponent() const
 UBoxComponent* ACTBuildable::GetWaitingBoxComponent() const
 {
 	return WaitingBoxComponent;
+}
+
+bool ACTBuildable::CanInteract() const
+{	
+	return BuildingComponent->CanBeBuild();
 }

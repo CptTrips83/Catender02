@@ -394,6 +394,21 @@ void UCTBuildingComponent::UpdateBuilding()
 	UpdateCollision(GetBuildingState());
 }
 
+bool UCTBuildingComponent::CanBeBuild()
+{	
+	if (GetBuildingState() == EBuildingState::Inactive)
+		return true;
+
+	if (GetBuildingState() == EBuildingState::Destroyed)
+		return true;
+	
+	if (GetMaxBuildingLevel() != GetCurrentBuildingLevel()
+		&& GetBuildingState() == EBuildingState::Active)
+		return true;
+		
+	return false;
+}
+
 /**
  * @brief Retrieves the building level information based on the provided level.
  *

@@ -2,6 +2,7 @@
 
 #include "Catender02/Character/CTPlayerCharacter.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/KismetStringLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 ACTInteractable::ACTInteractable()
@@ -23,7 +24,7 @@ void ACTInteractable::CreateDynamicMaterialForSprite()
 	UMaterialInterface* MaterialInterface = GetSprite()->GetMaterial(0);
 	if (!MaterialInterface) return;
 
-	if(MaterialInterface->IsA(UMaterialInstanceDynamic::StaticClass())) return nullptr;
+	if(MaterialInterface->IsA(UMaterialInstanceDynamic::StaticClass())) return;
 	
 	// Create a dynamic material instance
 	UMaterialInstanceDynamic* DynamicMaterialInstance = UMaterialInstanceDynamic::Create(MaterialInterface, this);
@@ -32,8 +33,6 @@ void ACTInteractable::CreateDynamicMaterialForSprite()
 			
 	// Assign the dynamic material instance to the sprite component
 	GetSprite()->SetMaterial(0, DynamicMaterialInstance);
-
-	return;
 }
 
 
@@ -78,7 +77,7 @@ void ACTInteractable::Highlight(const bool IsHighlighted)
 	
 	if (IsHighlighted)
 	{
-		MaterialInstanceDynamic->SetScalarParameterValue("HighlightMultiplier", 0.5f);
+		MaterialInstanceDynamic->SetScalarParameterValue("HighlightMultiplier", 0.05f);
 	}
 	else
 	{
@@ -88,8 +87,9 @@ void ACTInteractable::Highlight(const bool IsHighlighted)
 	float Multiplier = 0;
 	
 	MaterialInstanceDynamic->GetScalarParameterValue(FHashedMaterialParameterInfo ("HighlightMultiplier"), Multiplier);
+	FString DebugMessage = UKismetStringLibrary::Concat_StrStr("CanBeBuild(): ", FString::SanitizeFloat(Multiplier));
 	
-	UKismetSystemLibrary::PrintString(this, "CanBeBuild(): Active and Max Level not Reached");
+	UKismetSystemLibrary::PrintString(this, DebugMessage);
 }
 
 /**

@@ -13,7 +13,9 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* InteractionBoxComponent;
-	
+
+protected:
+	virtual void UpdateInteractionCollision(bool CollisionEnabled);
 		
 public:
 	

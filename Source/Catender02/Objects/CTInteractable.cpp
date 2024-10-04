@@ -5,6 +5,11 @@
 #include "Kismet/KismetStringLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
 
+void ACTInteractable::UpdateInteractionCollision(const bool CollisionEnabled)
+{
+	GetInteractionBoxComponent()->SetCollisionEnabled(CollisionEnabled ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+}
+
 ACTInteractable::ACTInteractable()
 {
 	InteractionBoxComponent = CreateDefaultSubobject<UBoxComponent>("Box Interaction");

@@ -16,6 +16,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	virtual void UpdateInteractionCollision(bool CollisionEnabled) override;
 public:
 	virtual void Tick(float DeltaTime) override;
 

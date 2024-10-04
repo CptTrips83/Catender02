@@ -15,6 +15,11 @@ void ACTDestroyable::BeginPlay()
 	GetBuildingComponent()->OnConstructionFinished.AddDynamic(this, &ACTDestroyable::ConstructionFinished);
 }
 
+void ACTDestroyable::UpdateInteractionCollision(bool CollisionEnabled)
+{
+	
+}
+
 void ACTDestroyable::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

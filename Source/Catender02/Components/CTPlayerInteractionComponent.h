@@ -13,9 +13,10 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam
 	ACTInteractable*, Interactable
 );
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam
 (
-	FRemoveInteractable
+	FRemoveInteractable,
+	ACTInteractable*, Interactable
 );
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -26,6 +27,8 @@ class CATENDER02_API UCTPlayerInteractionComponent : public UActorComponent
 	TArray<ACTInteractable*> OverlappingInteractables;	
 
 	void SortInteractablesBySortingLayer();
+
+	void RefreshInteractables();
 	
 public:	
 	UCTPlayerInteractionComponent();
@@ -35,10 +38,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RemoveFromOverlappingInteractables(ACTInteractable* Interactable);
 	UFUNCTION(BlueprintCallable)
-	ACTInteractable* GetFrontInteractable();
+	ACTInteractable* GetFrontInteractable();	
 	
 protected:
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	void AddedInteractable(ACTInteractable* Interactable);
+	UFUNCTION()
+	void RemovedInteractable(ACTInteractable* Interactable);
 
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;

@@ -20,6 +20,13 @@ ACTBuildable::ACTBuildable()
 	WaitingBoxComponent->SetupAttachment(GetRootComponent());
 }
 
+void ACTBuildable::BeginPlay()
+{
+	Super::BeginPlay();
+
+	GetBuildingComponent()->OnBuildingStateChanged.AddDynamic(this, &ACTBuildable::BuildingStateChanged);
+}
+
 /**
  * Overrides the Interact method to handle interaction with another sortable object.
  *
@@ -36,6 +43,8 @@ void ACTBuildable::Interact(ACTSortable* OtherSortable)
 
 	const ACTPlayerCharacter* Player = Cast<ACTPlayerCharacter>(OtherSortable);
 	Player->PlayInteractSound();
+
+	Highlight(false);
 }
 
 void ACTBuildable::Destroyed()
@@ -56,4 +65,22 @@ UBoxComponent* ACTBuildable::GetConstructionBoxComponent() const
 UBoxComponent* ACTBuildable::GetWaitingBoxComponent() const
 {
 	return WaitingBoxComponent;
+}
+
+bool ACTBuildable::CanInteract() const
+{	
+	return BuildingComponent->CanBeBuild();
+}
+
+void ACTBuildable::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState)
+{
+	if(NewState == EBuildingState::Construction)
+	{
+		UpdateInteractionCollision(false);
+		return;
+	}
+	if(OldState == EBuildingState::Construction)
+	{
+		UpdateInteractionCollision(true);
+	}
 }

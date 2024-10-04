@@ -26,7 +26,9 @@ class CATENDER02_API ACTBuildable : public ACTInteractable
 	UBoxComponent* WaitingBoxComponent = nullptr;
 	
 public:
-	ACTBuildable();	
+	ACTBuildable();
+
+	virtual void BeginPlay() override;
 	
 	virtual void Interact(ACTSortable* OtherSortable) override;
 
@@ -35,4 +37,9 @@ public:
 	UCTBuildingComponent* GetBuildingComponent() const;
 	UBoxComponent* GetConstructionBoxComponent() const;
 	UBoxComponent* GetWaitingBoxComponent() const;
+
+	virtual bool CanInteract() const override;
+
+	UFUNCTION()
+	virtual void BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
 };

@@ -3,6 +3,8 @@
 
 #include "Catender02/Objects/CTBuildable.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/KismetStringLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 /**
  * @brief Resets the current progress of the building.
@@ -104,7 +106,7 @@ void UCTBuildingComponent::SetCurrentBuildingLevel(const int NewLevel)
 void UCTBuildingComponent::UpdateSprite()
 {
 	UPaperFlipbookComponent* FlipbookComponent = OwningBuildable->GetSprite();
-
+	
 	if(!FlipbookComponent)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("FlipbookComponent ist null!"));
@@ -153,6 +155,8 @@ void UCTBuildingComponent::UpdateSprite()
 				FlipbookComponent->SetFlipbook(DefaultFlipbook);
 			}
 	}
+
+	OwningBuildable->CreateDynamicMaterialForSprite();
 }
 
 /**
@@ -392,6 +396,31 @@ void UCTBuildingComponent::UpdateBuilding()
 {
 	UpdateSprite();
 	UpdateCollision(GetBuildingState());
+}
+
+bool UCTBuildingComponent::CanBeBuild()
+{	
+	if (GetBuildingState() == EBuildingState::Inactive)
+	{
+		UKismetSystemLibrary::PrintString(this, "CanBeBuild(): Inactive");
+		return true;
+	}
+
+	if (GetBuildingState() == EBuildingState::Destroyed)
+	{
+		UKismetSystemLibrary::PrintString(this, "CanBeBuild(): Destroyed");
+		return true;
+	}
+	
+	if (GetMaxBuildingLevel() > GetCurrentBuildingLevel()
+		&& GetBuildingState() == EBuildingState::Active)
+	{		
+		UKismetSystemLibrary::PrintString(this, "CanBeBuild(): Active and Max Level not Reached");
+		return true;
+	}
+
+	
+	return false;
 }
 
 /**

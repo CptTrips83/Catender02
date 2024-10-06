@@ -6,6 +6,11 @@
 ACTDestroyable::ACTDestroyable()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	BuildingVisibilityCollision = CreateDefaultSubobject<UBoxComponent>(FName("BuildingVisibilityCollision"));
+	BuildingVisibilityCollision->SetupAttachment(GetRootComponent());
+	BuildingVisibilityCollision->SetBoxExtent(FVector(32.0f, 100.0f, 100.0f));
+	
 }
 
 void ACTDestroyable::BeginPlay()
@@ -16,8 +21,8 @@ void ACTDestroyable::BeginPlay()
 }
 
 void ACTDestroyable::UpdateInteractionCollision(bool CollisionEnabled)
-{
-	
+{	
+	Super::UpdateInteractionCollision(CollisionEnabled);
 }
 
 void ACTDestroyable::Tick(float DeltaTime)

@@ -13,6 +13,9 @@ class CATENDER02_API ACTDestroyable : public ACTBuildable
 public:
 	ACTDestroyable();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* BuildingVisibilityCollision;
+	
 protected:
 	virtual void BeginPlay() override;
 

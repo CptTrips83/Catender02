@@ -37,9 +37,7 @@ void ACTSortable::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GameModeLevel = static_cast<ACTGameModeLevel*>(GetWorld()->GetAuthGameMode());
-
-	
+	GameModeLevel = static_cast<ACTGameModeLevel*>(GetWorld()->GetAuthGameMode());	
 }
 
 void ACTSortable::Interact(ACTSortable* OtherSortable)

@@ -52,6 +52,11 @@ void ACTBuildable::Destroyed()
 	Super::Destroyed();			
 }
 
+void ACTBuildable::UpdateConstructionCollision(const bool IsActive)
+{
+	GetConstructionBoxComponent()->SetCollisionEnabled(IsActive ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+}
+
 UCTBuildingComponent* ACTBuildable::GetBuildingComponent() const
 {
 	return BuildingComponent;
@@ -77,10 +82,12 @@ void ACTBuildable::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState 
 	if(NewState == EBuildingState::Construction)
 	{
 		UpdateInteractionCollision(false);
+		UpdateConstructionCollision(true);
 		return;
 	}
 	if(OldState == EBuildingState::Construction)
 	{
 		UpdateInteractionCollision(true);
+		UpdateConstructionCollision(false);
 	}
 }

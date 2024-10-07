@@ -20,6 +20,8 @@ class CATENDER02_API UCTUserWidgetMain : public UUserWidget
 public:
 	UFUNCTION(BlueprintPure)
 	ACTInteractable* GetOwningInteractable() const;
-	
+
+	UFUNCTION(BlueprintCallable)
 	void SetOwningInteractable(ACTInteractable* Interactable);
+
 };

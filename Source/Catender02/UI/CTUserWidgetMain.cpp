@@ -3,6 +3,8 @@
 
 #include "CTUserWidgetMain.h"
 
+#include "Components/PanelWidget.h"
+
 ACTInteractable* UCTUserWidgetMain::GetOwningInteractable() const
 {
 	return OwningInteractable;
@@ -12,3 +14,5 @@ void UCTUserWidgetMain::SetOwningInteractable(ACTInteractable* Interactable)
 {
 	OwningInteractable = Interactable;
 }
+
+

@@ -52,7 +52,7 @@ void ACTInteractable::BeginPlay()
 
 	CreateDynamicMaterialForSprite();
 	
-	//ToggleInteractionWidget(false);
+	SetVisibilityInteractionWidget(false);
 }
 
 bool ACTInteractable::CanInteract() const
@@ -60,7 +60,7 @@ bool ACTInteractable::CanInteract() const
 	return true;
 }
 
-void ACTInteractable::ToggleInteractionWidget(const bool IsActive)
+void ACTInteractable::SetVisibilityInteractionWidget(const bool IsActive)
 {
 	UWidgetComponent* Widget = GetInteractionWidget();
 

@@ -33,7 +33,7 @@ public:
 	virtual bool CanInteract() const;
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ToggleInteractionWidget(bool IsActive);
+	virtual void SetVisibilityInteractionWidget(bool IsActive);
 	
 	UFUNCTION(BlueprintCallable)
 	UBoxComponent* GetInteractionBoxComponent() const;

@@ -33,7 +33,7 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestConstructionSite(ACTSortable
  */
 void UCTWorldBuildableComponent::SortBuildablesByNearest(ACTSortable* Sortable)
 {
-	Buildables.Sort([&Sortable] (ACTBuildable& Buildable1, ACTBuildable& Buildable2)
+	Buildables.Sort([&Sortable] (const ACTBuildable& Buildable1, const ACTBuildable& Buildable2)
 	{
 		return Buildable1.GetDistanceTo(Sortable) < Buildable2.GetDistanceTo(Sortable);
 	});

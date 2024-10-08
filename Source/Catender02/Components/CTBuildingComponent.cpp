@@ -423,6 +423,20 @@ bool UCTBuildingComponent::CanBeBuild()
 	return false;
 }
 
+TArray<FResource> UCTBuildingComponent::GetResourcesCostForCurrentLevel()
+{
+	FBuildingLevelInformation LevelInformation = GetBuildingLevelInformation(CurrentLevel);
+
+	TArray<FResource> Resources;
+	
+	for (FResource Resource : LevelInformation.Resources)
+	{
+		Resources.Add(Resource);
+	}
+
+	return Resources;
+}
+
 /**
  * @brief Retrieves the building level information based on the provided level.
  *

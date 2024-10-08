@@ -119,6 +119,8 @@ public:
 	virtual void UpdateBuilding();
 	UFUNCTION()
 	virtual bool CanBeBuild();
+	UFUNCTION(BlueprintPure)
+	virtual TArray<FResource> GetResourcesCostForCurrentLevel();
 	
 protected:
 	ACTBuildable* OwningBuildable = nullptr;	

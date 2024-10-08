@@ -14,6 +14,9 @@ ACTInteractable::ACTInteractable()
 {
 	InteractionBoxComponent = CreateDefaultSubobject<UBoxComponent>("Box Interaction");
 	InteractionBoxComponent->SetupAttachment(GetRootComponent());
+
+	InteractionWidget = CreateDefaultSubobject<UCTWidgetComponent>("Widget Interaction");
+	InteractionWidget->SetupAttachment(GetRootComponent());
 	
 	GetCapsuleComponent()->OnComponentBeginOverlap.Clear();
 	GetCapsuleComponent()->OnComponentEndOverlap.Clear();
@@ -41,11 +44,15 @@ void ACTInteractable::CreateDynamicMaterialForSprite()
 }
 
 
+
+
 void ACTInteractable::BeginPlay()
 {
 	Super::BeginPlay();
 
 	CreateDynamicMaterialForSprite();
+	
+	SetVisibilityInteractionWidget(false);
 }
 
 bool ACTInteractable::CanInteract() const
@@ -53,10 +60,28 @@ bool ACTInteractable::CanInteract() const
 	return true;
 }
 
+void ACTInteractable::SetVisibilityInteractionWidget(const bool IsActive)
+{
+	UWidgetComponent* Widget = GetInteractionWidget();
+
+	if(!Widget->GetWidgetClass())
+	{
+		Widget->SetVisibility(false);
+		return;
+	}
+	
+	Widget->SetVisibility(IsActive);
+}
+
 
 UBoxComponent* ACTInteractable::GetInteractionBoxComponent() const
 {
 	return InteractionBoxComponent;
+}
+
+UCTWidgetComponent* ACTInteractable::GetInteractionWidget() const
+{
+	return InteractionWidget;
 }
 
 void ACTInteractable::SetActive(const bool Active)

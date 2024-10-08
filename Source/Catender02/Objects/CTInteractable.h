@@ -2,6 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "./Catender02/CTSortable.h"
+#include "Catender02/UI/CTUserWidgetMain.h"
+#include "Catender02/UI/CTWidgetComponent.h"
+#include "Components/WidgetComponent.h"
 #include "Components/BoxComponent.h"
 #include "CTInteractable.generated.h"
 
@@ -14,21 +17,29 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* InteractionBoxComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UCTWidgetComponent* InteractionWidget;
+
+	
 protected:
 	virtual void UpdateInteractionCollision(bool CollisionEnabled);
 		
 public:
 	
 	ACTInteractable();
-
-	void CreateDynamicMaterialForSprite();
 	
+	void CreateDynamicMaterialForSprite();
 	virtual void BeginPlay() override;
-
 	virtual bool CanInteract() const;
+
+	UFUNCTION(BlueprintCallable)
+	virtual void SetVisibilityInteractionWidget(bool IsActive);
 	
 	UFUNCTION(BlueprintCallable)
 	UBoxComponent* GetInteractionBoxComponent() const;
+
+	UFUNCTION(BlueprintPure)
+	UCTWidgetComponent* GetInteractionWidget() const;
 	
 	UFUNCTION(BlueprintCallable)
 	virtual void SetActive(bool Active);

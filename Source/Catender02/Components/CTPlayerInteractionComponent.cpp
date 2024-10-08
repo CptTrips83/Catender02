@@ -32,6 +32,7 @@ void UCTPlayerInteractionComponent::RefreshInteractables()
 	for(ACTInteractable* Interactable : OverlappingInteractables)
 	{
 		Interactable->Highlight(false);
+		Interactable->SetVisibilityInteractionWidget(false);
 	}
 
 	ACTInteractable* FrontInteractable = GetFrontInteractable();
@@ -40,6 +41,7 @@ void UCTPlayerInteractionComponent::RefreshInteractables()
 	if (FrontInteractable->CanInteract())
 	{
 		FrontInteractable->Highlight(true);
+		FrontInteractable->SetVisibilityInteractionWidget(true);
 	}
 }
 
@@ -108,6 +110,7 @@ void UCTPlayerInteractionComponent::AddedInteractable(ACTInteractable* Interacta
 void UCTPlayerInteractionComponent::RemovedInteractable(ACTInteractable* Interactable)
 {
 	Interactable->Highlight(false);
+	Interactable->SetVisibilityInteractionWidget(false);
 	RefreshInteractables();
 }
 

@@ -42,8 +42,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	USoundBase* InteractSound;
-	
-	
+
 	ACTPlayerCharacter();
 	
 	UFUNCTION(BlueprintCallable)
@@ -51,6 +50,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void PlayInteractSound() const;
+
+	
 protected:
 
 	virtual void BeginPlay() override;

@@ -20,7 +20,10 @@ ACTGameModeLevel* ACTSortable::GetGameMode() const
 	return GameModeLevel;
 }
 
-
+UCTSortingComponent* ACTSortable::GetSortingComponent() const
+{
+	return SortingComponent;
+}
 
 
 void ACTSortable::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

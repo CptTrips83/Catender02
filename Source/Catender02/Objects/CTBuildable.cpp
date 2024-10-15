@@ -10,9 +10,9 @@ ACTBuildable::ACTBuildable()
 	BuildingComponent = CreateDefaultSubobject<UCTBuildingComponent>(TEXT("Building Component"));
 	AddOwnedComponent(BuildingComponent);
 
-	ConstructionBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Construction Box"));
-	ConstructionBoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	ConstructionBoxComponent->SetupAttachment(GetRootComponent());
+	WorkSiteBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Construction Box"));
+	WorkSiteBoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	WorkSiteBoxComponent->SetupAttachment(GetRootComponent());
 	
 
 	WaitingBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Waiting Box"));
@@ -54,7 +54,7 @@ void ACTBuildable::Destroyed()
 
 void ACTBuildable::UpdateConstructionCollision(const bool IsActive)
 {
-	GetConstructionBoxComponent()->SetCollisionEnabled(IsActive ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+	GetWorkSiteBoxComponent()->SetCollisionEnabled(IsActive ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
 }
 
 UCTBuildingComponent* ACTBuildable::GetBuildingComponent() const
@@ -62,9 +62,9 @@ UCTBuildingComponent* ACTBuildable::GetBuildingComponent() const
 	return BuildingComponent;
 }
 
-UBoxComponent* ACTBuildable::GetConstructionBoxComponent() const
+UBoxComponent* ACTBuildable::GetWorkSiteBoxComponent() const
 {
-	return ConstructionBoxComponent;
+	return WorkSiteBoxComponent;
 }
 
 UBoxComponent* ACTBuildable::GetWaitingBoxComponent() const

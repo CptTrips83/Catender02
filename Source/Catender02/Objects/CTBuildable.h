@@ -20,7 +20,7 @@ class CATENDER02_API ACTBuildable : public ACTInteractable
 	UCTBuildingComponent* BuildingComponent = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	UBoxComponent* ConstructionBoxComponent = nullptr;
+	UBoxComponent* WorkSiteBoxComponent = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* WaitingBoxComponent = nullptr;
@@ -34,7 +34,7 @@ public:
 	virtual void UpdateConstructionCollision(bool IsActive);
 	
 	UCTBuildingComponent* GetBuildingComponent() const;
-	UBoxComponent* GetConstructionBoxComponent() const;
+	UBoxComponent* GetWorkSiteBoxComponent() const;
 	UBoxComponent* GetWaitingBoxComponent() const;
 
 	virtual bool CanInteract() const override;

@@ -53,20 +53,27 @@ bool UCTBuildingWorkComponent::HasOpenWorkPlace()
 
 void UCTBuildingWorkComponent::GetBuildingComponentFromOwner()
 {
-	if (ACTBuildable* Buildable = Cast<ACTBuildable>(GetOwner()))
+	if (!OwningBuildable)
 	{
-		BuildingComponent = Buildable->GetBuildingComponent();
-		BuildingComponent->OnBuildingStateChanged.AddDynamic(
-			this,
-			&UCTBuildingWorkComponent::BuildingStateChanged
-		);
-	}	
+		return;
+	}
+	
+	BuildingComponent = OwningBuildable->GetBuildingComponent();
+	BuildingComponent->OnBuildingStateChanged.AddDynamic(
+		this,
+		&UCTBuildingWorkComponent::BuildingStateChanged
+	);
+}
+
+void UCTBuildingWorkComponent::GetOwningBuildableFromOwner()
+{
+	OwningBuildable = Cast<ACTBuildable>(GetOwner());
 }
 
 void UCTBuildingWorkComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	GetOwningBuildableFromOwner();
 	GetBuildingComponentFromOwner();
 }
 
@@ -82,3 +89,7 @@ void UCTBuildingWorkComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
+UBoxComponent* UCTBuildingWorkComponent::GetActiveWorkSite() const
+{	
+	return nullptr;
+}

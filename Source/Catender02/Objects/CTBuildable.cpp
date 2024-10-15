@@ -91,3 +91,5 @@ void ACTBuildable::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState 
 		UpdateConstructionCollision(false);
 	}
 }
+
+

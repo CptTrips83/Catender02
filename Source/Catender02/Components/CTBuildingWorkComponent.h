@@ -19,6 +19,7 @@ class CATENDER02_API UCTBuildingWorkComponent : public UActorComponent
 	int AmountWorkPlaces = 1;
 
 	UCTBuildingComponent* BuildingComponent = nullptr;
+	ACTBuildable* OwningBuildable = nullptr;
 	
 public:
 	UCTBuildingWorkComponent();
@@ -35,8 +36,12 @@ protected:
 
 	UFUNCTION()
 	virtual void BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
-	
+
 	void GetBuildingComponentFromOwner();
+	void GetOwningBuildableFromOwner();
+	
+	UFUNCTION(BlueprintPure)
+	UBoxComponent* GetActiveWorkSite() const;
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;

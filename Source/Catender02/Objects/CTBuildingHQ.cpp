@@ -11,7 +11,7 @@ ACTBuildingHQ::ACTBuildingHQ()
 void ACTBuildingHQ::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	SetActive(true);
 }
 
 void ACTBuildingHQ::Tick(float DeltaTime)
@@ -23,9 +23,3 @@ void ACTBuildingHQ::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
-
-bool ACTBuildingHQ::HasLineOfSightToHQ()
-{
-	return true;
-}
-

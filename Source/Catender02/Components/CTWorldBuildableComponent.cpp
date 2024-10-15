@@ -46,7 +46,7 @@ void UCTWorldBuildableComponent::SortBuildablesByNearest(ACTSortable* Sortable)
  * @param BuildableDirection Enum specifying the direction (Left or Right) in which buildables should be considered for sorting.
  */
 void UCTWorldBuildableComponent::SortBuildablesByNearestAndDirection(ACTSortable* Sortable,
-                                                                    EBuildableDirection BuildableDirection)
+                                                                    ECTDirection BuildableDirection)
 {
 	Buildables.Sort([&Sortable, BuildableDirection] (ACTBuildable& Buildable1, ACTBuildable& Buildable2)
 	{
@@ -56,12 +56,12 @@ void UCTWorldBuildableComponent::SortBuildablesByNearestAndDirection(ACTSortable
 		bool CorrectDirection = false;
 		switch (BuildableDirection)
 		{
-			case EBuildableDirection::Left:
+			case ECTDirection::Left:
 				{
 					if (DirectionX < 0.f) CorrectDirection = true;
 					break;
 				}
-			case EBuildableDirection::Right:
+			case ECTDirection::Right:
 				{
 					if (DirectionX >= 0.f) CorrectDirection = true;
 					break;
@@ -133,7 +133,7 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildable(ACTSortable* Sorta
  * @return Pointer to the nearest buildable that satisfies the given direction, or nullptr if no buildables are available.
  */
 ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildableByDirection(ACTSortable* Sortable,
-                                                                         const EBuildableDirection BuildableDirection)
+                                                                         const ECTDirection BuildableDirection)
 {
 	if (Buildables.Num() <= 0) return nullptr;
 

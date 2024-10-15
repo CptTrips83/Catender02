@@ -6,7 +6,7 @@
 #include "CTWorldBuildableComponent.generated.h"
 
 UENUM(BlueprintType)
-enum EBuildableDirection
+enum ECTDirection
 {
 	Left,
 	Right
@@ -23,7 +23,7 @@ class CATENDER02_API UCTWorldBuildableComponent : public UActorComponent
 	TArray<ACTBuildable*> Buildables;
 
 	void SortBuildablesByNearest(ACTSortable* Sortable);
-	void SortBuildablesByNearestAndDirection(ACTSortable* Sortable, EBuildableDirection BuildableDirection);
+	void SortBuildablesByNearestAndDirection(ACTSortable* Sortable, ECTDirection BuildableDirection);
 	
 public:	
 	UCTWorldBuildableComponent();
@@ -32,7 +32,7 @@ public:
 	UFUNCTION(BlueprintPure)
 	ACTBuildable* GetNearestBuildable(ACTSortable* Sortable);
 	UFUNCTION(BlueprintPure)
-	ACTBuildable* GetNearestBuildableByDirection(ACTSortable* Sortable, EBuildableDirection BuildableDirection);
+	ACTBuildable* GetNearestBuildableByDirection(ACTSortable* Sortable, ECTDirection BuildableDirection);
 	UFUNCTION(BlueprintPure)
 	ACTBuildable* GetNearestConstructionSite(ACTSortable* Sortable);
 protected:

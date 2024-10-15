@@ -9,8 +9,7 @@ ACTFriendlyNPCCharacter::ACTFriendlyNPCCharacter()
 
 void ACTFriendlyNPCCharacter::BeginPlay()
 {
-	Super::BeginPlay();
-	
+	Super::BeginPlay();	
 }
 
 void ACTFriendlyNPCCharacter::Tick(float DeltaTime)

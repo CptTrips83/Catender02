@@ -23,12 +23,13 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 	
 protected:
 	virtual void UpdateInteractionCollision(bool CollisionEnabled);
+	
+	virtual void CreateDynamicMaterialForSprite();
 		
 public:
 	
 	ACTInteractable();
 	
-	void CreateDynamicMaterialForSprite();
 	virtual void BeginPlay() override;
 	virtual bool CanInteract() const;
 

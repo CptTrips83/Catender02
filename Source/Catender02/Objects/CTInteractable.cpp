@@ -113,13 +113,6 @@ void ACTInteractable::Highlight(const bool IsHighlighted)
 	{
 		MaterialInstanceDynamic->SetScalarParameterValue("HighlightMultiplier", 0);
 	}
-
-	float Multiplier = 0;
-	
-	MaterialInstanceDynamic->GetScalarParameterValue(FHashedMaterialParameterInfo ("HighlightMultiplier"), Multiplier);
-	FString DebugMessage = UKismetStringLibrary::Concat_StrStr("CanBeBuild(): ", FString::SanitizeFloat(Multiplier));
-	
-	UKismetSystemLibrary::PrintString(this, DebugMessage);
 }
 
 /**

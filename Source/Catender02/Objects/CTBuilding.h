@@ -13,10 +13,7 @@ public:
 	ACTBuilding();
 
 protected:
-	virtual void BeginPlay() override;
-	
-	virtual bool HasLineOfSightToHQ();
-	virtual void UpdateInteractionCollision();
+	virtual void BeginPlay() override;	
 
 public:
 	virtual void Tick(float DeltaTime) override;

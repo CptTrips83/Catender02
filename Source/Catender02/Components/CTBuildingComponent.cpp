@@ -235,7 +235,7 @@ void UCTBuildingComponent::UpdateCollision(EBuildingState NewBuildingState)
 {
 	if(!OwningBuildable) return;
 
-	UBoxComponent* ConstructionBox = OwningBuildable->GetConstructionBoxComponent();
+	UBoxComponent* ConstructionBox = OwningBuildable->GetConstructionSiteBoxComponent();
 	if(!ConstructionBox) return;
 	
 	if(NewBuildingState == EBuildingState::Construction)

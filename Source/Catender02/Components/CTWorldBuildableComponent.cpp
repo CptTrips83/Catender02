@@ -12,6 +12,8 @@
  */
 ACTBuildable* UCTWorldBuildableComponent::GetNearestConstructionSite(ACTSortable* Sortable)
 {
+	// TODO Anpassungen für Worksite-Mechanik
+	
 	TArray<ACTBuildable*> Result;
 
 	for(ACTBuildable* Buildable : this->Buildables)

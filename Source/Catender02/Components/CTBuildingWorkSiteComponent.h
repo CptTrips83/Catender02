@@ -25,9 +25,7 @@ class CATENDER02_API UCTBuildingWorkSiteComponent : public UActorComponent
 	ACTBuildable* OwningBuildable = nullptr;
 	
 public:
-	UCTBuildingWorkSiteComponent();
-
-	
+	UCTBuildingWorkSiteComponent();	
 
 	virtual void AddFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character);
 	virtual void RemoveFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character);

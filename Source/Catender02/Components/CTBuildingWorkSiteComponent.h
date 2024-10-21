@@ -35,6 +35,7 @@ public:
 	virtual bool HasFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character);
 	virtual int CountFriendlyNPCCharacters();
 	virtual bool HasOpenWorkPlace();
+	void AddBuildingStateChangedListener();
 
 protected:
 	virtual void BeginPlay() override;

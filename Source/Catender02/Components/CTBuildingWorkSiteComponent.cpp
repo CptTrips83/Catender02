@@ -51,6 +51,14 @@ bool UCTBuildingWorkSiteComponent::HasOpenWorkPlace()
 }
 
 
+void UCTBuildingWorkSiteComponent::AddBuildingStateChangedListener()
+{
+	BuildingComponent->OnBuildingStateChanged.AddDynamic(
+		this,
+		&UCTBuildingWorkSiteComponent::BuildingStateChanged
+	);
+}
+
 void UCTBuildingWorkSiteComponent::GetBuildingComponentFromOwner()
 {
 	if (!OwningBuildable)

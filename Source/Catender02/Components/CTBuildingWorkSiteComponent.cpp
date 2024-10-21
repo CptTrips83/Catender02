@@ -98,10 +98,16 @@ bool UCTBuildingWorkSiteComponent::HasActiveWorkSite(const ACTFriendlyNPCCharact
 {
 	const EBuildingState BuildingState = BuildingComponent->GetBuildingState();
 
+	if (CountFriendlyNPCCharacters() >= AmountWorkPlaces)
+	{
+		return false;
+	}
+	
 	if (const TSubclassOf<ACTFriendlyNPCCharacter> NeededNPCClass
 			= BuildingStatesWorker.FindRef(BuildingState);
 		NPCCharacter->IsA(NeededNPCClass))
 	{
+		
 		return true;
 	}
 	

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "CTInteractable.h"
 #include "Catender02/Components/CTBuildingComponent.h"
+#include "Catender02/Components/CTBuildingWorkSiteComponent.h"
 #include "CTBuildable.generated.h"
 
 class UBoxComponent;
@@ -18,6 +19,9 @@ class CATENDER02_API ACTBuildable : public ACTInteractable
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UCTBuildingComponent* BuildingComponent = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UCTBuildingWorkSiteComponent* BuildingWorkSiteComponent = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* ConstructionSiteBoxComponent = nullptr;
@@ -34,6 +38,7 @@ public:
 	virtual void UpdateConstructionCollision(bool IsActive);
 	
 	UCTBuildingComponent* GetBuildingComponent() const;
+	UCTBuildingWorkSiteComponent* GetBuildingWorkSiteComponent() const;
 	UBoxComponent* GetConstructionSiteBoxComponent() const;
 	UBoxComponent* GetWaitingBoxComponent() const;
 

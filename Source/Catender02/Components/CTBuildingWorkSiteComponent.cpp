@@ -67,10 +67,7 @@ void UCTBuildingWorkSiteComponent::GetBuildingComponentFromOwner()
 	}
 	
 	BuildingComponent = OwningBuildable->GetBuildingComponent();
-	BuildingComponent->OnBuildingStateChanged.AddDynamic(
-		this,
-		&UCTBuildingWorkSiteComponent::BuildingStateChanged
-	);
+	AddBuildingStateChangedListener();
 }
 
 void UCTBuildingWorkSiteComponent::GetOwningBuildableFromOwner()
@@ -97,7 +94,16 @@ void UCTBuildingWorkSiteComponent::TickComponent(float DeltaTime, ELevelTick Tic
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-UBoxComponent* UCTBuildingWorkSiteComponent::GetActiveWorkSite() const
-{	
-	return nullptr;
+bool UCTBuildingWorkSiteComponent::HasActiveWorkSite(const ACTFriendlyNPCCharacter* NPCCharacter) const
+{
+	const EBuildingState BuildingState = BuildingComponent->GetBuildingState();
+
+	if (const TSubclassOf<ACTFriendlyNPCCharacter> NeededNPCClass
+			= BuildingStatesWorker.FindRef(BuildingState);
+		NPCCharacter->IsA(NeededNPCClass))
+	{
+		return true;
+	}
+	
+	return false;
 }

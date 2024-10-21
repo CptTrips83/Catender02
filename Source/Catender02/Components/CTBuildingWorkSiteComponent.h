@@ -45,9 +45,19 @@ protected:
 
 	void GetBuildingComponentFromOwner();
 	void GetOwningBuildableFromOwner();
-	
+
+	/**
+	 * Determines if a given NPC character is associated with an active work site.
+	 *
+	 * Checks the building state of the building component and cross-references it
+	 * with the mapping of building states to NPC character subclasses to determine
+	 * if the given NPC character corresponds to the required subclass for the current building state.
+	 *
+	 * @param NPCCharacter A pointer to an NPC character to check.
+	 * @return true if the NPC character is associated with an active work site, false otherwise.
+	 */
 	UFUNCTION(BlueprintPure)
-	UBoxComponent* GetActiveWorkSite() const;
+	bool HasActiveWorkSite(const ACTFriendlyNPCCharacter* NPCCharacter) const;
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;

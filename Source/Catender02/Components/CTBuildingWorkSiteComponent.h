@@ -5,11 +5,11 @@
 #include "CTBuildingComponent.h"
 #include "Catender02/Character/CTFriendlyNPCCharacter.h"
 #include "Components/ActorComponent.h"
-#include "CTBuildingWorkComponent.generated.h"
+#include "CTBuildingWorkSiteComponent.generated.h"
 
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class CATENDER02_API UCTBuildingWorkComponent : public UActorComponent
+class CATENDER02_API UCTBuildingWorkSiteComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
@@ -22,7 +22,9 @@ class CATENDER02_API UCTBuildingWorkComponent : public UActorComponent
 	ACTBuildable* OwningBuildable = nullptr;
 	
 public:
-	UCTBuildingWorkComponent();
+	UCTBuildingWorkSiteComponent();
+
+	
 
 	virtual void AddFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character);
 	virtual void RemoveFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character);

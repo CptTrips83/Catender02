@@ -1,16 +1,16 @@
 ﻿
 
-#include "CTBuildingWorkComponent.h"
+#include "CTBuildingWorkSiteComponent.h"
 
 #include "Catender02/Objects/CTBuildable.h"
 
 
-UCTBuildingWorkComponent::UCTBuildingWorkComponent()
+UCTBuildingWorkSiteComponent::UCTBuildingWorkSiteComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UCTBuildingWorkComponent::AddFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character)
+void UCTBuildingWorkSiteComponent::AddFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character)
 {
 	if (!Character)
 	{
@@ -20,7 +20,7 @@ void UCTBuildingWorkComponent::AddFriendlyNPCCharacter(ACTFriendlyNPCCharacter* 
 	WorkingFriendlyNPCCharacters.Add(Character);
 }
 
-void UCTBuildingWorkComponent::RemoveFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character)
+void UCTBuildingWorkSiteComponent::RemoveFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character)
 {
 	if (!Character)
 	{
@@ -30,7 +30,7 @@ void UCTBuildingWorkComponent::RemoveFriendlyNPCCharacter(ACTFriendlyNPCCharacte
 	WorkingFriendlyNPCCharacters.Remove(Character);
 }
 
-bool UCTBuildingWorkComponent::HasFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character)
+bool UCTBuildingWorkSiteComponent::HasFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character)
 {
 	if (!Character)
 	{
@@ -40,18 +40,18 @@ bool UCTBuildingWorkComponent::HasFriendlyNPCCharacter(ACTFriendlyNPCCharacter* 
 	return WorkingFriendlyNPCCharacters.Contains(Character);
 }
 
-int UCTBuildingWorkComponent::CountFriendlyNPCCharacters()
+int UCTBuildingWorkSiteComponent::CountFriendlyNPCCharacters()
 {
 	return WorkingFriendlyNPCCharacters.Num();
 }
 
-bool UCTBuildingWorkComponent::HasOpenWorkPlace()
+bool UCTBuildingWorkSiteComponent::HasOpenWorkPlace()
 {
 	return WorkingFriendlyNPCCharacters.Num() < AmountWorkPlaces;
 }
 
 
-void UCTBuildingWorkComponent::GetBuildingComponentFromOwner()
+void UCTBuildingWorkSiteComponent::GetBuildingComponentFromOwner()
 {
 	if (!OwningBuildable)
 	{
@@ -61,35 +61,35 @@ void UCTBuildingWorkComponent::GetBuildingComponentFromOwner()
 	BuildingComponent = OwningBuildable->GetBuildingComponent();
 	BuildingComponent->OnBuildingStateChanged.AddDynamic(
 		this,
-		&UCTBuildingWorkComponent::BuildingStateChanged
+		&UCTBuildingWorkSiteComponent::BuildingStateChanged
 	);
 }
 
-void UCTBuildingWorkComponent::GetOwningBuildableFromOwner()
+void UCTBuildingWorkSiteComponent::GetOwningBuildableFromOwner()
 {
 	OwningBuildable = Cast<ACTBuildable>(GetOwner());
 }
 
-void UCTBuildingWorkComponent::BeginPlay()
+void UCTBuildingWorkSiteComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	GetOwningBuildableFromOwner();
 	GetBuildingComponentFromOwner();
 }
 
-void UCTBuildingWorkComponent::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState,
+void UCTBuildingWorkSiteComponent::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState,
 	EBuildingState NewState)
 {
 	// Clear NPC Array
 }
 
-void UCTBuildingWorkComponent::TickComponent(float DeltaTime, ELevelTick TickType,
+void UCTBuildingWorkSiteComponent::TickComponent(float DeltaTime, ELevelTick TickType,
                                              FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-UBoxComponent* UCTBuildingWorkComponent::GetActiveWorkSite() const
+UBoxComponent* UCTBuildingWorkSiteComponent::GetActiveWorkSite() const
 {	
 	return nullptr;
 }

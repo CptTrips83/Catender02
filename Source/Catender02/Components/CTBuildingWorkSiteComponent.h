@@ -18,6 +18,9 @@ class CATENDER02_API UCTBuildingWorkSiteComponent : public UActorComponent
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	int AmountWorkPlaces = 1;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	TMap<TEnumAsByte<EBuildingState>, TSubclassOf<ACTFriendlyNPCCharacter>> BuildingStatesWorker;
+	
 	UCTBuildingComponent* BuildingComponent = nullptr;
 	ACTBuildable* OwningBuildable = nullptr;
 	

@@ -109,7 +109,7 @@ public:
 	 * @return The number of friendly NPC characters currently working.
 	 */
 	UFUNCTION(BlueprintPure)
-	virtual int CountFriendlyNPCCharacters();
+	virtual int CountFriendlyNPCCharacters() const;
 	/**
 	 * Checks if there is an open work place available in the building work site.
 	 *

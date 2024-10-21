@@ -40,7 +40,7 @@ bool UCTBuildingWorkSiteComponent::HasFriendlyNPCCharacter(ACTFriendlyNPCCharact
 	return WorkingFriendlyNPCCharacters.Contains(Character);
 }
 
-int UCTBuildingWorkSiteComponent::CountFriendlyNPCCharacters()
+int UCTBuildingWorkSiteComponent::CountFriendlyNPCCharacters() const
 {
 	return WorkingFriendlyNPCCharacters.Num();
 }

@@ -5,15 +5,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "CTBuildingComponent.h"
 
-/**
- * Sorts the Buildables array by the nearest distance to the given Sortable actor .
- *
- * @param Sortable Pointer to the actor used as the reference point for sorting the buildables by distance.
- */
 ACTBuildable* UCTWorldBuildableComponent::GetNearestConstructionSite(ACTSortable* Sortable)
-{
-	// TODO Anpassungen für Worksite-Mechanik
-	
+{	
 	TArray<ACTBuildable*> Result;
 
 	for(ACTBuildable* Buildable : this->Buildables)
@@ -28,11 +21,6 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestConstructionSite(ACTSortable
 	return nullptr;
 }
 
-/**
- * Sorts the Buildables array by the nearest distance to the given Sortable actor.
- *
- * @param Sortable Pointer to the actor used as the reference point for sorting the buildables by distance.
- */
 void UCTWorldBuildableComponent::SortBuildablesByNearest(ACTSortable* Sortable)
 {
 	Buildables.Sort([&Sortable] (const ACTBuildable& Buildable1, const ACTBuildable& Buildable2)
@@ -41,12 +29,6 @@ void UCTWorldBuildableComponent::SortBuildablesByNearest(ACTSortable* Sortable)
 	});
 }
 
-/**
- * Sorts the Buildables array by distance to the given Sortable actor, considering only buildables that match the specified direction.
- *
- * @param Sortable Pointer to the actor used as the reference point for sorting the buildables by distance.
- * @param BuildableDirection Enum specifying the direction (Left or Right) in which buildables should be considered for sorting.
- */
 void UCTWorldBuildableComponent::SortBuildablesByNearestAndDirection(ACTSortable* Sortable,
                                                                     ECTDirection BuildableDirection)
 {
@@ -79,12 +61,6 @@ UCTWorldBuildableComponent::UCTWorldBuildableComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-/**
- * Populates the Buildables array with all instances of ACTBuildable actors present in the world.
- *
- * Clears the current list of buildable objects and retrieves all actors of class ACTBuildable in the current world.
- * It then casts the retrieved actors to ACTBuildable and adds them to the Buildables array.
- */
 void UCTWorldBuildableComponent::PopulateBuildables()
 {
 	Buildables.Empty();
@@ -100,43 +76,41 @@ void UCTWorldBuildableComponent::PopulateBuildables()
 	}
 }
 
-/**
- * Removes the specified buildable from the Buildables array if it is not null.
- *
- * @param Buildable Pointer to the buildable actor to be removed from the Buildables array.
- */
 void UCTWorldBuildableComponent::RemoveBuildable(ACTBuildable* Buildable)
 {
 	if (Buildable == nullptr) return;
 	Buildables.Remove(Buildable);
 }
 
-/**
- * Retrieves the nearest buildable object relative to the specified sortable actor.
- *
- * @param Sortable Pointer to the actor used as the reference point for finding the nearest buildable.
- * @return Pointer to the nearest buildable object, or nullptr if there are no buildables.
- */
 ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildable(ACTSortable* Sortable)
 {
+	ACTBuildable* NearestBuildable = nullptr;
+	
 	if (Buildables.Num() <= 0) return nullptr;
 
+	const ACTFriendlyNPCCharacter* FriendlyNPCCharacter = Cast<ACTFriendlyNPCCharacter>(Sortable);
+
+	if (FriendlyNPCCharacter == nullptr) return nullptr;
+
 	SortBuildablesByNearest(Sortable);
+
+	for(ACTBuildable* Buildable : Buildables)
+	{
+		if(Buildable->GetBuildingWorkSiteComponent()->HasActiveWorkSite(FriendlyNPCCharacter))
+		{
+			NearestBuildable = Buildable;
+			break;
+		}
+	}
 	
-	return Buildables[0];
+	return NearestBuildable;
 }
 
-/**
- * Returns the nearest buildable to the given sortable actor,
- * further filtered by the specified direction.
- *
- * @param Sortable Pointer to the actor used as the reference point for determining the nearest buildable.
- * @param BuildableDirection The direction criteria used to filter the buildables.
- * @return Pointer to the nearest buildable that satisfies the given direction, or nullptr if no buildables are available.
- */
 ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildableByDirection(ACTSortable* Sortable,
                                                                          const ECTDirection BuildableDirection)
 {
+	// TODO Work-Site Mechanic
+	
 	if (Buildables.Num() <= 0) return nullptr;
 
 	SortBuildablesByNearestAndDirection(Sortable, BuildableDirection);

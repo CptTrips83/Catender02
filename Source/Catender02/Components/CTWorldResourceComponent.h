@@ -28,7 +28,7 @@ struct FResource
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    TEnumAsByte<EResourceType> ResourceType;
+    TEnumAsByte<EResourceType> ResourceType = Gold;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0))
 	int Amount = 0;	
 };

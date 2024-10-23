@@ -120,17 +120,7 @@ public:
 	 */
 	UFUNCTION(BlueprintPure)
 	virtual bool HasOpenWorkPlace();
-
-protected:
-	virtual void BeginPlay() override;
-
-	UFUNCTION()
-	virtual void BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
-
-	void GetBuildingComponentFromOwner();
-	void GetOwningBuildableFromOwner();
-	void AddBuildingStateChangedListener();
-
+	
 	/**
 	 * Determines if a given NPC character is associated with an active work site.
 	 *
@@ -143,6 +133,49 @@ protected:
 	 */
 	UFUNCTION(BlueprintPure)
 	bool HasActiveWorkSite(const ACTFriendlyNPCCharacter* NPCCharacter) const;
+	
+protected:
+	virtual void BeginPlay() override;
+
+	/**
+	 * Handles updates to the building's state by responding to changes from an old state to a new state.
+	 *
+	 * This method is called when a building's state changes. It triggers necessary actions based on
+	 * the transition from the old state to the new state, ensuring the building's work site remains
+	 * consistent with its new state.
+	 *
+	 * @param Buildable Pointer to the buildable object whose state is changing.
+	 * @param OldState The previous state of the building.
+	 * @param NewState The new state of the building.
+	 */
+	UFUNCTION()
+	virtual void BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
+
+	/**
+	 * Retrieves the building component associated with the owning buildable.
+	 *
+	 * This method checks if there is an owning buildable object. If it exists, it obtains
+	 * the building component from the owning buildable and updates the internal state
+	 * to reflect this association. Additionally, it adds a listener to track changes
+	 * in the building's state.
+	 */
+	void GetBuildingComponentFromOwner();
+	/**
+	 * Retrieves and sets the owning buildable component for the current work site component.
+	 *
+	 * This method accesses the owner of the current work site component and attempts to cast it to
+	 * an ACTBuildable type. If successful, it sets the OwningBuildable member variable to this object.
+	 * This allows the work site component to interact directly with the buildable component it is associated with.
+	 */
+	void GetOwningBuildableFromOwner();
+	/**
+	 * Registers a listener for building state changes.
+	 *
+	 * This method adds a dynamic listener to the building component's OnBuildingStateChanged event,
+	 * enabling the UCTBuildingWorkSiteComponent to respond to changes in the building's state.
+	 */
+	void AddBuildingStateChangedListener();
+
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;

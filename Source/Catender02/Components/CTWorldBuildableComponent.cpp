@@ -96,6 +96,11 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildable(ACTSortable* Sorta
 
 	for(ACTBuildable* Buildable : Buildables)
 	{
+		if(!Buildable->GetBuildingWorkSiteComponent()->HasOpenWorkPlace(FriendlyNPCCharacter))
+		{
+			continue;
+		}
+		
 		if(Buildable->GetBuildingWorkSiteComponent()->HasActiveWorkSite(FriendlyNPCCharacter))
 		{			
 			NearestBuildable = Buildable;

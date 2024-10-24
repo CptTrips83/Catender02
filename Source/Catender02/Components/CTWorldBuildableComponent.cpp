@@ -8,7 +8,7 @@
 ACTBuildable* UCTWorldBuildableComponent::GetNearestConstructionSite(ACTSortable* Sortable)
 {	
 	TArray<ACTBuildable*> Result;
-
+	
 	for(ACTBuildable* Buildable : this->Buildables)
 	{
 		if(Buildable->GetBuildingComponent()->GetBuildingState() == EBuildingState::Construction)
@@ -88,7 +88,7 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildable(ACTSortable* Sorta
 	
 	if (Buildables.Num() <= 0) return nullptr;
 
-	const ACTFriendlyNPCCharacter* FriendlyNPCCharacter = Cast<ACTFriendlyNPCCharacter>(Sortable);
+	ACTFriendlyNPCCharacter* FriendlyNPCCharacter = Cast<ACTFriendlyNPCCharacter>(Sortable);
 
 	if (FriendlyNPCCharacter == nullptr) return nullptr;
 
@@ -97,7 +97,7 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildable(ACTSortable* Sorta
 	for(ACTBuildable* Buildable : Buildables)
 	{
 		if(Buildable->GetBuildingWorkSiteComponent()->HasActiveWorkSite(FriendlyNPCCharacter))
-		{
+		{			
 			NearestBuildable = Buildable;
 			break;
 		}

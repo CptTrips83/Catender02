@@ -12,7 +12,7 @@ class CATENDER02_API ACTFriendlyNPCCharacter : public ACTCharacter
 {
 	GENERATED_BODY()
 
-	
+	ACTBuildable* AssignedBuildable;
 	
 public:
 	ACTFriendlyNPCCharacter();
@@ -23,5 +23,13 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION(BlueprintCallable)
+	virtual void AssignToBuildingWorkSite(ACTBuildable* Building);
+	UFUNCTION(BlueprintCallable)
+	virtual void WithdrawFromBuildingWorkSite(ACTBuildable* Building);
+
+	UFUNCTION(BlueprintPure)
+	virtual ACTBuildable* GetNearestWorkingSite();
 };

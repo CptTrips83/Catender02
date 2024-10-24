@@ -30,12 +30,18 @@ class CATENDER02_API ACTPickable : public ACTSortable
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	UCapsuleComponent* PickupComponent = nullptr;
 	
+	UFUNCTION()
 	void PlayPickupSound() const;
+	UFUNCTION()
 	void PlayDropSound() const;
+	UFUNCTION()
 	void PlayPickAnimation() const;
+	UFUNCTION()
 	void DisableCollision() const;
+	UFUNCTION()
 	void ApplyResources() const;
 
+	UFUNCTION()
 	void DestroyPickup();
 	
 public:

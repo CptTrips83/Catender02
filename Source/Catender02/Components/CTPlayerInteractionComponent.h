@@ -24,18 +24,21 @@ class CATENDER02_API UCTPlayerInteractionComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+	UPROPERTY()
 	TArray<ACTInteractable*> OverlappingInteractables;
 
 	/**
 	 * Sorts the list of overlapping interactables by their translucency sort priority, in descending order.
 	 * Only interactables that can be interacted with are considered in the sorting process.
 	 */
+	UFUNCTION()
 	void SortInteractablesBySortingLayer();
 
 	/**
 	 * Refreshes the list of interactables by resetting their highlight state and interaction widget visibility.
 	 * For the interactable at the front, it will highlight and enable its interaction widget if it can be interacted with.
 	 */
+	UFUNCTION()
 	void RefreshInteractables();
 	
 public:	

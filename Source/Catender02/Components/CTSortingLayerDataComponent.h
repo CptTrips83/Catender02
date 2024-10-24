@@ -27,15 +27,19 @@ class CATENDER02_API UCTSortingLayerDataComponent : public UActorComponent
 {
 	GENERATED_BODY()
 	
+	UFUNCTION()
 	void UpdateSortingLayers();
 
+	UPROPERTY()
 	int SortingLayerWidth = 10;
+	UPROPERTY()
 	int SortingLayerStart = 0;
 	
 public:	
 	UCTSortingLayerDataComponent();	
 
-protected:	
+protected:
+	UPROPERTY()
 	TMap<ESortingLayer, int> SortingLayers;
 	
 	virtual void BeginPlay() override;

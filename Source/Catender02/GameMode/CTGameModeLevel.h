@@ -17,6 +17,7 @@ class CATENDER02_API ACTGameModeLevel : public AGameModeBase
 {
 	GENERATED_BODY()
 
+	UPROPERTY()
 	ACTBuildingHQ* BuildingHQ = nullptr;
 	
 public:

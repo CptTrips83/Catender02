@@ -32,14 +32,22 @@ class CATENDER02_API ACTBuildable : public ACTInteractable
 public:
 	ACTBuildable();
 
-	virtual void BeginPlay() override;	
+	virtual void BeginPlay() override;
+	
 	virtual void Interact(ACTSortable* OtherSortable) override;
+	
 	virtual void Destroyed() override;
+	
+	UFUNCTION()
 	virtual void UpdateConstructionCollision(bool IsActive);
 	
+	UFUNCTION()
 	UCTBuildingComponent* GetBuildingComponent() const;
+	UFUNCTION()
 	UCTBuildingWorkSiteComponent* GetBuildingWorkSiteComponent() const;
+	UFUNCTION()
 	UBoxComponent* GetConstructionSiteBoxComponent() const;
+	UFUNCTION()
 	UBoxComponent* GetWaitingBoxComponent() const;
 
 	virtual bool CanInteract() const override;

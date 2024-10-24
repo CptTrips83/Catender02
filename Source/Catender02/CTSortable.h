@@ -63,5 +63,6 @@ protected:
 	GENERATED_BODY()
 
 	virtual void BeginPlay() override;
+	UFUNCTION(BlueprintCallable, Category = "Interaction")
 	virtual void Interact(ACTSortable* OtherSortable);
 };

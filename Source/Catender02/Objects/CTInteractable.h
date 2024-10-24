@@ -28,9 +28,12 @@ public:
 	
 	ACTInteractable();
 	
+	UFUNCTION()
 	virtual void CreateDynamicMaterialForSprite();
 	
 	virtual void BeginPlay() override;
+	
+	UFUNCTION()
 	virtual bool CanInteract() const;
 
 	UFUNCTION(BlueprintCallable)
@@ -68,6 +71,6 @@ public:
 		int32 OtherBodyIndex
 	);
 
-	UFUNCTION(BlueprintCallable, Category = "Interaction")
+	
 	virtual void Interact(ACTSortable* OtherSortable) override;
 };

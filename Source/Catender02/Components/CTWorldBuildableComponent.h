@@ -28,6 +28,7 @@ class CATENDER02_API UCTWorldBuildableComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+	UPROPERTY()
 	TArray<ACTBuildable*> Buildables;
 
 	/**
@@ -38,6 +39,7 @@ class CATENDER02_API UCTWorldBuildableComponent : public UActorComponent
 	 *
 	 * @param Sortable A pointer to an object of type ACTSortable used to determine the distances for sorting.
 	 */
+	UFUNCTION()
 	void SortBuildablesByNearest(ACTSortable* Sortable);
 	/**
 	 * Sorts the list of buildables in ascending order based on their distance to the specified sortable object and direction.
@@ -48,6 +50,7 @@ class CATENDER02_API UCTWorldBuildableComponent : public UActorComponent
 	 * @param Sortable A pointer to an object of type ACTSortable used to determine the distances for sorting.
 	 * @param BuildableDirection An enum value of type ECTDirection specifying the direction (e.g., Left, Right) used to filter buildables before sorting.
 	 */
+	UFUNCTION()
 	void SortBuildablesByNearestAndDirection(ACTSortable* Sortable, ECTDirection BuildableDirection);
 	
 public:	
@@ -58,6 +61,7 @@ public:
 	 * This method clears the current list of buildables and then iterates through all actors of the class ACTBuildable found in the world.
 	 * Each found actor is cast to ACTBuildable and, if successful, added to the Buildables array.
 	 */
+	UFUNCTION()
 	void PopulateBuildables();
 	/**
 	 * Removes the specified buildable from the list of buildables tracked by this component.
@@ -66,6 +70,7 @@ public:
 	 *
 	 * @param Buildable A pointer to an ACTBuildable object that is to be removed from the Buildables array.
 	 */
+	UFUNCTION()
 	void RemoveBuildable(ACTBuildable* Buildable);
 	/**
 	 * Finds the nearest buildable object that has an active work site for the specified sortable object.

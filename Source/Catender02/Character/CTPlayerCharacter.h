@@ -58,11 +58,15 @@ protected:
 	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
+	UFUNCTION()
 	void MoveTriggered(const FInputActionValue& Value);
+	UFUNCTION()
 	void MoveCompleted(const FInputActionValue& Value);
 
+	UFUNCTION()
 	void InteractTriggered(const FInputActionValue& Value);
 
 private:
+	UPROPERTY()
 	APlayerController* PlayerController;
 };

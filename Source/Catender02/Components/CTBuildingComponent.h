@@ -221,6 +221,7 @@ public:
 	 *
 	 * @param NewBuildingState The new state to which the building will be set, specified by the EBuildingState enumeration.
 	 */
+	UFUNCTION()
 	virtual void SetBuildingState(EBuildingState NewBuildingState);
 	/**
 	 * @brief Adds progress to the current building's construction.
@@ -293,7 +294,9 @@ protected:
 	 * This variable holds a reference to the buildable actor that owns this component. It is initialized to nullptr.
 	 */
 
-	ACTBuildable* OwningBuildable = nullptr;	
+	UPROPERTY()
+	ACTBuildable* OwningBuildable = nullptr;
+	
 	virtual void BeginPlay() override;
 
 	/**
@@ -312,6 +315,7 @@ protected:
 	 * @param Level The level of the building for which information is being requested.
 	 * @return An FBuildingLevelInformation object containing details of the specified building level.
 	 */
+	UFUNCTION()
 	virtual FBuildingLevelInformation GetBuildingLevelInformation(int Level);
 	/**
 	 * @brief Sets the current building level.
@@ -322,6 +326,7 @@ protected:
 	 *
 	 * @param NewLevel The new level to set for the building.
 	 */
+	UFUNCTION()
 	virtual void SetCurrentBuildingLevel(int NewLevel);
 	/**
 	 * @brief Updates the sprite for the building component based on its current state and level.
@@ -331,6 +336,7 @@ protected:
 	 * the correct flipbook animation corresponding to the building's condition.
 	 * Additionally, it invokes the creation of a dynamic material for the sprite.
 	 */
+	UFUNCTION()
 	virtual void UpdateSprite();
 	/**
 	 * @brief Updates the collision state of the building based on its current state.
@@ -340,6 +346,7 @@ protected:
 	 *
 	 * @param NewBuildingState The new state of the building which determines the collision configuration.
 	 */
+	UFUNCTION()
 	virtual void UpdateCollision(EBuildingState NewBuildingState);
 	/**
 	 * @brief Deducts the necessary resources for a building component.
@@ -349,6 +356,7 @@ protected:
 	 * for the current building level and attempts to subtract the required amounts from
 	 * the world resources.
 	 */
+	UFUNCTION()
 	virtual void PayResources();
 	/**
 	 * @brief Checks whether the building component has any levels.
@@ -357,6 +365,7 @@ protected:
 	 *
 	 * @return True if the building component has one or more levels, false otherwise.
 	 */
+	UFUNCTION()
 	virtual bool HasLevel();
 
 	/**

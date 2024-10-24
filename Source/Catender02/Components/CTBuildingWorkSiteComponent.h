@@ -61,8 +61,10 @@ class CATENDER02_API UCTBuildingWorkSiteComponent : public UActorComponent
 	 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	TMap<TEnumAsByte<EBuildingState>, TSubclassOf<ACTFriendlyNPCCharacter>> BuildingStatesWorker;
-	
+
+	UPROPERTY()
 	UCTBuildingComponent* BuildingComponent = nullptr;
+	UPROPERTY()
 	ACTBuildable* OwningBuildable = nullptr;
 	
 public:
@@ -159,6 +161,7 @@ protected:
 	 * to reflect this association. Additionally, it adds a listener to track changes
 	 * in the building's state.
 	 */
+	UFUNCTION()
 	void GetBuildingComponentFromOwner();
 	/**
 	 * Retrieves and sets the owning buildable component for the current work site component.
@@ -167,6 +170,7 @@ protected:
 	 * an ACTBuildable type. If successful, it sets the OwningBuildable member variable to this object.
 	 * This allows the work site component to interact directly with the buildable component it is associated with.
 	 */
+	UFUNCTION()
 	void GetOwningBuildableFromOwner();
 	/**
 	 * Registers a listener for building state changes.
@@ -174,6 +178,7 @@ protected:
 	 * This method adds a dynamic listener to the building component's OnBuildingStateChanged event,
 	 * enabling the UCTBuildingWorkSiteComponent to respond to changes in the building's state.
 	 */
+	UFUNCTION()
 	void AddBuildingStateChangedListener();
 
 public:

@@ -55,6 +55,7 @@ public:
 
 
 protected:
+	
 	ACTSortable* Owner = nullptr;
 	ACTGameModeLevel* GameModeLevel = nullptr;
 	
@@ -70,6 +71,7 @@ public:
 	 * adjusts it by the component's sorting index, and applies the resulting priority to the sprite's
 	 * translucent sort priority.
 	 */
+	UFUNCTION()
 	virtual void SetSpriteLayerIndex();
 
 	/**

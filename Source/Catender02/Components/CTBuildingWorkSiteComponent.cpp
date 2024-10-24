@@ -40,14 +40,27 @@ bool UCTBuildingWorkSiteComponent::HasFriendlyNPCCharacter(ACTFriendlyNPCCharact
 	return WorkingFriendlyNPCCharacters.Contains(Character);
 }
 
-int UCTBuildingWorkSiteComponent::CountFriendlyNPCCharacters() const
+int UCTBuildingWorkSiteComponent::CountFriendlyNPCCharacters(ACTFriendlyNPCCharacter* Character) const
 {
-	return WorkingFriendlyNPCCharacters.Num();
+	int CountWorkplacesTaken = 0;
+
+	if (WorkingFriendlyNPCCharacters.Num() > 0)
+	{
+		for(const ACTFriendlyNPCCharacter* AssignedCharacter : WorkingFriendlyNPCCharacters)
+		{
+			if(AssignedCharacter != Character)
+			{
+				CountWorkplacesTaken++;
+			}
+		}
+	}
+
+	return CountWorkplacesTaken;
 }
 
-bool UCTBuildingWorkSiteComponent::HasOpenWorkPlace()
+bool UCTBuildingWorkSiteComponent::HasOpenWorkPlace(ACTFriendlyNPCCharacter* Character)
 {
-	return WorkingFriendlyNPCCharacters.Num() < AmountWorkPlaces;
+	return CountFriendlyNPCCharacters(Character) < AmountWorkPlaces;
 }
 
 
@@ -85,7 +98,10 @@ void UCTBuildingWorkSiteComponent::BeginPlay()
 void UCTBuildingWorkSiteComponent::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState,
 	EBuildingState NewState)
 {
-	// Clear NPC Array
+	for(ACTFriendlyNPCCharacter* Character : WorkingFriendlyNPCCharacters)
+	{
+		Character->WithdrawFromBuildingWorkSite(OwningBuildable);
+	}
 }
 
 void UCTBuildingWorkSiteComponent::TickComponent(float DeltaTime, ELevelTick TickType,
@@ -94,11 +110,11 @@ void UCTBuildingWorkSiteComponent::TickComponent(float DeltaTime, ELevelTick Tic
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-bool UCTBuildingWorkSiteComponent::HasActiveWorkSite(const ACTFriendlyNPCCharacter* NPCCharacter) const
+bool UCTBuildingWorkSiteComponent::HasActiveWorkSite(ACTFriendlyNPCCharacter* NPCCharacter) const
 {
 	const EBuildingState BuildingState = BuildingComponent->GetBuildingState();
 
-	if (CountFriendlyNPCCharacters() >= AmountWorkPlaces)
+	if (CountFriendlyNPCCharacters(NPCCharacter) >= AmountWorkPlaces)
 	{
 		return false;
 	}

@@ -109,7 +109,7 @@ public:
 	 * @return The number of friendly NPC characters currently working.
 	 */
 	UFUNCTION(BlueprintPure)
-	virtual int CountFriendlyNPCCharacters() const;
+	virtual int CountFriendlyNPCCharacters(ACTFriendlyNPCCharacter* Character) const;
 	/**
 	 * Checks if there is an open work place available in the building work site.
 	 *
@@ -119,7 +119,7 @@ public:
 	 * @return true if there is at least one open work place, false otherwise.
 	 */
 	UFUNCTION(BlueprintPure)
-	virtual bool HasOpenWorkPlace();
+	virtual bool HasOpenWorkPlace(ACTFriendlyNPCCharacter* Character);
 	
 	/**
 	 * Determines if a given NPC character is associated with an active work site.
@@ -132,7 +132,7 @@ public:
 	 * @return true if the NPC character is associated with an active work site, false otherwise.
 	 */
 	UFUNCTION(BlueprintPure)
-	bool HasActiveWorkSite(const ACTFriendlyNPCCharacter* NPCCharacter) const;
+	bool HasActiveWorkSite(ACTFriendlyNPCCharacter* NPCCharacter) const;
 	
 protected:
 	virtual void BeginPlay() override;

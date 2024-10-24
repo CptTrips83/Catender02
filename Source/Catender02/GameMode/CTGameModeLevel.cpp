@@ -30,3 +30,18 @@ ACTBuildingHQ* ACTGameModeLevel::GetBuildingHQ()
 {
 	return BuildingHQ;
 }
+
+UCTSortingLayerDataComponent* ACTGameModeLevel::GetSortingLayerDataComponent()
+{
+	return SortingLayerDataComponent;
+}
+
+UCTWorldResourceComponent* ACTGameModeLevel::GetWorldResourceComponent()
+{
+	return WorldResourceComponent;
+}
+
+UCTWorldBuildableComponent* ACTGameModeLevel::GetWorldBuildableComponent()
+{
+	return WorldBuildableComponent;
+}

@@ -25,17 +25,27 @@ public:
 
 	virtual void BeginPlay() override;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UCTSortingLayerDataComponent* SortingLayerDataComponent = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UCTWorldResourceComponent* WorldResourceComponent = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UCTWorldBuildableComponent* WorldBuildableComponent = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UCTWorldBuildingVisibilityComponent* WorldBuildingVisibilityComponent = nullptr;
 
+	UFUNCTION(BlueprintPure)
 	ACTBuildingHQ* GetBuildingHQ();
+
+	UFUNCTION(BlueprintPure)
+	UCTSortingLayerDataComponent* GetSortingLayerDataComponent();
+	
+	UFUNCTION(BlueprintPure)
+	UCTWorldResourceComponent* GetWorldResourceComponent();	
+
+	UFUNCTION(BlueprintPure)
+	UCTWorldBuildableComponent* GetWorldBuildableComponent();
 };

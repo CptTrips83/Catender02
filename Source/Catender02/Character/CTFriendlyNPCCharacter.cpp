@@ -2,6 +2,7 @@
 #include "CTFriendlyNPCCharacter.h"
 
 #include "Catender02/Objects/CTBuilding.h"
+#include "Components/CapsuleComponent.h"
 
 
 ACTFriendlyNPCCharacter::ACTFriendlyNPCCharacter()
@@ -12,6 +13,37 @@ ACTFriendlyNPCCharacter::ACTFriendlyNPCCharacter()
 void ACTFriendlyNPCCharacter::BeginPlay()
 {
 	Super::BeginPlay();	
+}
+
+void ACTFriendlyNPCCharacter::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	Super::OnBoxBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
+	
+	ACTBuilding* Buildable = Cast<ACTBuilding>(OtherActor);
+
+	if(!Buildable) return;
+
+	if(AssignedBuildable == Buildable)
+	{
+		StartWorking();
+	}	
+}
+
+void ACTFriendlyNPCCharacter::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	Super::OnBoxEndOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);
+	
+	ACTBuilding* Buildable = Cast<ACTBuilding>(OtherActor);
+
+	if(!Buildable) return;
+
+	if(AssignedBuildable == Buildable)
+	{
+		WithdrawFromBuildingWorkSite(Buildable);
+		StopWorking();		
+	}	
 }
 
 void ACTFriendlyNPCCharacter::Tick(float DeltaTime)

@@ -38,14 +38,14 @@ public:
 	 * @param Buildable A pointer to the buildable object representing the work site to assign the NPC to.
 	 */
 	UFUNCTION(BlueprintCallable)
-	virtual void AssignToBuildingWorkSite(ACTBuildable* Building);
+	virtual void AssignToBuildingWorkSite(ACTBuildable* Buildable);
 	/**
 	 * Withdraws the friendly NPC character from a specified building work site.
 	 *
 	 * @param Buildable A pointer to the buildable object representing the work site to withdraw the NPC from.
 	 */
 	UFUNCTION(BlueprintCallable)
-	virtual void WithdrawFromBuildingWorkSite(ACTBuildable* Building);
+	virtual void WithdrawFromBuildingWorkSite(ACTBuildable* Buildable);
 
 	/**
 	 * Retrieves the nearest working site for the friendly NPC character.
@@ -54,4 +54,6 @@ public:
 	 */
 	UFUNCTION(BlueprintPure)
 	virtual ACTBuildable* GetNearestWorkingSite();
+
+	
 };

@@ -15,18 +15,31 @@ void ACTFriendlyNPCCharacter::BeginPlay()
 	Super::BeginPlay();	
 }
 
+ACTBuildable* ACTFriendlyNPCCharacter::GetAssignedBuildable()
+{
+	return AssignedBuildable;
+}
+
+void ACTFriendlyNPCCharacter::ProcessWorking_Implementation()
+{
+	AssignedBuildable->ProcessWorking(this);
+}
+
 void ACTFriendlyNPCCharacter::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                                UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	Super::OnBoxBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
+
+	// TODO IsWorking Mechanik umbauen
 	
-	ACTBuilding* Buildable = Cast<ACTBuilding>(OtherActor);
+	ACTBuildable* Buildable = Cast<ACTBuildable>(OtherActor);
 
 	if(!Buildable) return;
 
 	if(AssignedBuildable == Buildable)
 	{
 		StartWorking();
+		ProcessWorking();
 	}	
 }
 

@@ -52,6 +52,9 @@ public:
 
 	virtual bool CanInteract() const override;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void ProcessWorking(ACTFriendlyNPCCharacter* NPCCharacter);
+	
 	UFUNCTION()
 	virtual void BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
 };

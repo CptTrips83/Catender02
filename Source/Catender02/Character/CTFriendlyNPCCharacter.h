@@ -27,12 +27,12 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	
+	virtual ACTBuildable* GetAssignedBuildable();
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartWorking();
 
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintNativeEvent)
 	void ProcessWorking();
 	
 	UFUNCTION(BlueprintImplementableEvent)	

@@ -84,6 +84,10 @@ bool ACTBuildable::CanInteract() const
 	return BuildingComponent->CanBeBuild();
 }
 
+void ACTBuildable::ProcessWorking_Implementation(ACTFriendlyNPCCharacter* NPCCharacter)
+{
+}
+
 void ACTBuildable::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState)
 {
 	if(NewState == EBuildingState::Construction)

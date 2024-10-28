@@ -52,7 +52,7 @@ public:
 
 	virtual bool CanInteract() const override;
 
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintNativeEvent)
 	void ProcessWorking(ACTFriendlyNPCCharacter* NPCCharacter);
 	
 	UFUNCTION()

@@ -73,7 +73,6 @@ void ACTFriendlyNPCCharacter::OnWorkSiteBoxEndOverlap(UPrimitiveComponent* Overl
 
 	if(AssignedBuildable == Buildable)
 	{
-		// TODO Neue Collision Component für Working nötig 
 		WithdrawFromBuildingWorkSite(Buildable);
 		StopWorking();
 	}	

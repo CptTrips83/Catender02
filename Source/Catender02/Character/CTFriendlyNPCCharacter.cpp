@@ -38,6 +38,7 @@ void ACTFriendlyNPCCharacter::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedC
 
 	if(AssignedBuildable == Buildable)
 	{
+		SetIsWorking(true);
 		StartWorking();
 		ProcessWorking();
 	}	
@@ -48,12 +49,13 @@ void ACTFriendlyNPCCharacter::OnBoxEndOverlap(UPrimitiveComponent* OverlappedCom
 {
 	Super::OnBoxEndOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);
 	
-	ACTBuilding* Buildable = Cast<ACTBuilding>(OtherActor);
+	ACTBuildable* Buildable = Cast<ACTBuildable>(OtherActor);
 
 	if(!Buildable) return;
 
 	if(AssignedBuildable == Buildable)
 	{
+		// TODO Neue Collision Component für Working nötig 
 		WithdrawFromBuildingWorkSite(Buildable);
 		StopWorking();		
 	}	
@@ -78,7 +80,8 @@ void ACTFriendlyNPCCharacter::AssignToBuildingWorkSite(ACTBuildable* Buildable)
 
 void ACTFriendlyNPCCharacter::WithdrawFromBuildingWorkSite(ACTBuildable* Buildable)
 {	
-	if(!Buildable) return;
+	if(!Buildable) return;	
+	SetIsWorking(false);
 	AssignedBuildable = nullptr;
 	Buildable->GetBuildingWorkSiteComponent()->RemoveFriendlyNPCCharacter(this);
 }
@@ -99,5 +102,47 @@ ACTBuildable* ACTFriendlyNPCCharacter::GetNearestWorkingSite()
 	}
 	
     return NearestWorkingSite;
+}
+
+void ACTFriendlyNPCCharacter::SetIsWaiting(bool NewValue)
+{
+	bool OldValue = IsWaiting;
+
+	if(OldValue == NewValue) return;
+	
+	IsWaiting = NewValue;
+		
+	OnWaitingIsChanged.Broadcast(this, OldValue, NewValue);
+}
+
+bool ACTFriendlyNPCCharacter::GetIsWaiting()
+{
+	return IsWaiting;
+}
+
+void ACTFriendlyNPCCharacter::SetIsWorking(bool NewValue)
+{
+	bool OldValue = IsWorking;
+
+	if(OldValue == NewValue) return;
+	
+	IsWorking = NewValue;
+		
+	OnWorkingIsChanged.Broadcast(this, OldValue, NewValue);
+}
+
+bool ACTFriendlyNPCCharacter::GetIsWorking()
+{
+	return IsWorking;
+}
+
+void ACTFriendlyNPCCharacter::SetHomeBuilding(ACTBuilding* Building)
+{
+	HomeBuilding = Building;
+}
+
+TSoftObjectPtr<ACTBuilding> ACTFriendlyNPCCharacter::GetHomeBuilding()
+{
+	return HomeBuilding;
 }
 

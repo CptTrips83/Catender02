@@ -5,6 +5,22 @@
 #include "CTCharacter.h"
 #include "CTFriendlyNPCCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams
+(
+	FWaitingIsChanged,
+	ACTFriendlyNPCCharacter*, NPC,
+	bool, OldValue,
+	bool, NewValue
+);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams
+(
+	FWorkingIsChanged,
+	ACTFriendlyNPCCharacter*, NPC,
+	bool, OldValue,
+	bool, NewValue
+);
+
 class ACTBuilding;
 
 /**
@@ -20,14 +36,27 @@ class CATENDER02_API ACTFriendlyNPCCharacter : public ACTCharacter
 	 */
 	UPROPERTY()
 	ACTBuildable* AssignedBuildable;
+
+	UPROPERTY()
+	bool IsWaiting = false;
+
+	UPROPERTY()
+	bool IsWorking = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	TSoftObjectPtr<ACTBuilding> HomeBuilding;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	float WaitingInterval = 0.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	FTimerHandle WaitingTimerHandle;
 	
 public:
 	ACTFriendlyNPCCharacter();
 
 protected:
 	virtual void BeginPlay() override;
-
-	virtual ACTBuildable* GetAssignedBuildable();
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartWorking();
@@ -61,6 +90,9 @@ public:
 
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintPure)
+	virtual ACTBuildable* GetAssignedBuildable();
+	
 	/**
 	 * Assigns the friendly NPC character to a specified building work site.
 	 *
@@ -84,5 +116,30 @@ public:
 	UFUNCTION(BlueprintPure)
 	virtual ACTBuildable* GetNearestWorkingSite();
 
+	UFUNCTION(BlueprintCallable)
+	virtual void SetIsWaiting(bool NewValue);
+
+	UFUNCTION(BlueprintPure)
+	virtual bool GetIsWaiting();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void SetIsWorking(bool NewValue);
+
+	UFUNCTION(BlueprintPure)
+	virtual bool GetIsWorking();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void SetHomeBuilding(ACTBuilding* Building);
+
+	UFUNCTION(BlueprintPure)
+	virtual TSoftObjectPtr<ACTBuilding> GetHomeBuilding();
 	
+	//UFUNCTION(BlueprintPure)
+	//virtual float GetRandomPositionInBox(USceneComponent* Box);
+	
+	UPROPERTY(BlueprintAssignable)
+	FWaitingIsChanged OnWaitingIsChanged;
+
+	UPROPERTY(BlueprintAssignable)
+	FWorkingIsChanged OnWorkingIsChanged;
 };

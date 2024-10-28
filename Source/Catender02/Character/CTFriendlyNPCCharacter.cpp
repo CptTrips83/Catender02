@@ -5,14 +5,31 @@
 #include "Components/CapsuleComponent.h"
 
 
+void ACTFriendlyNPCCharacter::ResetWorkSiteCapsule()
+{
+	GetWorkSiteCapsule()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetWorkSiteCapsule()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
 ACTFriendlyNPCCharacter::ACTFriendlyNPCCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	WorkSiteCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Work Site Capsule"));
+	WorkSiteCapsule->SetupAttachment(GetRootComponent());
+
+	GetCapsuleComponent()->OnComponentBeginOverlap.Clear();
+	GetCapsuleComponent()->OnComponentEndOverlap.Clear();
+
+	GetWorkSiteCapsule()->OnComponentBeginOverlap.AddDynamic(this, &ACTFriendlyNPCCharacter::OnWorkSiteBoxBeginOverlap);
+	GetWorkSiteCapsule()->OnComponentEndOverlap.AddDynamic(this, &ACTFriendlyNPCCharacter::OnWorkSiteBoxEndOverlap);
 }
 
 void ACTFriendlyNPCCharacter::BeginPlay()
 {
-	Super::BeginPlay();	
+	Super::BeginPlay();
+
+	
 }
 
 ACTBuildable* ACTFriendlyNPCCharacter::GetAssignedBuildable()
@@ -25,7 +42,7 @@ void ACTFriendlyNPCCharacter::ProcessWorking_Implementation()
 	AssignedBuildable->ProcessWorking(this);
 }
 
-void ACTFriendlyNPCCharacter::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void ACTFriendlyNPCCharacter::OnWorkSiteBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
                                                 UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	Super::OnBoxBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
@@ -44,7 +61,7 @@ void ACTFriendlyNPCCharacter::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedC
 	}	
 }
 
-void ACTFriendlyNPCCharacter::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void ACTFriendlyNPCCharacter::OnWorkSiteBoxEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	Super::OnBoxEndOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex);
@@ -57,7 +74,7 @@ void ACTFriendlyNPCCharacter::OnBoxEndOverlap(UPrimitiveComponent* OverlappedCom
 	{
 		// TODO Neue Collision Component für Working nötig 
 		WithdrawFromBuildingWorkSite(Buildable);
-		StopWorking();		
+		StopWorking();
 	}	
 }
 
@@ -75,13 +92,15 @@ void ACTFriendlyNPCCharacter::AssignToBuildingWorkSite(ACTBuildable* Buildable)
 {
 	if(!Buildable) return;
 	AssignedBuildable = Buildable;
+	ResetWorkSiteCapsule();
 	Buildable->GetBuildingWorkSiteComponent()->AddFriendlyNPCCharacter(this);
 }
 
 void ACTFriendlyNPCCharacter::WithdrawFromBuildingWorkSite(ACTBuildable* Buildable)
 {	
-	if(!Buildable) return;	
+	if(!Buildable) return;
 	SetIsWorking(false);
+	ResetWorkSiteCapsule();
 	AssignedBuildable = nullptr;
 	Buildable->GetBuildingWorkSiteComponent()->RemoveFriendlyNPCCharacter(this);
 }
@@ -144,5 +163,10 @@ void ACTFriendlyNPCCharacter::SetHomeBuilding(ACTBuilding* Building)
 TSoftObjectPtr<ACTBuilding> ACTFriendlyNPCCharacter::GetHomeBuilding()
 {
 	return HomeBuilding;
+}
+
+UCapsuleComponent* ACTFriendlyNPCCharacter::GetWorkSiteCapsule()
+{
+	return WorkSiteCapsule;
 }
 

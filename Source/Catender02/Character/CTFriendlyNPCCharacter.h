@@ -66,8 +66,9 @@ protected:
 	
 	UFUNCTION(BlueprintImplementableEvent)	
 	void StopWorking();
-	
-	virtual void OnBoxBeginOverlap
+
+	UFUNCTION()
+	virtual void OnWorkSiteBoxBeginOverlap
 	(
 		UPrimitiveComponent* OverlappedComp, 
 		AActor* OtherActor, 
@@ -75,15 +76,16 @@ protected:
 		int32 OtherBodyIndex, 
 		bool bFromSweep, 
 		const FHitResult& SweepResult
-	) override;
-	
-	virtual void OnBoxEndOverlap
+	);
+
+	UFUNCTION()
+	virtual void OnWorkSiteBoxEndOverlap
 	(
 		UPrimitiveComponent* OverlappedComp, 
 		AActor* OtherActor, 
 		UPrimitiveComponent* OtherComp, 
 		int32 OtherBodyIndex
-	) override;
+	);
 	
 public:
 	virtual void Tick(float DeltaTime) override;
@@ -133,6 +135,9 @@ public:
 
 	UFUNCTION(BlueprintPure)
 	virtual TSoftObjectPtr<ACTBuilding> GetHomeBuilding();
+
+	UFUNCTION(BlueprintPure)
+	UCapsuleComponent* GetWorkSiteCapsule();
 	
 	//UFUNCTION(BlueprintPure)
 	//virtual float GetRandomPositionInBox(USceneComponent* Box);

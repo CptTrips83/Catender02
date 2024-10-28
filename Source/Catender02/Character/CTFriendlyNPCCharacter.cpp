@@ -52,7 +52,8 @@ void ACTFriendlyNPCCharacter::OnWorkSiteBoxBeginOverlap(UPrimitiveComponent* Ove
 	ACTBuildable* Buildable = Cast<ACTBuildable>(OtherActor);
 
 	if(!Buildable) return;
-
+	if(!Buildable->GetBuildingWorkSiteComponent()->HasActiveWorkSite(this)) return;
+	
 	if(AssignedBuildable == Buildable)
 	{
 		SetIsWorking(true);

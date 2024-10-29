@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Project" pattern="file:Source/Catender02/*||file:Source/Catender02/Character/*||file:Source/Catender02/Components/*||file:Source/Catender02/GameMode/*||file:Source/Catender02/Objects/*||file:Source/Catender02/Props/*||file:Source/Catender02/UI/*" />
+</component>

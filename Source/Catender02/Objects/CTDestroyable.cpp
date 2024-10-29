@@ -37,7 +37,7 @@ void ACTDestroyable::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ACTDestroyable::ConstructionFinished(ACTBuildable* Buildable)
 {
-	GetGameMode()->WorldBuildableComponent->RemoveBuildable(this);
+	GetGameMode()->GetWorldBuildableComponent()->RemoveBuildable(this);
 	GetInteractionBoxComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	Destroy();
 }

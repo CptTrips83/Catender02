@@ -163,7 +163,7 @@ void UCTBuildingComponent::PayResources()
 {
 	if(!OwningBuildable) return;
 
-	UCTWorldResourceComponent* ResourceComponent = OwningBuildable->GetGameMode()->WorldResourceComponent;
+	UCTWorldResourceComponent* ResourceComponent = OwningBuildable->GetGameMode()->GetWorldResourceComponent();
 	
 	FBuildingLevelInformation LevelInformation = GetBuildingLevelInformation(CurrentLevel);
 
@@ -180,7 +180,7 @@ bool UCTBuildingComponent::CheckResourceRequirements()
 {
 	if(!OwningBuildable) return false;
 
-	UCTWorldResourceComponent* ResourceComponent = OwningBuildable->GetGameMode()->WorldResourceComponent;
+	UCTWorldResourceComponent* ResourceComponent = OwningBuildable->GetGameMode()->GetWorldResourceComponent();
 	
 	bool Result = false;
 

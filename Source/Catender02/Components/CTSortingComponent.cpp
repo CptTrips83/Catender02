@@ -26,7 +26,7 @@ void UCTSortingComponent::SetSpriteLayerIndex()
 {
 	UPaperFlipbookComponent* FlipbookComponent = Owner->GetSprite();
 
-	int Index = GameModeLevel->SortingLayerDataComponent->GetSortingLayerIndex(SortingLayer);
+	int Index = GameModeLevel->GetSortingLayerDataComponent()->GetSortingLayerIndex(SortingLayer);
 
 	Index += SortingIndex;
 	

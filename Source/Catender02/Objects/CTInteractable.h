@@ -40,14 +40,26 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 	 */
 protected:
 	virtual void UpdateInteractionCollision(bool CollisionEnabled);
-	UFUNCTION()
-	virtual void CreateDynamicMaterialForSprite();
+	
 public:
 	
 	ACTInteractable();
 		
 	virtual void BeginPlay() override;
 
+	/**
+	 * @brief Creates a dynamic material instance for the sprite component.
+	 *
+	 * This method checks whether the sprite component has a valid material and converts it into a dynamic
+	 * material instance if it is not already one. The dynamic material instance allows for real-time
+	 * modification of material properties.
+	 *
+	 * It first verifies the presence of a sprite and its associated material, then creates and assigns
+	 * a dynamic material instance to the sprite component, enabling dynamic changes in material properties.
+	 */
+	UFUNCTION()
+	virtual void CreateDynamicMaterialForSprite();
+	
 	/**
 	 * @brief Checks if the actor can be interacted with.
 	 *

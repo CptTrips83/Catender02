@@ -69,7 +69,7 @@ void ACTPickable::DisableCollision() const
  */
 void ACTPickable::ApplyResources() const
 {
-	UCTWorldResourceComponent* ResourceComponent = GetGameMode()->WorldResourceComponent;
+	UCTWorldResourceComponent* ResourceComponent = GetGameMode()->GetWorldResourceComponent();
 
 	if (!ResourceComponent) return;
 

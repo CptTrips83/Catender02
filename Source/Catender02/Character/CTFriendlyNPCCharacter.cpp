@@ -46,8 +46,6 @@ void ACTFriendlyNPCCharacter::OnWorkSiteBoxBeginOverlap(UPrimitiveComponent* Ove
                                                 UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	Super::OnBoxBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
-
-	// TODO IsWorking Mechanik umbauen
 	
 	ACTBuildable* Buildable = Cast<ACTBuildable>(OtherActor);
 

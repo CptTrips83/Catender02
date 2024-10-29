@@ -114,7 +114,7 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildable(ACTSortable* Sorta
 ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildableByDirection(ACTSortable* Sortable,
                                                                          const ECTDirection BuildableDirection)
 {
-	// TODO Work-Site Mechanic
+	// TODO Work-Site Mechanic Überprüfung einbauen
 	
 	if (Buildables.Num() <= 0) return nullptr;
 

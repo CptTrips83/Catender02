@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "CTBuildable.h"
 
@@ -29,14 +27,6 @@ void ACTBuildable::BeginPlay()
 	GetBuildingComponent()->OnBuildingStateChanged.AddDynamic(this, &ACTBuildable::BuildingStateChanged);
 }
 
-/**
- * Overrides the Interact method to handle interaction with another sortable object.
- *
- * This function first calls the parent class's Interact method. If the building upgrade is successful,
- * it then plays an interaction sound on the player character.
- *
- * @param OtherSortable A pointer to the other sortable object that is interacting with this buildable.
- */
 void ACTBuildable::Interact(ACTSortable* OtherSortable)
 {
 	Super::Interact(OtherSortable);

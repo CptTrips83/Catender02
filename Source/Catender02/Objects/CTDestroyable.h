@@ -5,6 +5,11 @@
 #include "CTBuildable.h"
 #include "CTDestroyable.generated.h"
 
+/**
+ * @brief A class representing a destroyable object that can be built and interacted with.
+ *
+ * The ACTDestroyable class extends the functionality of ACTBuildable to include destruction behavior.
+ */
 UCLASS()
 class CATENDER02_API ACTDestroyable : public ACTBuildable
 {

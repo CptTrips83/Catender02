@@ -39,6 +39,7 @@ ACTBuildable* ACTFriendlyNPCCharacter::GetAssignedBuildable()
 
 void ACTFriendlyNPCCharacter::ProcessWorking_Implementation()
 {
+	if (!AssignedBuildable) return;
 	AssignedBuildable->ProcessWorking(this);
 }
 
@@ -79,6 +80,10 @@ void ACTFriendlyNPCCharacter::OnWorkSiteBoxEndOverlap(UPrimitiveComponent* Overl
 void ACTFriendlyNPCCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if(GetIsWorking())
+	{
+		ProcessWorking();
+	}
 }
 
 void ACTFriendlyNPCCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

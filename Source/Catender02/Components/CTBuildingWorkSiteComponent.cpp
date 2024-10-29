@@ -112,6 +112,8 @@ void UCTBuildingWorkSiteComponent::TickComponent(float DeltaTime, ELevelTick Tic
 
 bool UCTBuildingWorkSiteComponent::HasActiveWorkSite(ACTFriendlyNPCCharacter* NPCCharacter) const
 {
+	if(!BuildingComponent) return false;
+	
 	const EBuildingState BuildingState = BuildingComponent->GetBuildingState();
 
 	if (CountFriendlyNPCCharacters(NPCCharacter) >= AmountWorkPlaces)

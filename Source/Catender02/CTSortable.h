@@ -9,30 +9,42 @@
 
 class UBoxComponent;
 
+/**
+ * Represents a sortable actor in the game world.
+ * Inherits from APaperZDCharacter and incorporates functionality for sorting and interaction.
+ */
 UCLASS()
 class CATENDER02_API ACTSortable : public APaperZDCharacter
 {
+	GENERATED_BODY()
 	
+	ACTGameModeLevel* GameModeLevel = nullptr;
+	
+	/**
+	 * A component used for sorting game objects within the level.
+	 * This property is exposed to the Unreal Editor for easy access and manipulation.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, DeprecatedProperty))
+	UCTSortingComponent* SortingComponent = nullptr;
 	
 public:
 	ACTSortable();
 
 	/**
-	 * A component used for sorting game objects within the level.
-	 * This property is exposed to the Unreal Editor for easy access and manipulation.
+	 * Retrieves the game mode level associated with this sortable actor.
+	 * This game mode level is used to manage various game mode-specific components and logic.
 	 *
-	 * - EditAnywhere: Indicates that the property is editable in the Unreal Editor.
-	 * - BlueprintReadWrite: Indicates that the property can be read or written from Blueprints.
-	 * - meta = (AllowPrivateAccess, DeprecatedProperty):
-	 *      - AllowPrivateAccess: Allows private access to this property within the class.
-	 *      - DeprecatedProperty: Marks this property as deprecated, indicating it may be removed in future versions. Use GetSortiningComponent instead
+	 * @return A pointer to the ACTGameModeLevel instance associated with this actor.
 	 */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, DeprecatedProperty))
-	UCTSortingComponent* SortingComponent = nullptr;
-
 	UFUNCTION(BlueprintPure)
 	virtual ACTGameModeLevel* GetGameMode() const;
 
+	/**
+	 * Retrieves the sorting component associated with this actor.
+	 * This component is used to manage the sorting layer and index of the actor within the game world.
+	 *
+	 * @return A pointer to the UCTSortingComponent instance associated with this actor.
+	 */
 	UFUNCTION(BlueprintPure)
 	UCTSortingComponent* GetSortingComponent() const;
 	
@@ -57,12 +69,13 @@ protected:
 		UPrimitiveComponent* OtherComp, 
 		int32 OtherBodyIndex
 	);
-	
-	ACTGameModeLevel* GameModeLevel = nullptr;
-	
-	GENERATED_BODY()
-
+		
 	virtual void BeginPlay() override;
+	/**
+	 * Interacts with another sortable actor, triggering the other actor's interaction functionality.
+	 *
+	 * @param OtherSortable The other sortable actor to interact with.
+	 */
 	UFUNCTION(BlueprintCallable, Category = "Interaction")
 	virtual void Interact(ACTSortable* OtherSortable);
 };

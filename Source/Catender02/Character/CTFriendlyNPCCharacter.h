@@ -53,12 +53,19 @@ class CATENDER02_API ACTFriendlyNPCCharacter : public ACTCharacter
 	TSoftObjectPtr<ACTBuilding> HomeBuilding;
 
 	/**
-	 * Defines the interval, in seconds, for which an entity will remain in a waiting state.
+	 * Defines the minimal interval, in seconds, for which an entity will remain in a waiting state.
 	 * This variable can be edited anywhere and read within Blueprints.
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
-	float WaitingInterval = 0.0f;
+	float MinWaitingInterval = 0.0f;
 
+	/**
+	 * Defines the maximal interval, in seconds, for which an entity will remain in a waiting state.
+	 * This variable can be edited anywhere and read within Blueprints.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	float MaxWaitingInterval = 0.0f;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	FTimerHandle WaitingTimerHandle;
 

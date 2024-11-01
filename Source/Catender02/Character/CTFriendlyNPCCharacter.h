@@ -66,7 +66,7 @@ class CATENDER02_API ACTFriendlyNPCCharacter : public ACTCharacter
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	float MaxWaitingInterval = 0.0f;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	UPROPERTY()
 	FTimerHandle WaitingTimerHandle;
 
 	/**

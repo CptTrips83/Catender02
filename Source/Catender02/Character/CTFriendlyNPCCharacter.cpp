@@ -3,6 +3,7 @@
 
 #include "Catender02/Objects/CTBuilding.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 
 void ACTFriendlyNPCCharacter::ResetWorkSiteCapsule()
@@ -197,13 +198,23 @@ void ACTFriendlyNPCCharacter::SetHomeBuilding(ACTBuilding* Building)
 	HomeBuilding = Building;
 }
 
-TSoftObjectPtr<ACTBuilding> ACTFriendlyNPCCharacter::GetHomeBuilding()
+ACTBuilding* ACTFriendlyNPCCharacter::GetHomeBuilding()
 {
-	return HomeBuilding;
+	return HomeBuilding.Get();
 }
 
 UCapsuleComponent* ACTFriendlyNPCCharacter::GetWorkSiteCapsule()
 {
 	return WorkSiteCapsule;
+}
+
+float ACTFriendlyNPCCharacter::GetRandomPositionInBox(USceneComponent* Box)
+{
+    FVector Origin = Box->Bounds.Origin;
+	FVector Extent = Box->Bounds.BoxExtent;
+
+	FVector RandomPoint = UKismetMathLibrary::RandomPointInBoundingBox(Origin, Extent);
+
+	return RandomPoint.X;
 }
 

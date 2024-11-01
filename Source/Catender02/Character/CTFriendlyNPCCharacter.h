@@ -57,14 +57,14 @@ class CATENDER02_API ACTFriendlyNPCCharacter : public ACTCharacter
 	 * This variable can be edited anywhere and read within Blueprints.
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
-	float MinWaitingInterval = 0.0f;
+	float MinWaitingInterval = 0.25f;
 
 	/**
 	 * Defines the maximal interval, in seconds, for which an entity will remain in a waiting state.
 	 * This variable can be edited anywhere and read within Blueprints.
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
-	float MaxWaitingInterval = 0.0f;
+	float MaxWaitingInterval = 0.75f;
 	
 	UPROPERTY()
 	FTimerHandle WaitingTimerHandle;

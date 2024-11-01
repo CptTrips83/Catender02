@@ -286,6 +286,14 @@ public:
 	 */
 	UFUNCTION(BlueprintPure)
 	virtual TArray<FResource> GetResourcesCostForCurrentLevel();
+
+	/**
+* @brief Updates the current state of the building component.
+*
+* This method refreshes the visual representation and collision state of the building based on its current state.
+*/
+	UFUNCTION(BlueprintCallable)
+	virtual void UpdateBuilding();
 	
 protected:
 	/**
@@ -298,14 +306,6 @@ protected:
 	ACTBuildable* OwningBuildable = nullptr;
 	
 	virtual void BeginPlay() override;
-
-	/**
- * @brief Updates the current state of the building component.
- *
- * This method refreshes the visual representation and collision state of the building based on its current state.
- */
-	UFUNCTION(BlueprintCallable)
-	virtual void UpdateBuilding();
 	
 	/**
 	 * @brief Retrieves the information for a specific building level.

@@ -77,6 +77,40 @@ void ACTFriendlyNPCCharacter::OnWorkSiteBoxEndOverlap(UPrimitiveComponent* Overl
 	}	
 }
 
+void ACTFriendlyNPCCharacter::Wait()
+{
+	
+	if(!GetIsWaiting())
+	{
+		WaitingTimerHandle.Invalidate();
+		return;
+	}
+
+	if(WaitingTimerHandle.IsValid()) return;
+
+	WaitingTimerHandle = FTimerHandle();
+
+	GetWorld()->GetTimerManager().SetTimer(
+		WaitingTimerHandle,
+		this,
+		&ACTFriendlyNPCCharacter::WaitMovement_Implementation,
+		CalculateWaitingTime()		
+	);
+}
+
+void ACTFriendlyNPCCharacter::WaitMovement_Implementation()
+{
+	if(!GetIsWaiting()) return;
+	WaitingTimerHandle.Invalidate();
+	WaitMovement();
+}
+
+
+float ACTFriendlyNPCCharacter::CalculateWaitingTime()
+{
+	return FMath::RandRange(MinWaitingInterval, MaxWaitingInterval);
+}
+
 void ACTFriendlyNPCCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

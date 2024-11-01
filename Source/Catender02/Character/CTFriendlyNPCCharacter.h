@@ -150,6 +150,31 @@ protected:
 		UPrimitiveComponent* OtherComp, 
 		int32 OtherBodyIndex
 	);
+
+	/**
+	 * Initiates the wait state for the friendly NPC character.
+	 *
+	 * This method checks if the NPC is already waiting or the waiting process needs to be invalidated.
+	 * If waiting is necessary, it sets a timer which, upon completion, triggers the implementation of the waiting movement.
+	 */
+	UFUNCTION()
+	virtual void Wait();
+
+	/**
+	 * Declares a native event for waiting or pausing the movement of a character.
+	 *
+	 * This event can be overridden by subclasses to define custom waiting behavior.
+	 */
+	UFUNCTION(BlueprintNativeEvent)
+	void WaitMovement();
+
+	/**
+	 * Calculates a random waiting time interval for a friendly NPC character.
+	 *
+	 * @return A randomly generated float representing the waiting time interval.
+	 */
+	UFUNCTION()
+	virtual float CalculateWaitingTime();	
 	
 public:
 	virtual void Tick(float DeltaTime) override;

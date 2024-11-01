@@ -5,6 +5,17 @@
 #include "Catender02/Objects/CTBuilding.h"
 
 
+void ACTBuildingActivationBox::CalculateGrowSpeed()
+{
+	int NumOverlappingDestroyables = OverlappingDestroyables.Num();
+
+	if(NumOverlappingDestroyables <= 0) CurrentBuildingVisibilityGrowSpeed = MaxBuildingVisibilityGrowSpeed;
+
+	CurrentBuildingVisibilityGrowSpeed -= BuildingVisibilitySlowDown;
+
+	if(CurrentBuildingVisibilityGrowSpeed < 0) CurrentBuildingVisibilityGrowSpeed = 0;
+}
+
 void ACTBuildingActivationBox::GrowBox()
 {
 	FVector NewBoxExtent = FVector(
@@ -92,19 +103,13 @@ void ACTBuildingActivationBox::OnBoxEndOverlapInteraction(UPrimitiveComponent* O
 
 void ACTBuildingActivationBox::OverlappingDestroyablesChanged()
 {
-	if (OverlappingDestroyables.Num() > 0)
-	{
-		CurrentBuildingVisibilityGrowSpeed = 0;
-	}
-	else
-	{
-		CurrentBuildingVisibilityGrowSpeed = MaxBuildingVisibilityGrowSpeed;
-	}
+	
 }
 
 void ACTBuildingActivationBox::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	CalculateGrowSpeed();
 	GrowBox();
 }
 

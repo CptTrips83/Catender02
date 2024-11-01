@@ -257,7 +257,7 @@ public:
 	 * @return The home building as a soft object pointer.
 	 */
 	UFUNCTION(BlueprintPure)
-	virtual TSoftObjectPtr<ACTBuilding> GetHomeBuilding();
+	virtual ACTBuilding* GetHomeBuilding();
 
 	/**
 	 * Retrieves the capsule component representing the work site associated with this friendly NPC character.
@@ -266,9 +266,15 @@ public:
 	 */
 	UFUNCTION(BlueprintPure)
 	UCapsuleComponent* GetWorkSiteCapsule();
-	
-	//UFUNCTION(BlueprintPure)
-	//virtual float GetRandomPositionInBox(USceneComponent* Box);
+
+	/**
+	 * Generates a random position within the bounds of the specified box component.
+	 *
+	 * @param Box The box component within which to generate a random position.
+	 * @return A random X coordinate within the bounds of the box.
+	 */
+	UFUNCTION(BlueprintPure)
+	virtual float GetRandomPositionInBox(USceneComponent* Box);
 
 	/**
 	 * Event delegate that is called when the waiting state changes.

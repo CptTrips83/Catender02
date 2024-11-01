@@ -73,6 +73,8 @@ void ACTBuildingActivationBox::OnBoxBeginOverlapInteraction(UPrimitiveComponent*
 	}
 	if (ACTDestroyable* Destroyable = Cast<ACTDestroyable>(OtherActor))
 	{
+		if(Destroyable->GetBuildingComponent()->GetBuildingState() == Invisible) return;
+		Destroyable->GetInteractionBoxComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 		OverlappingDestroyables.Add(Destroyable);
 		OnOverlappingDestroyablesChanged.Broadcast();
 	}

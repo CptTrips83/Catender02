@@ -20,6 +20,8 @@ void ACTDestroyable::BeginPlay()
 	Super::BeginPlay();
 
 	GetBuildingComponent()->OnConstructionFinished.AddDynamic(this, &ACTDestroyable::ConstructionFinished);
+
+	GetInteractionBoxComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void ACTDestroyable::DestroyBuilding()

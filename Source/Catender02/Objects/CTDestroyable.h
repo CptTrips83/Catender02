@@ -25,12 +25,16 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
+	virtual void DestroyBuilding();
+	
+	UFUNCTION()
 	virtual void UpdateInteractionCollision(bool CollisionEnabled) override;
 public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	
 	UFUNCTION()
 	virtual void ConstructionFinished(ACTBuildable* Buildable);
 };

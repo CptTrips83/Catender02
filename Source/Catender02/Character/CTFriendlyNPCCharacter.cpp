@@ -40,6 +40,7 @@ ACTBuildable* ACTFriendlyNPCCharacter::GetAssignedBuildable()
 
 void ACTFriendlyNPCCharacter::ProcessWorking_Implementation()
 {
+	if (!GetIsWorking()) return;
 	if (!AssignedBuildable) return;
 	AssignedBuildable->ProcessWorking(this);
 }
@@ -115,10 +116,9 @@ float ACTFriendlyNPCCharacter::CalculateWaitingTime()
 void ACTFriendlyNPCCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if(GetIsWorking())
-	{
-		ProcessWorking();
-	}
+	
+	ProcessWorking();
+	Wait();
 }
 
 void ACTFriendlyNPCCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

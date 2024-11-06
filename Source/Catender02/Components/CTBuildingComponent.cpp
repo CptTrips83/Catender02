@@ -150,6 +150,12 @@ void UCTBuildingComponent::UpdateCollision(EBuildingState NewBuildingState)
 	
 	if(NewBuildingState == EBuildingState::Construction)
 	{
+		ConstructionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		ConstructionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	}
+	else if(NewBuildingState == EBuildingState::Active)
+	{
+		ConstructionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		ConstructionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	}
 	else

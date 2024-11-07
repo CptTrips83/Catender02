@@ -21,6 +21,8 @@ class CATENDER02_API ACTBuildingActivationBox : public AActor
 	UBoxComponent* BoxBuildingVisibilityComponent;
 
 	float CurrentBuildingVisibilityGrowSpeed;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess=true))
+	float BuildingVisibilitySlowDown = 0.0001f;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	float MaxBuildingVisibilityGrowSpeed = 0.1f;
@@ -33,6 +35,7 @@ class CATENDER02_API ACTBuildingActivationBox : public AActor
 	FVector InitialRelativeLocation;
 	float InitialXBoxExtent;
 
+	void CalculateGrowSpeed();
 	void GrowBox();
 	
 public:

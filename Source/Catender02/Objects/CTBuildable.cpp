@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "CTBuildable.h"
 
@@ -10,10 +8,12 @@ ACTBuildable::ACTBuildable()
 	BuildingComponent = CreateDefaultSubobject<UCTBuildingComponent>(TEXT("Building Component"));
 	AddOwnedComponent(BuildingComponent);
 
-	ConstructionBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Construction Box"));
-	ConstructionBoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	ConstructionBoxComponent->SetupAttachment(GetRootComponent());
+	BuildingWorkSiteComponent = CreateDefaultSubobject<UCTBuildingWorkSiteComponent>(TEXT("WorkSite Component"));
+	AddOwnedComponent(BuildingWorkSiteComponent);
 	
+	ConstructionSiteBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("WorkSite Box"));
+	ConstructionSiteBoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	ConstructionSiteBoxComponent->SetupAttachment(GetRootComponent());
 
 	WaitingBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Waiting Box"));
 	WaitingBoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -27,14 +27,6 @@ void ACTBuildable::BeginPlay()
 	GetBuildingComponent()->OnBuildingStateChanged.AddDynamic(this, &ACTBuildable::BuildingStateChanged);
 }
 
-/**
- * Overrides the Interact method to handle interaction with another sortable object.
- *
- * This function first calls the parent class's Interact method. If the building upgrade is successful,
- * it then plays an interaction sound on the player character.
- *
- * @param OtherSortable A pointer to the other sortable object that is interacting with this buildable.
- */
 void ACTBuildable::Interact(ACTSortable* OtherSortable)
 {
 	Super::Interact(OtherSortable);
@@ -54,7 +46,7 @@ void ACTBuildable::Destroyed()
 
 void ACTBuildable::UpdateConstructionCollision(const bool IsActive)
 {
-	GetConstructionBoxComponent()->SetCollisionEnabled(IsActive ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+	GetConstructionSiteBoxComponent()->SetCollisionEnabled(IsActive ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
 }
 
 UCTBuildingComponent* ACTBuildable::GetBuildingComponent() const
@@ -62,9 +54,14 @@ UCTBuildingComponent* ACTBuildable::GetBuildingComponent() const
 	return BuildingComponent;
 }
 
-UBoxComponent* ACTBuildable::GetConstructionBoxComponent() const
+UCTBuildingWorkSiteComponent* ACTBuildable::GetBuildingWorkSiteComponent() const
 {
-	return ConstructionBoxComponent;
+	return BuildingWorkSiteComponent;
+}
+
+UBoxComponent* ACTBuildable::GetConstructionSiteBoxComponent() const
+{
+	return ConstructionSiteBoxComponent;
 }
 
 UBoxComponent* ACTBuildable::GetWaitingBoxComponent() const
@@ -75,6 +72,10 @@ UBoxComponent* ACTBuildable::GetWaitingBoxComponent() const
 bool ACTBuildable::CanInteract() const
 {	
 	return BuildingComponent->CanBeBuild();
+}
+
+void ACTBuildable::ProcessWorking_Implementation(ACTFriendlyNPCCharacter* NPCCharacter)
+{
 }
 
 void ACTBuildable::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState)
@@ -91,3 +92,5 @@ void ACTBuildable::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState 
 		UpdateConstructionCollision(false);
 	}
 }
+
+

@@ -27,7 +27,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void UpdateRotation();
 	
+	UFUNCTION()
 	virtual void Move(float MoveX);
+	UFUNCTION()
 	virtual bool CanMove();
 
 	UPROPERTY(BlueprintAssignable)

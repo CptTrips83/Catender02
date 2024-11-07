@@ -2,6 +2,8 @@
 
 #include "CTDestroyable.h"
 
+#include "Components/CapsuleComponent.h"
+
 
 ACTDestroyable::ACTDestroyable()
 {
@@ -18,6 +20,18 @@ void ACTDestroyable::BeginPlay()
 	Super::BeginPlay();
 
 	GetBuildingComponent()->OnConstructionFinished.AddDynamic(this, &ACTDestroyable::ConstructionFinished);
+
+	GetInteractionBoxComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+
+void ACTDestroyable::DestroyBuilding()
+{
+	GetBuildingComponent()->SetBuildingState(Invisible);
+	GetBuildingComponent()->UpdateBuilding();
+
+	GetCapsuleComponent()->SetCollisionObjectType(ECC_WorldDynamic);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 }
 
 void ACTDestroyable::UpdateInteractionCollision(bool CollisionEnabled)
@@ -37,8 +51,6 @@ void ACTDestroyable::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ACTDestroyable::ConstructionFinished(ACTBuildable* Buildable)
 {
-	GetGameMode()->WorldBuildableComponent->RemoveBuildable(this);
-	GetInteractionBoxComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	Destroy();
+	DestroyBuilding();
 }
 

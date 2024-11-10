@@ -16,6 +16,7 @@ enum class ESortingLayer : uint8
 	BuildingBackground,
 	DestroyableBackground,
 	InteractableBackground,
+	DecorationBackground,
 	Pickup,
 	FriendlyNPC,
 	Enemy,
@@ -23,6 +24,7 @@ enum class ESortingLayer : uint8
 	BuildingForeground,
 	InteractableForeground,
 	DestroyableForeground,
+	DecorationForeground,
 	Count UMETA(Hidden)
 };
 ENUM_RANGE_BY_COUNT(ESortingLayer, ESortingLayer::Count);

@@ -5,6 +5,7 @@
 #include "Catender02/Components/CTWorldBuildableComponent.h"
 #include "Catender02/Components/CTSortingLayerDataComponent.h"
 #include "Catender02/Components/CTWorldBuildingVisibilityComponent.h"
+#include "Catender02/Components/CTWorldDayTimeComponent.h"
 #include "Catender02/Components/CTWorldResourceComponent.h"
 #include "GameFramework/GameModeBase.h"
 #include "CTGameModeLevel.generated.h"
@@ -63,6 +64,13 @@ class CATENDER02_API ACTGameModeLevel : public AGameModeBase
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UCTWorldBuildingVisibilityComponent* WorldBuildingVisibilityComponent = nullptr;
 
+	/**
+	 * A component responsible for managing day and night cycles within the game world.
+	 * This variable holds a reference to the UCTWorldDayTimeComponent instance, which is used to control
+	 * the passage of time, including day and night transitions, adjusting lighting conditions, and other related tasks.
+	 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UCTWorldDayTimeComponent* WorldDayTimeComponent = nullptr;
 	
 public:
 
@@ -103,4 +111,12 @@ public:
 	 */
 	UFUNCTION(BlueprintPure)
 	UCTWorldBuildableComponent* GetWorldBuildableComponent();
+
+	/**
+	 * Retrieves the component responsible for managing the day and night cycles within the game world.
+	 *
+	 * @return A pointer to the UCTWorldDayTimeComponent instance which controls the passage of time.
+	 */
+	UFUNCTION(BlueprintPure)
+	UCTWorldDayTimeComponent* GetWorldDayTimeComponent();
 };

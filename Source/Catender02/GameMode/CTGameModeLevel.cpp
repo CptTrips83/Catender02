@@ -9,14 +9,17 @@ ACTGameModeLevel::ACTGameModeLevel()
 	SortingLayerDataComponent = CreateDefaultSubobject<UCTSortingLayerDataComponent>(TEXT("Sorting Layer Data Component"));
 	AddOwnedComponent(SortingLayerDataComponent);
 
-	WorldResourceComponent = CreateDefaultSubobject<UCTWorldResourceComponent>(TEXT("World Ressource Component"));
+	WorldResourceComponent = CreateDefaultSubobject<UCTWorldResourceComponent>(TEXT("World Resource Component"));
 	AddOwnedComponent(WorldResourceComponent);
 
 	WorldBuildableComponent = CreateDefaultSubobject<UCTWorldBuildableComponent>(TEXT("World Buildable Component"));
 	AddOwnedComponent(WorldBuildableComponent);
 
-	WorldBuildingVisibilityComponent = CreateDefaultSubobject<UCTWorldBuildingVisibilityComponent>(TEXT("World Builting Visibility Component"));
+	WorldBuildingVisibilityComponent = CreateDefaultSubobject<UCTWorldBuildingVisibilityComponent>(TEXT("World Building Visibility Component"));
 	AddOwnedComponent(WorldBuildingVisibilityComponent);
+
+	WorldDayTimeComponent = CreateDefaultSubobject<UCTWorldDayTimeComponent>(TEXT("World Day Time Component"));
+	AddOwnedComponent(WorldDayTimeComponent);
 }
 
 void ACTGameModeLevel::BeginPlay()
@@ -44,4 +47,9 @@ UCTWorldResourceComponent* ACTGameModeLevel::GetWorldResourceComponent()
 UCTWorldBuildableComponent* ACTGameModeLevel::GetWorldBuildableComponent()
 {
 	return WorldBuildableComponent;
+}
+
+UCTWorldDayTimeComponent* ACTGameModeLevel::GetWorldDayTimeComponent()
+{
+	return WorldDayTimeComponent;
 }

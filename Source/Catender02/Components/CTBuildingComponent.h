@@ -339,12 +339,12 @@ protected:
 	UFUNCTION()
 	virtual void UpdateSprite();
 	/**
-	 * @brief Updates the collision state of the building based on its current state.
+	 * @brief Updates the collision settings of the building based on its new state.
 	 *
-	 * This method adjusts the collision settings of the building's construction site box component
-	 * depending on the provided new state of the building.
+	 * This function modifies the collision properties of the building's construction site box component
+	 * according to its current state. The collision is either disabled or set to query-only depending on the state.
 	 *
-	 * @param NewBuildingState The new state of the building which determines the collision configuration.
+	 * @param NewBuildingState The new state of the building which dictates how the collision should be configured.
 	 */
 	UFUNCTION()
 	virtual void UpdateCollision(EBuildingState NewBuildingState);

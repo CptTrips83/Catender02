@@ -24,6 +24,9 @@ class CATENDER02_API UCTWorldDayTimeComponent : public UActorComponent
 	UDirectionalLightComponent* DirectionalLight;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UCurveFloat* CurveFloat;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	int DayLength = 16;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))

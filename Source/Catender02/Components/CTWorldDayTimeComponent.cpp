@@ -105,16 +105,7 @@ void UCTWorldDayTimeComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 }
 
 bool UCTWorldDayTimeComponent::IsDay()
-{
-	FString DebugMessageVariable = (GetHourCurveValue() > 0.3f) ? "true" : "false";
-	FString DebugMessage = "Is Day: " + DebugMessageVariable;
-	
-	GEngine->AddOnScreenDebugMessage(
-		-1,
-		5.f,
-		FColor::Red,
-		DebugMessage
-		);
+{	
 	return GetHourCurveValue() > 0.3f;
 }
 

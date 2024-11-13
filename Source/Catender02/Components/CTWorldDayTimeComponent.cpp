@@ -24,6 +24,8 @@ void UCTWorldDayTimeComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	DayTimeChanged(CurrentHour - 1, CurrentHour, !IsDay(), IsDay());
+
 	OnDayTimeChanged.AddDynamic(this, &UCTWorldDayTimeComponent::DayTimeChanged);
 }
 
@@ -35,9 +37,10 @@ void UCTWorldDayTimeComponent::DayTimeChanged(int OldHour, int NewHour, bool Old
 	
 	float CurveValue = GetHourCurveValue() * 10;
 	float HourLightIntensity = GetHourLightIntensity();
+	float LightModifier = !IsDay() ? NightModifier * (-1) : 0; 
 
 	float NewLightIntensity = FMath::Clamp(
-		(MinLightIntensity + (HourLightIntensity * CurveValue)),
+		(MinLightIntensity + (HourLightIntensity * CurveValue) + LightModifier),
 		MinLightIntensity,
 		MaxLightIntensity
 		);
@@ -63,7 +66,7 @@ void UCTWorldDayTimeComponent::ApplyTargetIntensity()
 
 	if(CurrentLightIntensity == TargetIntensity) return;
 	
-	float Alpha = 0.005f;	
+	float Alpha = LightIntensitySwitchSpeed;	
 	float NewLightIntensity = FMath::Lerp(CurrentLightIntensity, TargetIntensity, Alpha);	
 	DirectionalLight->GetComponent()->SetIntensity(NewLightIntensity);
 }

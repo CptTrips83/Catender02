@@ -98,8 +98,9 @@ void UCTBuildingWorkSiteComponent::BeginPlay()
 void UCTBuildingWorkSiteComponent::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState,
 	EBuildingState NewState)
 {
-	for(ACTFriendlyNPCCharacter* Character : WorkingFriendlyNPCCharacters)
+	for(int i = 0; i < WorkingFriendlyNPCCharacters.Num(); i++)
 	{
+		ACTFriendlyNPCCharacter* Character = WorkingFriendlyNPCCharacters[i];
 		Character->WithdrawFromBuildingWorkSite(OwningBuildable);
 	}
 }

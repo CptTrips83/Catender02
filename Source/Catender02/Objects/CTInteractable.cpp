@@ -60,6 +60,11 @@ bool ACTInteractable::CanInteract() const
 	return true;
 }
 
+TArray<FResource> ACTInteractable::GetNeededResourcesForInteraction_Implementation()
+{
+	return TArray<FResource>();
+}
+
 void ACTInteractable::SetVisibilityInteractionWidget(const bool IsActive)
 {
 	UWidgetComponent* Widget = GetInteractionWidget();

@@ -171,4 +171,6 @@ public:
 	 */
 	UFUNCTION()
 	virtual void BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
+	
+	virtual TArray<FResource> GetNeededResourcesForInteraction_Implementation() override;
 };

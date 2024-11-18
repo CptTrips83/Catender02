@@ -70,6 +70,9 @@ public:
 	UFUNCTION(BlueprintPure)
 	virtual bool CanInteract() const;
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, meta=(ForceAsFunction))
+	TArray<FResource> GetNeededResourcesForInteraction();
+	
 	/**
 	 * @brief Sets the visibility of the interaction widget.
 	 *

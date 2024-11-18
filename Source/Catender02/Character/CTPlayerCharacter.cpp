@@ -132,5 +132,5 @@ void ACTPlayerCharacter::InteractTriggered(const FInputActionValue& Value)
 
 	if (!Interactable) return;
 
-	Interactable->Interact_Implementation(this);
+	Interactable->Interact(this);
 }

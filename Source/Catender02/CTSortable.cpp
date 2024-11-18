@@ -43,8 +43,13 @@ void ACTSortable::BeginPlay()
 	GameModeLevel = static_cast<ACTGameModeLevel*>(GetWorld()->GetAuthGameMode());	
 }
 
-void ACTSortable::Interact(ACTSortable* OtherSortable)
+void ACTSortable::InteractInternal(ACTSortable* OtherSortable)
+{	
+	
+}
+
+void ACTSortable::Interact_Implementation(ACTSortable* OtherSortable)
 {
-	OtherSortable->Interact(this);
+	InteractInternal(OtherSortable);
 }
 

@@ -55,7 +55,12 @@ void ACTInteractable::BeginPlay()
 	SetVisibilityInteractionWidget(false);
 }
 
-bool ACTInteractable::CanInteract() const
+bool ACTInteractable::CanInteract_Implementation() const
+{
+	return CanInteractInternal();
+}
+
+bool ACTInteractable::CanInteractInternal() const
 {
 	return true;
 }
@@ -132,7 +137,7 @@ void ACTInteractable::OnBoxEndOverlapInteraction(UPrimitiveComponent* Overlapped
 	PlayerCharacter->GetPlayerInteractionComponent()->RemoveFromOverlappingInteractables(this);
 }
 
-void ACTInteractable::Interact(ACTSortable* OtherSortable)
+void ACTInteractable::InteractInternal(ACTSortable* OtherSortable)
 {
 	
 }

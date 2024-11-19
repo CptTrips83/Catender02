@@ -209,6 +209,11 @@ UCapsuleComponent* ACTFriendlyNPCCharacter::GetWorkSiteCapsule()
 
 float ACTFriendlyNPCCharacter::GetRandomPositionInBox(USceneComponent* Box)
 {
+	if (!Box)
+	{
+		return 0.0f;
+	}
+	
     FVector Origin = Box->Bounds.Origin;
 	FVector Extent = Box->Bounds.BoxExtent;
 

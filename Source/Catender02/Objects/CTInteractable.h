@@ -28,6 +28,15 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 	UCTWidgetComponent* InteractionWidget;
 
 
+	
+protected:
+	
+public:
+	
+	ACTInteractable();
+		
+	virtual void BeginPlay() override;
+
 	/**
 	 * @brief Updates the collision state of the interaction box component.
 	 *
@@ -38,15 +47,8 @@ class CATENDER02_API ACTInteractable : public ACTSortable
 	 * @param CollisionEnabled A boolean flag that determines whether the interaction
 	 *                         collision should be enabled or disabled.
 	 */
-protected:
 	virtual void UpdateInteractionCollision(bool CollisionEnabled);
 	
-public:
-	
-	ACTInteractable();
-		
-	virtual void BeginPlay() override;
-
 	/**
 	 * @brief Creates a dynamic material instance for the sprite component.
 	 *
@@ -67,9 +69,14 @@ public:
 	 *
 	 * @return true if the actor can be interacted with, false otherwise.
 	 */
-	UFUNCTION(BlueprintPure)
-	virtual bool CanInteract() const;
+	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
+	bool CanInteract() const;
 
+	virtual bool CanInteractInternal() const;
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, meta=(ForceAsFunction))
+	TArray<FResource> GetNeededResourcesForInteraction();
+	
 	/**
 	 * @brief Sets the visibility of the interaction widget.
 	 *
@@ -174,14 +181,6 @@ public:
 	);
 
 
-	/**
-	 * @brief Executes an interaction with another sortable actor.
-	 *
-	 * This function is invoked to initiate an interaction between the current
-	 * interactable actor and another sortable actor passed as a parameter.
-	 * It defines the specific behavior that occurs during the interaction.
-	 *
-	 * @param OtherSortable The other sortable actor to interact with.
-	 */
-	virtual void Interact(ACTSortable* OtherSortable) override;
+	
+	virtual void InteractInternal(ACTSortable* OtherSortable) override;
 };

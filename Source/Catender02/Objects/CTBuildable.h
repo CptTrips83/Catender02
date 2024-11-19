@@ -78,7 +78,7 @@ public:
 	 *
 	 * @param OtherSortable The other sortable object to interact with.
 	 */
-	virtual void Interact(ACTSortable* OtherSortable) override;
+	virtual void InteractInternal(ACTSortable* OtherSortable) override;
 
 	/**
 	 * @brief Handles the destruction behavior of the buildable object.
@@ -147,7 +147,7 @@ public:
 	 *
 	 * @return True if the buildable object can be interacted with, false otherwise.
 	 */
-	virtual bool CanInteract() const override;
+	virtual bool CanInteractInternal() const override;
 
 	/**
 	 * @brief Processes the working state of a friendly NPC character.
@@ -171,4 +171,6 @@ public:
 	 */
 	UFUNCTION()
 	virtual void BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
+	
+	virtual TArray<FResource> GetNeededResourcesForInteraction_Implementation() override;
 };

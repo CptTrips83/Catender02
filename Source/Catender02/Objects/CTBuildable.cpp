@@ -27,9 +27,9 @@ void ACTBuildable::BeginPlay()
 	GetBuildingComponent()->OnBuildingStateChanged.AddDynamic(this, &ACTBuildable::BuildingStateChanged);
 }
 
-void ACTBuildable::Interact(ACTSortable* OtherSortable)
+void ACTBuildable::InteractInternal(ACTSortable* OtherSortable)
 {
-	Super::Interact(OtherSortable);
+	Super::InteractInternal(OtherSortable);
 
 	if(!BuildingComponent->UpgradeBuilding()) return;
 
@@ -69,7 +69,7 @@ UBoxComponent* ACTBuildable::GetWaitingBoxComponent() const
 	return WaitingBoxComponent;
 }
 
-bool ACTBuildable::CanInteract() const
+bool ACTBuildable::CanInteractInternal() const
 {	
 	return BuildingComponent->CanBeBuild();
 }
@@ -92,5 +92,11 @@ void ACTBuildable::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState 
 		UpdateConstructionCollision(false);
 	}
 }
+
+TArray<FResource> ACTBuildable::GetNeededResourcesForInteraction_Implementation()
+{
+	return GetBuildingComponent()->GetResourcesCostForCurrentLevel();
+}
+
 
 

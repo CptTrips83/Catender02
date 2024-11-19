@@ -47,6 +47,18 @@ public:
 	 */
 	UFUNCTION(BlueprintPure)
 	UCTSortingComponent* GetSortingComponent() const;
+
+	/**
+	 * @brief Executes an interaction with another sortable actor.
+	 *
+	 * This function is invoked to initiate an interaction between the current
+	 * interactable actor and another sortable actor passed as a parameter.
+	 * It defines the specific behavior that occurs during the interaction.
+	 *
+	 * @param OtherSortable The other sortable actor to interact with.
+	 */
+	UFUNCTION(BlueprintNativeEvent, Category = "Interaction")
+	void Interact(ACTSortable* OtherSortable);
 	
 protected:
 	
@@ -71,11 +83,7 @@ protected:
 	);
 		
 	virtual void BeginPlay() override;
-	/**
-	 * Interacts with another sortable actor, triggering the other actor's interaction functionality.
-	 *
-	 * @param OtherSortable The other sortable actor to interact with.
-	 */
-	UFUNCTION(BlueprintCallable, Category = "Interaction")
-	virtual void Interact(ACTSortable* OtherSortable);
+	
+
+	virtual void InteractInternal(ACTSortable* OtherSortable);
 };

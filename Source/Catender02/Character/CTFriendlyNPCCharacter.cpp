@@ -80,8 +80,7 @@ void ACTFriendlyNPCCharacter::OnWorkSiteBoxEndOverlap(UPrimitiveComponent* Overl
 }
 
 void ACTFriendlyNPCCharacter::Wait()
-{
-	
+{	
 	if(!GetIsWaiting())
 	{
 		WaitingTimerHandle.Invalidate();

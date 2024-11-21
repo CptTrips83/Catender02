@@ -20,6 +20,16 @@ UCTWorldDayTimeComponent::UCTWorldDayTimeComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+float UCTWorldDayTimeComponent::GetCurrentIntensity() const
+{
+	return TargetIntensity;
+}
+
+float UCTWorldDayTimeComponent::GetLightIntensitySwitchSpeed() const
+{
+	return LightIntensitySwitchSpeed;
+}
+
 void UCTWorldDayTimeComponent::BeginPlay()
 {
 	Super::BeginPlay();

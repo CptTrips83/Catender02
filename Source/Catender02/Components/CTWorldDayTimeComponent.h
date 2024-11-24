@@ -202,5 +202,6 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FDayTimeChanged OnDayChanged;
 
-	
+	UPROPERTY(BlueprintAssignable)
+	FDayTimeChanged OnDayNightChanged;
 };

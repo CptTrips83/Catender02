@@ -112,6 +112,11 @@ void UCTWorldDayTimeComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 
 		OnDayChanged.Broadcast(OldDay, CurrentDay, OldIsDay, IsDay());
 	}
+
+	if (OldIsDay != IsDay())
+	{
+		OnDayNightChanged.Broadcast(OldHour, CurrentHour, OldIsDay, IsDay());
+	}
 }
 
 bool UCTWorldDayTimeComponent::IsDay()

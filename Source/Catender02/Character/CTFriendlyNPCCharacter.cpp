@@ -142,7 +142,12 @@ void ACTFriendlyNPCCharacter::WithdrawFromBuildingWorkSite(ACTBuildable* Buildab
 	Buildable->GetBuildingWorkSiteComponent()->RemoveFriendlyNPCCharacter(this);
 }
 
-ACTBuildable* ACTFriendlyNPCCharacter::GetNearestWorkingSite()
+ACTBuildable* ACTFriendlyNPCCharacter::GetNearestWorkingSite_Implementation()
+{
+	return GetNearestWorkingSiteInternal();
+}
+
+ACTBuildable* ACTFriendlyNPCCharacter::GetNearestWorkingSiteInternal()
 {
 	ACTBuildable* NearestWorkingSite = GetGameMode()->GetWorldBuildableComponent()->GetNearestBuildable(this);
 

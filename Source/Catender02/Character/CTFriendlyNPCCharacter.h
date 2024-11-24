@@ -175,6 +175,9 @@ protected:
 	 */
 	UFUNCTION()
 	virtual float CalculateWaitingTime();	
+
+	UFUNCTION()
+	virtual ACTBuildable* GetNearestWorkingSiteInternal();
 	
 public:
 	virtual void Tick(float DeltaTime) override;
@@ -208,8 +211,8 @@ public:
 	 *
 	 * @return A pointer to the nearest ACTBuildable object representing the work site, or nullptr if no suitable site is found.
 	 */
-	UFUNCTION(BlueprintPure)
-	virtual ACTBuildable* GetNearestWorkingSite();
+	UFUNCTION(BlueprintPure, BlueprintNativeEvent)
+	ACTBuildable* GetNearestWorkingSite();
 
 	/**
 	 * Sets the waiting state of the friendly non-playable character (NPC).

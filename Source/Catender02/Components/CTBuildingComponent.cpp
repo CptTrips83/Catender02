@@ -340,6 +340,7 @@ void UCTBuildingComponent::ConstructionFailed(ACTBuildable* Buildable, TArray<FR
 void UCTBuildingComponent::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldBuildingState,
                                                 EBuildingState NewBuildingState)
 {
+	UpdateBuilding();
 }
 
 void UCTBuildingComponent::CurrentLevelChanged(ACTBuildable* Buildable, int OldLevel, int NewLevel)

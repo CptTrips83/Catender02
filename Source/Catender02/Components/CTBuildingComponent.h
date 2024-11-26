@@ -221,7 +221,7 @@ public:
 	 *
 	 * @param NewBuildingState The new state to which the building will be set, specified by the EBuildingState enumeration.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	virtual void SetBuildingState(EBuildingState NewBuildingState);
 	/**
 	 * @brief Adds progress to the current building's construction.

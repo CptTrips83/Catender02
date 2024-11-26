@@ -2,6 +2,8 @@
 #include "CTWorldDayTimeComponent.h"
 
 #include "Components/DirectionalLightComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 
 float UCTWorldDayTimeComponent::GetHourLightIntensity() const
@@ -37,6 +39,11 @@ void UCTWorldDayTimeComponent::BeginPlay()
 	DayTimeChanged(CurrentHour - 1, CurrentHour, !IsDay(), IsDay());
 
 	OnDayTimeChanged.AddDynamic(this, &UCTWorldDayTimeComponent::DayTimeChanged);
+
+	if (!DirectionalLight)
+	{
+		DirectionalLight = UGameplayStatics::GetActorOfClass(GetWorld(), ADirectionalLight::StaticClass());
+	}
 }
 
 void UCTWorldDayTimeComponent::DayTimeChanged(int OldHour, int NewHour, bool OldIsDay, bool NewIsDay)
@@ -59,26 +66,23 @@ void UCTWorldDayTimeComponent::DayTimeChanged(int OldHour, int NewHour, bool Old
 		+ " " + FString::SanitizeFloat(HourLightIntensity)
 		+ " " + FString::SanitizeFloat(GetHourCurveValue())
 		+ " " + FString::SanitizeFloat(NewLightIntensity);
-	
-	GEngine->AddOnScreenDebugMessage(
-		-1,
-		5.f,
-		FColor::Red,
-		DebugMessage
-		);
+		
+	UKismetSystemLibrary::PrintString(GEngine->GetWorld(), DebugMessage, true, true);
 	
 	TargetIntensity = NewLightIntensity;
 }
 
 void UCTWorldDayTimeComponent::ApplyTargetIntensity()
-{	
-	float CurrentLightIntensity = DirectionalLight->GetComponent()->Intensity;
+{
+	if (!DirectionalLight) return;
+	
+	float CurrentLightIntensity = DirectionalLight->GetLightComponent()->Intensity;
 
 	if(CurrentLightIntensity == TargetIntensity) return;
 	
 	float Alpha = LightIntensitySwitchSpeed;	
 	float NewLightIntensity = FMath::Lerp(CurrentLightIntensity, TargetIntensity, Alpha);	
-	DirectionalLight->GetComponent()->SetIntensity(NewLightIntensity);
+	DirectionalLight->GetLightComponent()->SetIntensity(NewLightIntensity);
 }
 
 

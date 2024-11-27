@@ -146,6 +146,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool TrySubtractResourceAmount(const EResourceType ResourceType, int Amount);
 
+	UFUNCTION(BlueprintCallable)
+	bool TrySubtractResources(const TArray<FResource> NeededResources);
+	
 	/**
 	 * Sets the maximum amount of resources that can be stored.
 	 *
@@ -197,4 +200,7 @@ public:
 	 */
 	UFUNCTION(BlueprintPure)
 	bool CheckResource(EResourceType Resource, int NeededAmount);
+
+	UFUNCTION(BlueprintPure)
+	bool CheckResources(TArray<FResource> NeededResources);
 };

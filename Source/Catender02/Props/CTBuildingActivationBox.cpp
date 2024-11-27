@@ -3,6 +3,8 @@
 #include "CTBuildingActivationBox.h"
 
 #include "Catender02/Objects/CTBuilding.h"
+#include "Catender02/Objects/CTBuildingHQ.h"
+#include "Kismet/GameplayStatics.h"
 
 
 void ACTBuildingActivationBox::CalculateGrowSpeed()
@@ -18,6 +20,9 @@ void ACTBuildingActivationBox::CalculateGrowSpeed()
 
 void ACTBuildingActivationBox::GrowBox()
 {
+	if (!BuildingHQ) return;
+	if (BuildingHQ->GetBuildingComponent()->GetBuildingState() != Active) return;
+	
 	FVector NewBoxExtent = FVector(
 		GetBoxBuildingVisibilityComponent()->GetUnscaledBoxExtent().X + CurrentBuildingVisibilityGrowSpeed,
 		GetBoxBuildingVisibilityComponent()->GetUnscaledBoxExtent().Y,
@@ -55,6 +60,8 @@ UBoxComponent* ACTBuildingActivationBox::GetBoxBuildingVisibilityComponent()
 void ACTBuildingActivationBox::BeginPlay()
 {
 	Super::BeginPlay();
+
+	BuildingHQ = Cast<ACTBuildingHQ>(UGameplayStatics::GetActorOfClass(GetWorld(), ACTBuildingHQ::StaticClass()));	
 	
 	GetBoxBuildingVisibilityComponent()->OnComponentBeginOverlap.AddDynamic(
 		this,

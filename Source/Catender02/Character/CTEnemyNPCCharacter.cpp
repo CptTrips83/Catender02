@@ -1,6 +1,6 @@
 ﻿
 
-#include "ACTEnemyNPCCharacter.h"
+#include "CTEnemyNPCCharacter.h"
 
 ACTEnemyNPCCharacter::ACTEnemyNPCCharacter()
 {

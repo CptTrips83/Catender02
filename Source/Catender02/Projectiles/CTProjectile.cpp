@@ -1,9 +1,9 @@
 ﻿
 
-#include "ACTProjectile.h"
+#include "CTProjectile.h"
 
 
-AACTProjectile::AACTProjectile()
+ACTProjectile::ACTProjectile()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -23,7 +23,7 @@ AACTProjectile::AACTProjectile()
 	ProjectileMovementComponent->ProjectileGravityScale = 0.5f;
 }
 
-void AACTProjectile::LaunchProjectile(const FVector Target)
+void ACTProjectile::LaunchProjectile(const FVector Target)
 {
 	TargetLocation = Target;
 
@@ -32,61 +32,61 @@ void AACTProjectile::LaunchProjectile(const FVector Target)
 	GetWorld()->GetTimerManager().SetTimer(
 		LifeSpanHandle,
 		this,
-		&AACTProjectile::OnLifeSpanEnded,
+		&ACTProjectile::OnLifeSpanEnded,
 		LifeSpan,
 		false
 	);
 }
 
-void AACTProjectile::BeginPlay()
+void ACTProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetCollisionSphereComponent()->OnComponentBeginOverlap.AddDynamic(this, &AACTProjectile::OnProjectileHit);
+	GetCollisionSphereComponent()->OnComponentBeginOverlap.AddDynamic(this, &ACTProjectile::OnProjectileHit);
 }
 
-UPrimitiveComponent* AACTProjectile::GetProjectileSpriteComponent() const
+UPrimitiveComponent* ACTProjectile::GetProjectileSpriteComponent() const
 {
 	return ProjectileSpriteComponent;
 }
 
-UProjectileMovementComponent* AACTProjectile::GetProjectileMovementComponent() const
+UProjectileMovementComponent* ACTProjectile::GetProjectileMovementComponent() const
 {
 	return ProjectileMovementComponent;
 }
 
-USphereComponent* AACTProjectile::GetCollisionSphereComponent() const
+USphereComponent* ACTProjectile::GetCollisionSphereComponent() const
 {
 	return CollisionSphereComponent;
 }
 
-FVector AACTProjectile::CalculateLaunchVelocity() const
+FVector ACTProjectile::CalculateLaunchVelocity() const
 {
 	FVector2D TargetLocation2D = FVector2D(TargetLocation.X, TargetLocation.Z);
 	
-	FVector2D StartLocation = FVector2D(GetActorLocation());
+	FVector2D StartLocation = FVector2D(GetActorLocation().X, GetActorLocation().Z);
 	FVector2D Direction = TargetLocation2D - StartLocation;
-    
+	
 	// Calculate the distance to the target and normalize direction
 	float Distance = Direction.Size();
-	Direction.Normalize();
+	Direction = Direction.GetSafeNormal();
 
 	// Calculate the launch speed (this is a simplified example, adjust as needed)
-	float LaunchSpeed = FMath::Sqrt((GetProjectileMovementComponent()->ProjectileGravityScale * Distance) / FMath::Sin(2 * FMath::DegreesToRadians(45.f)));
+	float LaunchSpeed = FMath::Sqrt((GetProjectileMovementComponent()->ProjectileGravityScale * Distance) / FMath::Sin(2 * FMath::DegreesToRadians(50.f)));
 
-	return FVector(Direction.X, 0.f, Direction.Y) * LaunchSpeed;
+	return FVector(Direction.X, 0.f, Direction.Y) * (LaunchSpeed * 200.f);
 }
 
-void AACTProjectile::OnProjectileHit(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void ACTProjectile::OnProjectileHit(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 }
 
-void AACTProjectile::OnLifeSpanEnded()
+void ACTProjectile::OnLifeSpanEnded()
 {
 }
 
-void AACTProjectile::Tick(float DeltaTime)
+void ACTProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }

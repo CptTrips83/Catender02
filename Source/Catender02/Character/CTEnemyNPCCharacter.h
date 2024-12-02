@@ -3,7 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "CTCharacter.h"
-#include "ACTEnemyNPCCharacter.generated.h"
+#include "CTEnemyNPCCharacter.generated.h"
 
 UCLASS()
 class CATENDER02_API ACTEnemyNPCCharacter : public ACTCharacter

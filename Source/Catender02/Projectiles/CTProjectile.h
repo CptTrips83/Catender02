@@ -5,10 +5,10 @@
 #include "PaperFlipbookComponent.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
-#include "ACTProjectile.generated.h"
+#include "CTProjectile.generated.h"
 
 UCLASS()
-class CATENDER02_API AACTProjectile : public AActor
+class CATENDER02_API ACTProjectile : public AActor
 {
 	GENERATED_BODY()
 
@@ -31,7 +31,7 @@ class CATENDER02_API AACTProjectile : public AActor
 	FTimerHandle LifeSpanHandle;
 	
 public:
-	AACTProjectile();	
+	ACTProjectile();	
 
 	UFUNCTION(BlueprintCallable, Category = "Projectile")
 	virtual void LaunchProjectile(FVector Target);

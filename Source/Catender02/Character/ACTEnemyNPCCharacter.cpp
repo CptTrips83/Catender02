@@ -19,8 +19,7 @@ void ACTEnemyNPCCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-// Called to bind functionality to input
-void AACTEnemyNPCCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ACTEnemyNPCCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }

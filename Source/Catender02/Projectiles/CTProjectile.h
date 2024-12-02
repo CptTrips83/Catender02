@@ -20,16 +20,22 @@ class CATENDER02_API ACTProjectile : public ACTSortable
 	FVector TargetLocation;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Projectile", meta = (AllowPrivateAccess = true))
-	float LifeSpan = 5;	
+	float LaunchSpeedModifier = 150.f;
 
-	UPROPERTY()
-	FTimerHandle LifeSpanHandle;
-	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Projectile", meta = (AllowPrivateAccess = true, MinValue = 0.f, MaxValue = 0.1f, MaxLength = 2f))
+	float LaunchAngleModifier = 0.15f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Projectile", meta = (AllowPrivateAccess = true))
+	float Damage = 1.f;
+
 public:
 	ACTProjectile();	
 
 	UFUNCTION(BlueprintCallable, Category = "Projectile")
-	virtual void LaunchProjectile(FVector Target);
+	virtual void LaunchProjectile(FVector Target, float LaunchSpeedMod = 150.f, float LaunchAngleMod = 0.15f);
+
+	UFUNCTION(BlueprintPure, Category = "Projectile")
+	virtual float GetDamage() const;
 	
 protected:
 	virtual void BeginPlay() override;

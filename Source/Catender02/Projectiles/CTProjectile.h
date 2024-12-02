@@ -3,20 +3,15 @@
 
 #include "CoreMinimal.h"
 #include "PaperFlipbookComponent.h"
+#include "Catender02/CTSortable.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "CTProjectile.generated.h"
 
 UCLASS()
-class CATENDER02_API ACTProjectile : public AActor
+class CATENDER02_API ACTProjectile : public ACTSortable
 {
 	GENERATED_BODY()
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Projectile", meta = (AllowPrivateAccess = true))
-	USphereComponent* CollisionSphereComponent;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Projectile", meta = (AllowPrivateAccess = true))
-	UPaperFlipbookComponent* ProjectileSpriteComponent;	
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Projectile", meta = (AllowPrivateAccess = true))
 	UProjectileMovementComponent* ProjectileMovementComponent;
@@ -40,13 +35,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintPure, Category = "Projectile")
-	virtual UPrimitiveComponent* GetProjectileSpriteComponent() const;
-
-	UFUNCTION(BlueprintPure, Category = "Projectile")
 	virtual UProjectileMovementComponent* GetProjectileMovementComponent() const;
-
-	UFUNCTION(BlueprintPure, Category = "Projectile")
-	virtual USphereComponent* GetCollisionSphereComponent() const;
 
 	UFUNCTION()
 	virtual FVector CalculateLaunchVelocity() const;
@@ -58,9 +47,6 @@ protected:
 		int32 OtherBodyIndex, 
 		bool bFromSweep, 
 		const FHitResult& SweepResult);
-
-	UFUNCTION()
-	virtual void OnLifeSpanEnded();
 public:
 	virtual void Tick(float DeltaTime) override;
 };

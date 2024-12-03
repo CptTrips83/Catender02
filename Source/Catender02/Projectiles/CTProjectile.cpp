@@ -56,7 +56,7 @@ FVector ACTProjectile::CalculateLaunchVelocity() const
 	
 	// Calculate the distance to the target and normalize direction
 	float Distance = Direction.Size();
-	Direction.Y += Distance * 0.15f;
+	Direction.Y += Distance * LaunchAngleModifier;
 	Direction = Direction.GetSafeNormal();
 
 	// Calculate the launch speed (this is a simplified example, adjust as needed)

@@ -81,7 +81,11 @@ class CATENDER02_API ACTFriendlyNPCCharacter : public ACTCharacter
 	 * The capsule component's collision is first disabled and then set to query-only mode, ensuring that
 	 * it can detect overlaps without affecting physics interactions.
 	 */
+	UFUNCTION()
 	void ResetWorkSiteCapsule();
+
+	UFUNCTION()
+	void ClearAssignedBuildables();
 	
 public:
 	ACTFriendlyNPCCharacter();

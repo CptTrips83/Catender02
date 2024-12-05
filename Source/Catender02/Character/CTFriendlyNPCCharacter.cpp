@@ -12,6 +12,12 @@ void ACTFriendlyNPCCharacter::ResetWorkSiteCapsule()
 	GetWorkSiteCapsule()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 }
 
+void ACTFriendlyNPCCharacter::ClearAssignedBuildables()
+{
+	WithdrawFromBuildingWorkSite(AssignedBuildable);
+	ResetWorkSiteCapsule();
+}
+
 ACTFriendlyNPCCharacter::ACTFriendlyNPCCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -174,6 +180,8 @@ void ACTFriendlyNPCCharacter::SetIsWaiting(bool NewValue)
 	IsWaiting = NewValue;
 		
 	OnWaitingIsChanged.Broadcast(this, OldValue, NewValue);
+
+	if (NewValue == true) ClearAssignedBuildables();	
 }
 
 bool ACTFriendlyNPCCharacter::GetIsWaiting()

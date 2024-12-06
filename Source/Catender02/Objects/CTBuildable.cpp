@@ -105,7 +105,7 @@ void ACTBuildable::OnBuildingStateChanged(ACTBuildable* Buildable, EBuildingStat
 
 TArray<FResource> ACTBuildable::GetNeededResourcesForInteraction_Implementation()
 {
-	return GetBuildingComponent()->GetResourcesCostForCurrentLevel();
+	return GetBuildingComponent()->GetResourcesCostForNextLevel();
 }
 
 

@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Catender02/CTSortable.h"
+#include "Catender02/Character/CTEnemyNPCCharacter.h"
 #include "CTWildlife.generated.h"
 
 UCLASS()
-class CATENDER02_API ACTWildlife : public ACTSortable
+class CATENDER02_API ACTWildlife : public ACTEnemyNPCCharacter
 {
 	GENERATED_BODY()
 

@@ -47,4 +47,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Wildlife")
 	FWildlifeChanged OnWildlifeChanged;
+
+	UFUNCTION(BlueprintCallable, Category = "Wildlife")
+	TSoftObjectPtr<ACTWildlife> SpawnWildlife(TSubclassOf<ACTWildlife> WildlifeClass, FVector Location);
 };

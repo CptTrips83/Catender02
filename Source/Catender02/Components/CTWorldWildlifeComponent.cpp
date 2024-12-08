@@ -44,3 +44,17 @@ void UCTWorldWildlifeComponent::RemoveWildlife(ACTWildlife* WildlifeToRemove)
 	OnWildlifeChanged.Broadcast(Wildlife);
 }
 
+TSoftObjectPtr<ACTWildlife> UCTWorldWildlifeComponent::SpawnWildlife(TSubclassOf<ACTWildlife> WildlifeClass,
+	FVector Location)
+{
+	if (GetNumWildlife() >= MaxWildlife) return nullptr;
+	
+	FRotator Rotation(0.0f, 0.0f, 0.0f);
+	FActorSpawnParameters SpawnInfo;
+
+	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    ACTWildlife* SpawnedWildlife =	GetWorld()->SpawnActor<ACTWildlife>(WildlifeClass, Location, Rotation, SpawnInfo);
+
+	return TSoftObjectPtr<ACTWildlife>(SpawnedWildlife);
+}
+

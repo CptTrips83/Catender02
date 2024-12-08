@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Catender02/CTSortable.h"
 #include "Catender02/Character/CTEnemyNPCCharacter.h"
 #include "CTWildlife.generated.h"
 

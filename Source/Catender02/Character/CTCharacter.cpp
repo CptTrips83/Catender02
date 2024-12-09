@@ -69,3 +69,11 @@ bool ACTCharacter::CanMove()
 {
 	return true;
 }
+
+void ACTCharacter::SetMovement(ENPCCharacterMovementType MovementType)
+{
+	MovementType == ENPCCharacterMovementType::Walking ?
+		GetCharacterMovement()->MaxWalkSpeed = WalkingSpeed :
+		GetCharacterMovement()->MaxWalkSpeed = RunningSpeed;
+}
+

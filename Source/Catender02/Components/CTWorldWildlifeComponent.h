@@ -22,6 +22,9 @@ class CATENDER02_API UCTWorldWildlifeComponent : public UActorComponent
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	int MaxWildlife = 10;
+
+	UFUNCTION()
+	void SortWildlifeByNearest(ACTSortable* Sortable);
 	
 public:
 	UCTWorldWildlifeComponent();
@@ -50,4 +53,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Wildlife")
 	TSoftObjectPtr<ACTWildlife> SpawnWildlife(TSubclassOf<ACTWildlife> WildlifeClass, FVector Location);
+
+	UFUNCTION(BlueprintPure, Category = "Wildlife")
+	TSoftObjectPtr<ACTWildlife> GetNearestWildlife(ACTSortable* Sortable);
 };

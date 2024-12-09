@@ -5,6 +5,14 @@
 
 #include "Catender02/Objects/CTWildlife.h"
 
+void UCTWorldWildlifeComponent::SortWildlifeByNearest(ACTSortable* Sortable)
+{
+	Wildlife.Sort([&Sortable](const TSoftObjectPtr<ACTWildlife>& A, const TSoftObjectPtr<ACTWildlife>& B)
+	{
+		return A->GetDistanceTo(Sortable) < B->GetDistanceTo(Sortable);
+	});
+}
+
 UCTWorldWildlifeComponent::UCTWorldWildlifeComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
@@ -56,5 +64,14 @@ TSoftObjectPtr<ACTWildlife> UCTWorldWildlifeComponent::SpawnWildlife(TSubclassOf
     ACTWildlife* SpawnedWildlife =	GetWorld()->SpawnActor<ACTWildlife>(WildlifeClass, Location, Rotation, SpawnInfo);
 
 	return TSoftObjectPtr<ACTWildlife>(SpawnedWildlife);
+}
+
+TSoftObjectPtr<ACTWildlife> UCTWorldWildlifeComponent::GetNearestWildlife(ACTSortable* Sortable)
+{
+	if (Wildlife.Num() == 0) return nullptr;
+
+	SortWildlifeByNearest(Sortable);
+
+	return Wildlife[0];
 }
 

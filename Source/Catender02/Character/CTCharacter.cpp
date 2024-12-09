@@ -2,6 +2,7 @@
 #include "CTCharacter.h"
 
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 /**
  * @brief Updates the rotation of the character based on its current velocity.
@@ -75,5 +76,20 @@ void ACTCharacter::SetMovement(ENPCCharacterMovementType MovementType)
 	MovementType == ENPCCharacterMovementType::Walking ?
 		GetCharacterMovement()->MaxWalkSpeed = WalkingSpeed :
 		GetCharacterMovement()->MaxWalkSpeed = RunningSpeed;
+}
+
+float ACTCharacter::GetRandomPositionInBox(USceneComponent* Box)
+{
+	if (!Box)
+	{
+		return 0.0f;
+	}
+	
+	FVector Origin = Box->Bounds.Origin;
+	FVector Extent = Box->Bounds.BoxExtent;
+
+	FVector RandomPoint = UKismetMathLibrary::RandomPointInBoundingBox(Origin, Extent);
+
+	return RandomPoint.X;
 }
 

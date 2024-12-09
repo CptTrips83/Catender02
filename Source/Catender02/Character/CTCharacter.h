@@ -53,4 +53,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	virtual void SetMovement(ENPCCharacterMovementType MovementType);
+
+	/**
+ * Generates a random position within the bounds of the specified box component.
+ *
+ * @param Box The box component within which to generate a random position.
+ * @return A random X coordinate within the bounds of the box.
+ */
+	UFUNCTION(BlueprintPure)
+	virtual float GetRandomPositionInBox(USceneComponent* Box);
 };

@@ -274,14 +274,7 @@ public:
 	UFUNCTION(BlueprintPure)
 	UCapsuleComponent* GetWorkSiteCapsule();
 
-	/**
-	 * Generates a random position within the bounds of the specified box component.
-	 *
-	 * @param Box The box component within which to generate a random position.
-	 * @return A random X coordinate within the bounds of the box.
-	 */
-	UFUNCTION(BlueprintPure)
-	virtual float GetRandomPositionInBox(USceneComponent* Box);
+	virtual float GetRandomPositionInBox(USceneComponent* Box) override;
 
 	/**
 	 * Event delegate that is called when the waiting state changes.

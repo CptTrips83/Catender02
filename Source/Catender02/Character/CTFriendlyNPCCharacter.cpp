@@ -3,7 +3,6 @@
 
 #include "Catender02/Objects/CTBuilding.h"
 #include "Components/CapsuleComponent.h"
-#include "Kismet/KismetMathLibrary.h"
 
 
 void ACTFriendlyNPCCharacter::ResetWorkSiteCapsule()
@@ -222,16 +221,6 @@ UCapsuleComponent* ACTFriendlyNPCCharacter::GetWorkSiteCapsule()
 
 float ACTFriendlyNPCCharacter::GetRandomPositionInBox(USceneComponent* Box)
 {
-	if (!Box)
-	{
-		return 0.0f;
-	}
-	
-    FVector Origin = Box->Bounds.Origin;
-	FVector Extent = Box->Bounds.BoxExtent;
-
-	FVector RandomPoint = UKismetMathLibrary::RandomPointInBoundingBox(Origin, Extent);
-
-	return RandomPoint.X;
+	return Super::GetRandomPositionInBox(Box);
 }
 

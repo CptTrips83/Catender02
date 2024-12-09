@@ -5,6 +5,7 @@
 #include "Components/ActorComponent.h"
 #include "CTWorldWildlifeComponent.generated.h"
 
+class ACTSortable;
 class ACTWildlife;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam
 (

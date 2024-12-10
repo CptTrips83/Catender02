@@ -1,7 +1,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PaperZDCharacter.h"
 #include "./Catender02/CTSortable.h"
 #include "CTCharacter.generated.h"
 

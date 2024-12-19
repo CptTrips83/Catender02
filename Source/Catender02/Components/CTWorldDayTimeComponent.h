@@ -29,7 +29,7 @@ class CATENDER02_API UCTWorldDayTimeComponent : public UActorComponent
 	 * deferred loading of the light asset and provides safety for cases when
 	 * the asset isn't immediately available.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	TSoftObjectPtr<ADirectionalLight> DirectionalLight;
 
 	/**
@@ -37,7 +37,7 @@ class CATENDER02_API UCTWorldDayTimeComponent : public UActorComponent
 	 * for the purpose of applying time-based modifications to variables such as light intensity
 	 * throughout a day and night cycle in game environments.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	UCurveFloat* CurveFloat;
 
 	/**
@@ -45,7 +45,7 @@ class CATENDER02_API UCTWorldDayTimeComponent : public UActorComponent
 	 * cycles in the game world. This ensures that the light never goes below this intensity even during the darkest
 	 * periods, maintaining a base level of illumination for visibility and ambience.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	float MinLightIntensity = 0.1f;
 
 	/**
@@ -53,7 +53,7 @@ class CATENDER02_API UCTWorldDayTimeComponent : public UActorComponent
 	 * of day and night cycles in the game world. This cap ensures that the light does not exceed this
 	 * intensity, maintaining a balanced visual brightness in the environment.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	float MaxLightIntensity = 10.0f;
 
 	/**
@@ -61,7 +61,7 @@ class CATENDER02_API UCTWorldDayTimeComponent : public UActorComponent
 	 * before transitioning into night. This value is used in conjunction with night length to control the overall
 	 * day and night cycle duration within the simulation.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	int DayLength = 16;
 
 	/**
@@ -69,47 +69,47 @@ class CATENDER02_API UCTWorldDayTimeComponent : public UActorComponent
 	 * This value, in combination with DayLength, determines the total cycle duration, influencing game mechanics related
 	 * to time of day.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	int NightLength = 8;
 
 	/**
 	 * A multiplier applied to the light intensity during nighttime, allowing for the adjustment
 	 * of how dark the environment should be when the game world transitions to night.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	float NightModifier = 0.75f;
 
 	/**
 	 * Specifies the duration (in minutes) of an in-game hour. This value determines how long one hour lasts
 	 * within the game world's simulated day and night cycle, affecting the progression speed of time in the game.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	float HourLength = 60;
 
 	/**
 	 * Represents the current minute within an in-game hour, used to track the passage of time
 	 * in the game's day and night cycle simulation.
 	 */
-	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	float CurrentMinute = 0;
 	/**
 	 * Represents the current hour in the in-game day and night cycle simulation.
 	 * Used to track the progression of time within the game world.
 	 */
-	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	int CurrentHour = 8;
 	/**
 	 * Represents the current day within the in-game day and night cycle simulation.
 	 * Used to track the number of days that have passed in the game world.
 	 */
-	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	int CurrentDay = 1;
 
 	/**
 	 * Defines the speed at which the light intensity changes, affecting the transition between day and night cycles in the game world.
 	 * The value is configurable within the editor and can be accessed and modified in blueprints.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	float LightIntensitySwitchSpeed = 0.0001f;
 	
 	/**
@@ -148,6 +148,12 @@ class CATENDER02_API UCTWorldDayTimeComponent : public UActorComponent
 public:
 	UCTWorldDayTimeComponent();
 
+	UFUNCTION(BlueprintPure, Category = "Day Time")
+	float GetCurrentIntensity() const;
+
+	UFUNCTION(BlueprintPure, Category = "Day Time")
+	float GetLightIntensitySwitchSpeed() const;
+	
 protected:
 	virtual void BeginPlay() override;
 
@@ -196,5 +202,6 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FDayTimeChanged OnDayChanged;
 
-	
+	UPROPERTY(BlueprintAssignable)
+	FDayTimeChanged OnDayNightChanged;
 };

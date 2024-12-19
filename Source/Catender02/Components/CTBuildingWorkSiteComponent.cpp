@@ -114,6 +114,7 @@ void UCTBuildingWorkSiteComponent::TickComponent(float DeltaTime, ELevelTick Tic
 bool UCTBuildingWorkSiteComponent::HasActiveWorkSite(ACTFriendlyNPCCharacter* NPCCharacter) const
 {
 	if(!BuildingComponent) return false;
+	if(!NPCCharacter) return false;
 	
 	const EBuildingState BuildingState = BuildingComponent->GetBuildingState();
 
@@ -121,12 +122,14 @@ bool UCTBuildingWorkSiteComponent::HasActiveWorkSite(ACTFriendlyNPCCharacter* NP
 	{
 		return false;
 	}
+
+	if (!BuildingStatesWorker.Contains(BuildingState)) return false;
 	
-	if (const TSubclassOf<ACTFriendlyNPCCharacter> NeededNPCClass
-			= BuildingStatesWorker.FindRef(BuildingState);
-		NPCCharacter->IsA(NeededNPCClass))
-	{
-		
+	const TSubclassOf<ACTFriendlyNPCCharacter> NeededNPCClass
+				= BuildingStatesWorker.FindRef(BuildingState);
+	
+	if (NPCCharacter->IsA(NeededNPCClass))
+	{		
 		return true;
 	}
 	

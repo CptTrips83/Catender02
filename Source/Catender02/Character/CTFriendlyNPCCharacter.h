@@ -81,7 +81,11 @@ class CATENDER02_API ACTFriendlyNPCCharacter : public ACTCharacter
 	 * The capsule component's collision is first disabled and then set to query-only mode, ensuring that
 	 * it can detect overlaps without affecting physics interactions.
 	 */
+	UFUNCTION()
 	void ResetWorkSiteCapsule();
+
+	UFUNCTION()
+	void ClearAssignedBuildables();
 	
 public:
 	ACTFriendlyNPCCharacter();
@@ -175,6 +179,9 @@ protected:
 	 */
 	UFUNCTION()
 	virtual float CalculateWaitingTime();	
+
+	UFUNCTION()
+	virtual ACTBuildable* GetNearestWorkingSiteInternal();
 	
 public:
 	virtual void Tick(float DeltaTime) override;
@@ -208,8 +215,8 @@ public:
 	 *
 	 * @return A pointer to the nearest ACTBuildable object representing the work site, or nullptr if no suitable site is found.
 	 */
-	UFUNCTION(BlueprintPure)
-	virtual ACTBuildable* GetNearestWorkingSite();
+	UFUNCTION(BlueprintPure, BlueprintNativeEvent)
+	ACTBuildable* GetNearestWorkingSite();
 
 	/**
 	 * Sets the waiting state of the friendly non-playable character (NPC).
@@ -267,14 +274,7 @@ public:
 	UFUNCTION(BlueprintPure)
 	UCapsuleComponent* GetWorkSiteCapsule();
 
-	/**
-	 * Generates a random position within the bounds of the specified box component.
-	 *
-	 * @param Box The box component within which to generate a random position.
-	 * @return A random X coordinate within the bounds of the box.
-	 */
-	UFUNCTION(BlueprintPure)
-	virtual float GetRandomPositionInBox(USceneComponent* Box);
+	virtual float GetRandomPositionInBox(USceneComponent* Box) override;
 
 	/**
 	 * Event delegate that is called when the waiting state changes.

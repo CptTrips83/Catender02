@@ -3,13 +3,18 @@
 
 #include "Catender02/Objects/CTBuilding.h"
 #include "Components/CapsuleComponent.h"
-#include "Kismet/KismetMathLibrary.h"
 
 
 void ACTFriendlyNPCCharacter::ResetWorkSiteCapsule()
 {
 	GetWorkSiteCapsule()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	GetWorkSiteCapsule()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
+void ACTFriendlyNPCCharacter::ClearAssignedBuildables()
+{
+	WithdrawFromBuildingWorkSite(AssignedBuildable);
+	ResetWorkSiteCapsule();
 }
 
 ACTFriendlyNPCCharacter::ACTFriendlyNPCCharacter()
@@ -80,8 +85,7 @@ void ACTFriendlyNPCCharacter::OnWorkSiteBoxEndOverlap(UPrimitiveComponent* Overl
 }
 
 void ACTFriendlyNPCCharacter::Wait()
-{
-	
+{	
 	if(!GetIsWaiting())
 	{
 		WaitingTimerHandle.Invalidate();
@@ -143,7 +147,12 @@ void ACTFriendlyNPCCharacter::WithdrawFromBuildingWorkSite(ACTBuildable* Buildab
 	Buildable->GetBuildingWorkSiteComponent()->RemoveFriendlyNPCCharacter(this);
 }
 
-ACTBuildable* ACTFriendlyNPCCharacter::GetNearestWorkingSite()
+ACTBuildable* ACTFriendlyNPCCharacter::GetNearestWorkingSite_Implementation()
+{
+	return GetNearestWorkingSiteInternal();
+}
+
+ACTBuildable* ACTFriendlyNPCCharacter::GetNearestWorkingSiteInternal()
 {
 	ACTBuildable* NearestWorkingSite = GetGameMode()->GetWorldBuildableComponent()->GetNearestBuildable(this);
 
@@ -170,6 +179,8 @@ void ACTFriendlyNPCCharacter::SetIsWaiting(bool NewValue)
 	IsWaiting = NewValue;
 		
 	OnWaitingIsChanged.Broadcast(this, OldValue, NewValue);
+
+	if (NewValue == true) ClearAssignedBuildables();	
 }
 
 bool ACTFriendlyNPCCharacter::GetIsWaiting()
@@ -210,11 +221,6 @@ UCapsuleComponent* ACTFriendlyNPCCharacter::GetWorkSiteCapsule()
 
 float ACTFriendlyNPCCharacter::GetRandomPositionInBox(USceneComponent* Box)
 {
-    FVector Origin = Box->Bounds.Origin;
-	FVector Extent = Box->Bounds.BoxExtent;
-
-	FVector RandomPoint = UKismetMathLibrary::RandomPointInBoundingBox(Origin, Extent);
-
-	return RandomPoint.X;
+	return Super::GetRandomPositionInBox(Box);
 }
 

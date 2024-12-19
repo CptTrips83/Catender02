@@ -20,6 +20,9 @@ ACTGameModeLevel::ACTGameModeLevel()
 
 	WorldDayTimeComponent = CreateDefaultSubobject<UCTWorldDayTimeComponent>(TEXT("World Day Time Component"));
 	AddOwnedComponent(WorldDayTimeComponent);
+
+	WorldWildlifeComponent = CreateDefaultSubobject<UCTWorldWildlifeComponent>(TEXT("World Wildlife Component"));
+	AddOwnedComponent(WorldWildlifeComponent);
 }
 
 void ACTGameModeLevel::BeginPlay()
@@ -52,4 +55,9 @@ UCTWorldBuildableComponent* ACTGameModeLevel::GetWorldBuildableComponent()
 UCTWorldDayTimeComponent* ACTGameModeLevel::GetWorldDayTimeComponent()
 {
 	return WorldDayTimeComponent;
+}
+
+UCTWorldWildlifeComponent* ACTGameModeLevel::GetWorldWildlifeComponent()
+{
+	return WorldWildlifeComponent;
 }

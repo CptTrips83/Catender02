@@ -35,6 +35,9 @@ class CATENDER02_API ACTBuildingActivationBox : public AActor
 	FVector InitialRelativeLocation;
 	float InitialXBoxExtent;
 
+	UPROPERTY()
+	ACTBuilding* BuildingHQ;
+	
 	void CalculateGrowSpeed();
 	void GrowBox();
 	

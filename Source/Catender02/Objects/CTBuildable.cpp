@@ -93,9 +93,19 @@ void ACTBuildable::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState 
 	}
 }
 
+void ACTBuildable::OnDayNightChanged(int OldHour, int NewHour, bool OldIsDay, bool NewIsDay)
+{
+	UpdateLights(!NewIsDay && GetBuildingComponent()->GetBuildingState() == Active);
+}
+
+void ACTBuildable::OnBuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState)
+{
+	UpdateLights(!GetGameMode()->GetWorldDayTimeComponent()->IsDay() && NewState == Active);
+}
+
 TArray<FResource> ACTBuildable::GetNeededResourcesForInteraction_Implementation()
 {
-	return GetBuildingComponent()->GetResourcesCostForCurrentLevel();
+	return GetBuildingComponent()->GetResourcesCostForNextLevel();
 }
 
 

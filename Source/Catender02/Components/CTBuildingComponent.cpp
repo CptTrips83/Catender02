@@ -308,6 +308,25 @@ TArray<FResource> UCTBuildingComponent::GetResourcesCostForCurrentLevel()
 	return Resources;
 }
 
+TArray<FResource> UCTBuildingComponent::GetResourcesCostForNextLevel()
+{
+	int NextLevel = GetCurrentBuildingLevel();
+
+	if (BuildingState == Active) NextLevel++;	
+	if (NextLevel > GetMaxBuildingLevel()) NextLevel = GetMaxBuildingLevel();
+	
+	FBuildingLevelInformation LevelInformation = GetBuildingLevelInformation(NextLevel);
+
+	TArray<FResource> Resources;
+	
+	for (FResource Resource : LevelInformation.Resources)
+	{
+		Resources.Add(Resource);
+	}
+
+	return Resources;
+}
+
 
 FBuildingLevelInformation UCTBuildingComponent::GetBuildingLevelInformation(int Level)
 {
@@ -319,6 +338,8 @@ void UCTBuildingComponent::SetBuildingState(EBuildingState NewBuildingState)
 	EBuildingState OldBuildingState = GetBuildingState();
 
 	BuildingState = NewBuildingState;
+
+	if (NewBuildingState == OldBuildingState) return;
 
 	OnBuildingStateChanged.Broadcast(OwningBuildable, OldBuildingState, NewBuildingState);
 }
@@ -340,6 +361,7 @@ void UCTBuildingComponent::ConstructionFailed(ACTBuildable* Buildable, TArray<FR
 void UCTBuildingComponent::BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldBuildingState,
                                                 EBuildingState NewBuildingState)
 {
+	UpdateBuilding();
 }
 
 void UCTBuildingComponent::CurrentLevelChanged(ACTBuildable* Buildable, int OldLevel, int NewLevel)

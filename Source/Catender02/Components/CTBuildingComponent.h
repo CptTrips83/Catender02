@@ -221,7 +221,7 @@ public:
 	 *
 	 * @param NewBuildingState The new state to which the building will be set, specified by the EBuildingState enumeration.
 	 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	virtual void SetBuildingState(EBuildingState NewBuildingState);
 	/**
 	 * @brief Adds progress to the current building's construction.
@@ -287,6 +287,9 @@ public:
 	UFUNCTION(BlueprintPure)
 	virtual TArray<FResource> GetResourcesCostForCurrentLevel();
 
+	UFUNCTION(BlueprintPure)
+	virtual TArray<FResource> GetResourcesCostForNextLevel();
+	
 	/**
 * @brief Updates the current state of the building component.
 *

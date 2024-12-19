@@ -136,6 +136,19 @@ bool UCTWorldResourceComponent::TrySubtractResourceAmount(const EResourceType Re
 	return true;
 }
 
+bool UCTWorldResourceComponent::TrySubtractResources(const TArray<FResource> NeededResources)
+{
+	for (FResource Resource : NeededResources)
+	{
+		if (!TrySubtractResourceAmount(Resource.ResourceType, Resource.Amount))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
 void UCTWorldResourceComponent::SetMaxResources(int NewAmount)
 {
 	MaxResources = FMath::Clamp(NewAmount, 0, 100);
@@ -183,5 +196,18 @@ bool UCTWorldResourceComponent::CheckResource(EResourceType Resource, int Needed
 		return ResourceData->Resource.Amount >= NeededAmount;
 	}
 	return false;
+}
+
+bool UCTWorldResourceComponent::CheckResources(TArray<FResource> NeededResources)
+{
+	for (FResource Resource : NeededResources)
+	{
+		if (!CheckResource(Resource.ResourceType, Resource.Amount))
+		{
+			return false;
+		}	
+	}
+
+	return true;
 }
 

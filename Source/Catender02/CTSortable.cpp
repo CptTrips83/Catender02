@@ -41,10 +41,22 @@ void ACTSortable::BeginPlay()
 	Super::BeginPlay();
 
 	GameModeLevel = static_cast<ACTGameModeLevel*>(GetWorld()->GetAuthGameMode());	
+
+	GetGameMode()->GetWorldDayTimeComponent()->OnDayNightChanged.AddDynamic(this, &ACTSortable::OnDayNightChanged);
 }
 
 void ACTSortable::InteractInternal(ACTSortable* OtherSortable)
 {	
+	
+}
+
+void ACTSortable::OnDayNightChanged(int OldHour, int NewHour, bool OldIsDay, bool NewIsDay)
+{
+	UpdateLights(!NewIsDay);
+}
+
+void ACTSortable::UpdateLights_Implementation(bool IsVisible)
+{
 	
 }
 

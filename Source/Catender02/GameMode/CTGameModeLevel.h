@@ -7,6 +7,7 @@
 #include "Catender02/Components/CTWorldBuildingVisibilityComponent.h"
 #include "Catender02/Components/CTWorldDayTimeComponent.h"
 #include "Catender02/Components/CTWorldResourceComponent.h"
+#include "Catender02/Components/CTWorldWildlifeComponent.h"
 #include "GameFramework/GameModeBase.h"
 #include "CTGameModeLevel.generated.h"
 
@@ -71,6 +72,14 @@ class CATENDER02_API ACTGameModeLevel : public AGameModeBase
 	 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UCTWorldDayTimeComponent* WorldDayTimeComponent = nullptr;
+
+	/**
+	 * A component responsible for managing wildlife within the game world.
+	 * This variable holds a reference to the UCTWorldWildlifeComponent instance, which is used
+	 * to control and manage wildlife-related behaviors, interactions, and effects in the game environment.
+	 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UCTWorldWildlifeComponent* WorldWildlifeComponent = nullptr;
 	
 public:
 
@@ -119,4 +128,12 @@ public:
 	 */
 	UFUNCTION(BlueprintPure)
 	UCTWorldDayTimeComponent* GetWorldDayTimeComponent();
+
+	/**
+	 * Retrieves the component responsible for managing wildlife within the game world.
+	 *
+	 * @return A pointer to the UCTWorldWildlifeComponent instance that manages wildlife-related behaviors, interactions, and effects.
+	 */
+	UFUNCTION(BlueprintPure)
+	UCTWorldWildlifeComponent* GetWorldWildlifeComponent();
 };

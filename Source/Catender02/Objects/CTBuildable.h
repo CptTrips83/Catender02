@@ -171,6 +171,11 @@ public:
 	 */
 	UFUNCTION()
 	virtual void BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
+
+	virtual void OnDayNightChanged(int OldHour, int NewHour, bool OldIsDay, bool NewIsDay) override;
+
+	UFUNCTION()
+	virtual void OnBuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
 	
 	virtual TArray<FResource> GetNeededResourcesForInteraction_Implementation() override;
 };

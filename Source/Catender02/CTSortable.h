@@ -86,4 +86,10 @@ protected:
 	
 
 	virtual void InteractInternal(ACTSortable* OtherSortable);
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Lighting")
+	void UpdateLights(bool IsVisible);
+
+	UFUNCTION()
+	virtual void OnDayNightChanged(int OldHour, int NewHour, bool OldIsDay, bool NewIsDay);
 };

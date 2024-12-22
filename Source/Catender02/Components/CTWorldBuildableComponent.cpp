@@ -29,10 +29,12 @@ void UCTWorldBuildableComponent::SortBuildablesByNearest(ACTSortable* Sortable)
 	});
 }
 
-void UCTWorldBuildableComponent::SortBuildablesByNearestAndDirection(ACTSortable* Sortable,
-                                                                    ECTDirection BuildableDirection)
+void UCTWorldBuildableComponent::SortBuildablesByDistanceAndDirection(ACTSortable* Sortable,
+                                                                    ECTDirection BuildableDirection,
+                                                                    bool SortASC
+                                                                    )
 {
-	Buildables.Sort([&Sortable, BuildableDirection] (ACTBuildable& Buildable1, ACTBuildable& Buildable2)
+	Buildables.Sort([&Sortable, BuildableDirection, SortASC] (ACTBuildable& Buildable1, ACTBuildable& Buildable2)
 	{
 		const FVector Direction = Sortable->GetActorLocation() - Buildable2.GetActorLocation();
 		const float DirectionX = Direction.X;
@@ -51,10 +53,11 @@ void UCTWorldBuildableComponent::SortBuildablesByNearestAndDirection(ACTSortable
 					break;
 				}
 		}
-		
+		if (!SortASC) return (Buildable1.GetDistanceTo(Sortable) > Buildable2.GetDistanceTo(Sortable)) && CorrectDirection;
 		return (Buildable1.GetDistanceTo(Sortable) < Buildable2.GetDistanceTo(Sortable)) && CorrectDirection;
 	});
 }
+
 
 UCTWorldBuildableComponent::UCTWorldBuildableComponent()
 {
@@ -118,7 +121,7 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestBuildableByDirection(ACTSort
 	
 	if (Buildables.Num() <= 0) return nullptr;
 
-	SortBuildablesByNearestAndDirection(Sortable, BuildableDirection);
+	SortBuildablesByDistanceAndDirection(Sortable, BuildableDirection);
 	
 	return Buildables[0];
 }

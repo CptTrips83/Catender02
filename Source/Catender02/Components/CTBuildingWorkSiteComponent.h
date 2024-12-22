@@ -90,7 +90,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	virtual void RemoveFriendlyNPCCharacter(ACTFriendlyNPCCharacter* Character);
-
 	/**
 	 * Determines whether a given friendly NPC character is part of the working friendly NPC characters list.
 	 *
@@ -121,8 +120,7 @@ public:
 	 * @return true if there is at least one open work place, false otherwise.
 	 */
 	UFUNCTION(BlueprintPure)
-	virtual bool HasOpenWorkPlace(ACTFriendlyNPCCharacter* Character);
-	
+	virtual bool HasOpenWorkPlace(ACTFriendlyNPCCharacter* Character);	
 	/**
 	 * Determines if a given NPC character is associated with an active work site.
 	 *
@@ -152,7 +150,6 @@ protected:
 	 */
 	UFUNCTION()
 	virtual void BuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
-
 	/**
 	 * Retrieves the building component associated with the owning buildable.
 	 *

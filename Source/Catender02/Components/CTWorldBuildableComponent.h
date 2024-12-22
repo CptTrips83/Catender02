@@ -28,6 +28,8 @@ class CATENDER02_API UCTWorldBuildableComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+	// TODO Add Function to get all Towers by Distance(DESC) from HQ for a Direction
+	
 	UPROPERTY()
 	TArray<ACTBuildable*> Buildables;
 
@@ -42,16 +44,18 @@ class CATENDER02_API UCTWorldBuildableComponent : public UActorComponent
 	UFUNCTION()
 	void SortBuildablesByNearest(ACTSortable* Sortable);
 	/**
-	 * Sorts the list of buildables in ascending order based on their distance to the specified sortable object and direction.
+	 * Sorts the list of buildables based on their distance to the specified sortable object and restricts the sorting
+	 * to buildables in the specified direction, either in ascending or descending order.
 	 *
-	 * This method uses a lambda function to compare the distances between buildable objects and the specified sortable object while considering their direction,
-	 * rearranging the array of buildables so that the closest ones in the specified direction come first.
+	 * This method evaluates the direction between buildables and the sortable object and filters based on the provided
+	 * direction, before sorting the remaining buildables by distance, according to the desired order.
 	 *
-	 * @param Sortable A pointer to an object of type ACTSortable used to determine the distances for sorting.
-	 * @param BuildableDirection An enum value of type ECTDirection specifying the direction (e.g., Left, Right) used to filter buildables before sorting.
+	 * @param Sortable A pointer to an object of type ACTSortable used to determine distances and compare locations.
+	 * @param BuildableDirection The direction (of type ECTDirection) used to filter buildables based on their relative position.
+	 * @param SortASC A boolean value specifying whether the buildables should be sorted in ascending (true) or descending (false) order.
 	 */
 	UFUNCTION()
-	void SortBuildablesByNearestAndDirection(ACTSortable* Sortable, ECTDirection BuildableDirection);
+	void SortBuildablesByDistanceAndDirection(ACTSortable* Sortable, ECTDirection BuildableDirection, bool SortASC = true);	
 	
 public:	
 	UCTWorldBuildableComponent();

@@ -27,8 +27,6 @@ UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CATENDER02_API UCTWorldBuildableComponent : public UActorComponent
 {
 	GENERATED_BODY()
-
-	// TODO Add Function to get all Towers by Distance(DESC) from HQ for a Direction
 	
 	UPROPERTY()
 	TArray<ACTBuildable*> Buildables;
@@ -119,5 +117,6 @@ protected:
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	UFUNCTION(BlueprintPure)
+	TArray<ACTBuildable*> GetBuildablesByDirection(ACTSortable* Sortable, ECTDirection BuildableDirection, bool SortASC = true);	
 };

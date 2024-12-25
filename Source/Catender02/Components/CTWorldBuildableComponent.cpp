@@ -21,6 +21,45 @@ ACTBuildable* UCTWorldBuildableComponent::GetNearestConstructionSite(ACTSortable
 	return nullptr;
 }
 
+TArray<ACTBuildable*> UCTWorldBuildableComponent::GetBuildablesByDirection(ACTSortable* Sortable,
+	ECTDirection BuildableDirection, bool SortASC)
+{
+	TArray<ACTBuildable*> Result;
+
+	
+	
+	SortBuildablesByDistanceAndDirection(Sortable, BuildableDirection, SortASC);
+
+	for(ACTBuildable* Buildable : this->Buildables)
+	{
+		const FVector Direction = Sortable->GetActorLocation() - Buildable->GetActorLocation();
+		const float DirectionX = Direction.X;
+		
+		switch (BuildableDirection)
+		{
+		case ECTDirection::Left:
+			{
+				if (DirectionX < 0.f)
+				{
+					Result.Add(Buildable);	
+				}
+				break;
+			}
+		case ECTDirection::Right:
+			{
+				if (DirectionX >= 0.f)
+				{
+					Result.Add(Buildable);
+				}
+				break;
+			}
+		}
+	}
+	
+	
+	return Result;
+}
+
 void UCTWorldBuildableComponent::SortBuildablesByNearest(ACTSortable* Sortable)
 {
 	Buildables.Sort([&Sortable] (const ACTBuildable& Buildable1, const ACTBuildable& Buildable2)

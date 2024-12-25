@@ -118,5 +118,8 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintPure)
-	TArray<ACTBuildable*> GetBuildablesByDirection(ACTSortable* Sortable, ECTDirection BuildableDirection, bool SortASC = true);	
+	TArray<ACTBuildable*> GetBuildablesByDirection(ACTSortable* Sortable, ECTDirection BuildableDirection, bool SortASC = true);
+
+	UFUNCTION(BlueprintPure)
+	TArray<ACTBuildable*> GetBuildables();
 };

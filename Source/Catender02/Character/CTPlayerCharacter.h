@@ -40,6 +40,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UInputAction *InteractAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UInputAction *PauseAction;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	USoundBase* InteractSound;
 
@@ -66,6 +69,9 @@ protected:
 	UFUNCTION()
 	void InteractTriggered(const FInputActionValue& Value);
 
+	UFUNCTION(BlueprintNativeEvent)
+	void PauseTriggered(const FInputActionValue& Value);
+	
 private:
 	UPROPERTY()
 	APlayerController* PlayerController;

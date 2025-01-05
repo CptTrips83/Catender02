@@ -67,7 +67,7 @@ void ACTPickable::DisableCollision() const
  * the function exits early. For each resource type and amount in the Resources array, the resource is
  * added to the world resource component.
  */
-void ACTPickable::ApplyResources() const
+void ACTPickable::ApplyResources()
 {
 	UCTWorldResourceComponent* ResourceComponent = GetGameMode()->GetWorldResourceComponent();
 
@@ -77,6 +77,8 @@ void ACTPickable::ApplyResources() const
 	{
 		ResourceComponent->TryAddResourceAmount(ResourceType, Amount);
 	}
+
+	Resources.Empty();
 }
 
 /**

@@ -273,20 +273,17 @@ bool UCTBuildingComponent::CanBeBuild()
 {	
 	if (GetBuildingState() == EBuildingState::Inactive)
 	{
-		UKismetSystemLibrary::PrintString(this, "CanBeBuild(): Inactive");
 		return true;
 	}
 
 	if (GetBuildingState() == EBuildingState::Destroyed)
 	{
-		UKismetSystemLibrary::PrintString(this, "CanBeBuild(): Destroyed");
 		return true;
 	}
 	
 	if (GetMaxBuildingLevel() > GetCurrentBuildingLevel()
 		&& GetBuildingState() == EBuildingState::Active)
 	{		
-		UKismetSystemLibrary::PrintString(this, "CanBeBuild(): Active and Max Level not Reached");
 		return true;
 	}
 

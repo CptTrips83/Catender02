@@ -61,13 +61,6 @@ void UCTWorldDayTimeComponent::DayTimeChanged(int OldHour, int NewHour, bool Old
 		MinLightIntensity,
 		MaxLightIntensity
 		);
-
-	FString DebugMessage = "Day Time: " + FString::FromInt(NewHour)
-		+ " " + FString::SanitizeFloat(HourLightIntensity)
-		+ " " + FString::SanitizeFloat(GetHourCurveValue())
-		+ " " + FString::SanitizeFloat(NewLightIntensity);
-		
-	UKismetSystemLibrary::PrintString(GEngine->GetWorld(), DebugMessage, true, true);
 	
 	TargetIntensity = NewLightIntensity;
 }

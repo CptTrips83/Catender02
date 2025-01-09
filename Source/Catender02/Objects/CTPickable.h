@@ -39,7 +39,7 @@ class CATENDER02_API ACTPickable : public ACTSortable
 	UFUNCTION()
 	void DisableCollision() const;
 	UFUNCTION()
-	void ApplyResources() const;
+	void ApplyResources();
 
 	UFUNCTION()
 	void DestroyPickup();

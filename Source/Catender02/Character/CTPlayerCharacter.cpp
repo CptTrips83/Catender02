@@ -89,6 +89,12 @@ void ACTPlayerCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 			ETriggerEvent::Started,
 			this,
 			&ACTPlayerCharacter::InteractTriggered
+			);	
+		EnhancedInputComponent->BindAction(
+			PauseAction,
+			ETriggerEvent::Started,
+			this,
+			&ACTPlayerCharacter::PauseTriggered
 		);
 	}
 }
@@ -134,3 +140,8 @@ void ACTPlayerCharacter::InteractTriggered(const FInputActionValue& Value)
 
 	Interactable->Interact(this);
 }
+
+void ACTPlayerCharacter::PauseTriggered_Implementation(const FInputActionValue& Value)
+{
+}
+

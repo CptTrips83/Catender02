@@ -41,8 +41,6 @@ void UCTPlayerInteractionComponent::AddToOverlappingInteractables(ACTInteractabl
 	this->OverlappingInteractables.AddUnique(Interactable);
 	SortInteractablesBySortingLayer();
 	this->OnAddedInteractable.Broadcast(Interactable);	
-
-	UKismetSystemLibrary::PrintString(this, "Added Interactable" + Interactable->GetName());
 }
 
 void UCTPlayerInteractionComponent::RemoveFromOverlappingInteractables(ACTInteractable* Interactable)
@@ -50,8 +48,6 @@ void UCTPlayerInteractionComponent::RemoveFromOverlappingInteractables(ACTIntera
 	this->OverlappingInteractables.Remove(Interactable);
 	SortInteractablesBySortingLayer();
 	this->OnRemovedInteractable.Broadcast(Interactable);
-
-	UKismetSystemLibrary::PrintString(this, "Removed Interactable" + Interactable->GetName());
 }
 
 ACTInteractable* UCTPlayerInteractionComponent::GetFrontInteractable()

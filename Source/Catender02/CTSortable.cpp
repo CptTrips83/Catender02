@@ -38,9 +38,9 @@ void ACTSortable::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* O
 
 void ACTSortable::BeginPlay()
 {
+	GameModeLevel = static_cast<ACTGameModeLevel*>(GetWorld()->GetAuthGameMode());
+	
 	Super::BeginPlay();
-
-	GameModeLevel = static_cast<ACTGameModeLevel*>(GetWorld()->GetAuthGameMode());	
 
 	GetGameMode()->GetWorldDayTimeComponent()->OnDayNightChanged.AddDynamic(this, &ACTSortable::OnDayNightChanged);
 }

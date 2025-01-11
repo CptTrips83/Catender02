@@ -69,7 +69,7 @@ int UCTWorldResourceComponent::TryAddResourceAmount(const EResourceType Resource
 	const int CurrentResourceAmount = GetAmountAllResources(); // Aktuelle Gesamtmenge aller Ressourcen
 
 	// Überprüfe die Konsistenz der Gesamtsummen
-	if (CurrentResourceAmount > MaxResourceAmount)
+	if (CurrentResourceAmount > MaxResourceAmount && !IsUnlockResource(ResourceType))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Current resource amount exceeds maximum allowed resources."));
 		return 0;
@@ -78,7 +78,7 @@ int UCTWorldResourceComponent::TryAddResourceAmount(const EResourceType Resource
 	int RemainingResourceAmount = MaxResourceAmount - CurrentResourceAmount; // Der verfügbare Platz zur Speicherung von Ressourcen
 
 	// Überprüfe, ob die hinzuzufügende Menge den verbleibenden Platz übersteigt
-	if (Amount > RemainingResourceAmount)
+	if (Amount > RemainingResourceAmount && !IsUnlockResource(ResourceType))
 	{
 		ReturningAmount = Amount - RemainingResourceAmount; // Setze die verbleibende Menge, die nicht hinzugefügt werden konnte
 		ResourceData->Resource.Amount += RemainingResourceAmount; // Fülle den verfügbaren Platz vollständig aus

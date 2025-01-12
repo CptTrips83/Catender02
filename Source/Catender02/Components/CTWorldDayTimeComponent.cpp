@@ -27,6 +27,11 @@ float UCTWorldDayTimeComponent::GetCurrentIntensity() const
 	return TargetIntensity;
 }
 
+float UCTWorldDayTimeComponent::GetRealIntensity() const
+{
+	return DirectionalLight->GetLightComponent()->Intensity;
+}
+
 float UCTWorldDayTimeComponent::GetLightIntensitySwitchSpeed() const
 {
 	return LightIntensitySwitchSpeed;
@@ -57,7 +62,7 @@ void UCTWorldDayTimeComponent::DayTimeChanged(int OldHour, int NewHour, bool Old
 	float LightModifier = !IsDay() ? NightModifier * (-1) : 0; 
 
 	float NewLightIntensity = FMath::Clamp(
-		(MinLightIntensity + (HourLightIntensity * CurveValue) + LightModifier),
+		(MinLightIntensity + (HourLightIntensity * CurveValue) + LightModifier) * LightIntensityModifierFromPlayer,
 		MinLightIntensity,
 		MaxLightIntensity
 		);
@@ -73,7 +78,8 @@ void UCTWorldDayTimeComponent::ApplyTargetIntensity()
 
 	if(CurrentLightIntensity == TargetIntensity) return;
 	
-	float Alpha = LightIntensitySwitchSpeed;	
+	float Alpha = LightIntensitySwitchSpeed;
+	if (LightIntensityModifierFromPlayer > 0.0) Alpha *= (10 * (1 - LightIntensityModifierFromPlayer));
 	float NewLightIntensity = FMath::Lerp(CurrentLightIntensity, TargetIntensity, Alpha);	
 	DirectionalLight->GetLightComponent()->SetIntensity(NewLightIntensity);
 }
@@ -119,5 +125,15 @@ void UCTWorldDayTimeComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 bool UCTWorldDayTimeComponent::IsDay()
 {	
 	return GetHourCurveValue() > 0.3f;
+}
+
+void UCTWorldDayTimeComponent::SetLightIntensityModifierFromPlayer(float NewModifier)
+{
+	float OldModifier = LightIntensityModifierFromPlayer;
+	LightIntensityModifierFromPlayer = NewModifier == 0.0f ? 0.1f : NewModifier;
+
+	
+	
+	OnDayTimeChanged.Broadcast(CurrentHour - 1, CurrentHour, IsDay(), IsDay());	
 }
 

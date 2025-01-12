@@ -111,6 +111,9 @@ class CATENDER02_API UCTWorldDayTimeComponent : public UActorComponent
 	 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Day Time", meta = (AllowPrivateAccess = true))
 	float LightIntensitySwitchSpeed = 0.0001f;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "Day Time", meta = (AllowPrivateAccess = true))
+	float LightIntensityModifierFromPlayer = 1.0f;
 	
 	/**
 	 * Calculates the total length of a full day cycle, which includes both the day and night periods.
@@ -152,6 +155,9 @@ public:
 	float GetCurrentIntensity() const;
 
 	UFUNCTION(BlueprintPure, Category = "Day Time")
+	float GetRealIntensity() const;
+
+	UFUNCTION(BlueprintPure, Category = "Day Time")
 	float GetLightIntensitySwitchSpeed() const;
 	
 protected:
@@ -189,6 +195,9 @@ public:
 	UFUNCTION(BlueprintPure)
 	bool IsDay();
 
+	UFUNCTION(BlueprintCallable)
+	void SetLightIntensityModifierFromPlayer(float NewModifier);
+	
 	/**
 	 * Delegate that is triggered whenever there is a change in the day/night cycle time.
 	 */

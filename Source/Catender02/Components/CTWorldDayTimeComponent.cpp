@@ -79,7 +79,9 @@ void UCTWorldDayTimeComponent::ApplyTargetIntensity()
 	if(CurrentLightIntensity == TargetIntensity) return;
 	
 	float Alpha = LightIntensitySwitchSpeed;
-	if (LightIntensityModifierFromPlayer > 0.0) Alpha *= (10 * (1 - LightIntensityModifierFromPlayer));
+	float PlayerIntensity = (1 - LightIntensityModifierFromPlayer);
+	PlayerIntensity = PlayerIntensity == 0.0 ? 0.1 : PlayerIntensity;
+	if (LightIntensityModifierFromPlayer > 0.0) Alpha *= (10 * PlayerIntensity);
 	float NewLightIntensity = FMath::Lerp(CurrentLightIntensity, TargetIntensity, Alpha);	
 	DirectionalLight->GetLightComponent()->SetIntensity(NewLightIntensity);
 }

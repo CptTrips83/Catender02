@@ -123,6 +123,8 @@ void ACTInteractable::OnBoxBeginOverlapInteraction(UPrimitiveComponent* Overlapp
 	ACTPlayerCharacter* PlayerCharacter = Cast<ACTPlayerCharacter>(OtherActor);
 
 	if (!PlayerCharacter) return;
+	if (OverlappedComp->GetName() != "Box Interaction") return;
+	if (OtherComp->GetName() == "TreeOverlap") return; // TODO Code Smell starke Kopplung an PlayerCharacter
 
 	PlayerCharacter->GetPlayerInteractionComponent()->AddToOverlappingInteractables(this);
 }

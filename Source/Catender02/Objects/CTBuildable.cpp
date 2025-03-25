@@ -108,5 +108,10 @@ TArray<FResource> ACTBuildable::GetNeededResourcesForInteraction_Implementation(
 	return GetBuildingComponent()->GetResourcesCostForNextLevel();
 }
 
+TArray<FResourceData> ACTBuildable::GetNeededResourcesDataForUI_Implementation()
+{
+	return GetBuildingComponent()->GetResourcesDataForNextLevel();
+}
+
 
 

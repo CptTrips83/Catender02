@@ -178,4 +178,6 @@ public:
 	virtual void OnBuildingStateChanged(ACTBuildable* Buildable, EBuildingState OldState, EBuildingState NewState);
 	
 	virtual TArray<FResource> GetNeededResourcesForInteraction_Implementation() override;
+
+	virtual TArray<FResourceData> GetNeededResourcesDataForUI_Implementation() override;
 };

@@ -76,6 +76,9 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, meta=(ForceAsFunction))
 	TArray<FResource> GetNeededResourcesForInteraction();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, meta=(ForceAsFunction))
+	TArray<FResourceData> GetNeededResourcesDataForUI();
 	
 	/**
 	 * @brief Sets the visibility of the interaction widget.

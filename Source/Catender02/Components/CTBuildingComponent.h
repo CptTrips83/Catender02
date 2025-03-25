@@ -289,6 +289,9 @@ public:
 
 	UFUNCTION(BlueprintPure)
 	virtual TArray<FResource> GetResourcesCostForNextLevel();
+
+	UFUNCTION(BlueprintPure)
+	virtual TArray<FResourceData> GetResourcesDataForNextLevel();
 	
 	/**
 * @brief Updates the current state of the building component.

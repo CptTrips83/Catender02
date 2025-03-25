@@ -305,6 +305,21 @@ TArray<FResource> UCTBuildingComponent::GetResourcesCostForCurrentLevel()
 	return Resources;
 }
 
+TArray<FResourceData> UCTBuildingComponent::GetResourcesDataForNextLevel()
+{
+	TArray<FResource> Resources = GetResourcesCostForNextLevel();
+
+	TArray<FResourceData> Data;
+	
+	for (FResource Resource : Resources)
+	{
+	    FResourceData NewData = OwningBuildable->GetGameMode()->GetWorldResourceComponent()->CreateResourceData(Resource);		
+		Data.Add(NewData);
+	}
+
+	return Data;
+}
+
 TArray<FResource> UCTBuildingComponent::GetResourcesCostForNextLevel()
 {
 	int NextLevel = GetCurrentBuildingLevel();

@@ -79,7 +79,9 @@ protected:
 	 * @return A pointer to the resource data if the resource type is found, otherwise nullptr.
 	 */
 	FResourceData* GetResourceData(const EResourceType ResourceType);
-public:	
+public:
+	virtual FResourceData CreateResourceData(const FResource& Resource);
+	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	/**

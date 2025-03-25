@@ -70,6 +70,11 @@ TArray<FResource> ACTInteractable::GetNeededResourcesForInteraction_Implementati
 	return TArray<FResource>();
 }
 
+TArray<FResourceData> ACTInteractable::GetNeededResourcesDataForUI_Implementation()
+{
+	return TArray<FResourceData>();
+}
+
 void ACTInteractable::SetVisibilityInteractionWidget(const bool IsActive)
 {
 	UWidgetComponent* Widget = GetInteractionWidget();

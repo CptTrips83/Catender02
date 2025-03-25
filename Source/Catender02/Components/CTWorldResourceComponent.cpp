@@ -30,6 +30,17 @@ FResourceData* UCTWorldResourceComponent::GetResourceData(const EResourceType Re
 	return nullptr;
 }
 
+FResourceData UCTWorldResourceComponent::CreateResourceData(const FResource& Resource)
+{
+	FResourceData NewData;
+	const FResourceData* Temp = GetResourceData(Resource.ResourceType);
+
+	NewData.Resource = Resource;
+	NewData.IsUnlockResource = Temp->IsUnlockResource;
+
+	return NewData;
+}
+
 
 void UCTWorldResourceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {

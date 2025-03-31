@@ -138,7 +138,8 @@ bool UCTWorldResourceComponent::TrySubtractResourceAmount(const EResourceType Re
 		return false;
 	}
 
-	ResourceData->Resource.Amount -= Amount;
+	if (!IsUnlockResource(ResourceData->Resource.ResourceType))
+		ResourceData->Resource.Amount -= Amount;
 
 	const int NewAmount = ResourceData->Resource.Amount;
 

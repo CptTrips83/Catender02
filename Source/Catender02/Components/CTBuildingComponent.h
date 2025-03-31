@@ -205,6 +205,16 @@ public:
 	UFUNCTION(BlueprintPure)
 	virtual int GetCurrentBuildingLevel();
 	/**
+ * @brief Retrieves the current level of the building.
+ *
+ * This method returns the current level that the building has reached.
+ * It is used to determine building's progress through its upgrade stages.
+ *
+ * @return int The current building level.
+ */
+	UFUNCTION(BlueprintPure)
+	virtual int GetNextBuildingLevel();
+	/**
 	 * @brief Retrieves the current state of the building.
 	 *
 	 * This method returns the current state of the building using the EBuildingState enumeration. The state can be Invisible, Inactive, Active, under Construction, or Destroyed.

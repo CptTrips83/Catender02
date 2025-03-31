@@ -3,8 +3,6 @@
 
 #include "Catender02/Objects/CTBuildable.h"
 #include "Components/BoxComponent.h"
-#include "Kismet/KismetStringLibrary.h"
-#include "Kismet/KismetSystemLibrary.h"
 
 
 void UCTBuildingComponent::ResetCurrentProgress()
@@ -26,6 +24,11 @@ int UCTBuildingComponent::GetMaxBuildingLevel()
 int UCTBuildingComponent::GetCurrentBuildingLevel()
 {
 	return CurrentLevel;
+}
+
+int UCTBuildingComponent::GetNextBuildingLevel()
+{
+	return FMath::Clamp(CurrentLevel + 1, 0, BuildingLevelInformation.Num() - 1);
 }
 
 EBuildingState UCTBuildingComponent::GetBuildingState()
@@ -175,7 +178,7 @@ void UCTBuildingComponent::PayResources()
 
 	for (FResource NeededResource : LevelInformation.Resources)
 	{
-		if(ResourceComponent->IsUnlockResource(NeededResource.ResourceType)) continue;
+		//if(ResourceComponent->IsUnlockResource(NeededResource.ResourceType)) continue;
 
 		ResourceComponent->TrySubtractResourceAmount(NeededResource.ResourceType, NeededResource.Amount);
 	}
@@ -190,7 +193,12 @@ bool UCTBuildingComponent::CheckResourceRequirements()
 	
 	bool Result = false;
 
-	FBuildingLevelInformation LevelInformation = GetBuildingLevelInformation(CurrentLevel);
+	int BuildingLevel = CurrentLevel;
+	if (BuildingState != Inactive
+		&& BuildingState != Destroyed)
+		BuildingLevel = GetNextBuildingLevel();
+	
+	FBuildingLevelInformation LevelInformation = GetBuildingLevelInformation(BuildingLevel);
 
 	for (FResource Resource : LevelInformation.Resources)
 	{

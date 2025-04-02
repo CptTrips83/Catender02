@@ -185,6 +185,16 @@ public:
 	UCTBuildingComponent();
 
 	/**
+ * @brief Retrieves the information for a specific building level.
+ *
+ * This method returns an object containing details and attributes associated with the specified building level.
+ *
+ * @param Level The level of the building for which information is being requested.
+ * @return An FBuildingLevelInformation object containing details of the specified building level.
+ */
+	UFUNCTION(BlueprintPure)
+	virtual FBuildingLevelInformation GetBuildingLevelInformation(int Level);
+	/**
 	 * @brief Retrieves the maximum achievable level for the building component.
 	 *
 	 * This method returns the highest level that this building component can reach based on its
@@ -321,18 +331,8 @@ protected:
 	UPROPERTY()
 	ACTBuildable* OwningBuildable = nullptr;
 	
-	virtual void BeginPlay() override;
-	
-	/**
-	 * @brief Retrieves the information for a specific building level.
-	 *
-	 * This method returns an object containing details and attributes associated with the specified building level.
-	 *
-	 * @param Level The level of the building for which information is being requested.
-	 * @return An FBuildingLevelInformation object containing details of the specified building level.
-	 */
-	UFUNCTION()
-	virtual FBuildingLevelInformation GetBuildingLevelInformation(int Level);
+	virtual void BeginPlay() override;	
+
 	/**
 	 * @brief Sets the current building level.
 	 *

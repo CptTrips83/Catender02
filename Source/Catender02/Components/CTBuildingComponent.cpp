@@ -215,7 +215,7 @@ bool UCTBuildingComponent::CheckResourceRequirements()
 }
 
 
- bool UCTBuildingComponent::UpgradeBuilding()
+bool UCTBuildingComponent::UpgradeBuilding()
 {
 	if (!OwningBuildable)
 		return false;

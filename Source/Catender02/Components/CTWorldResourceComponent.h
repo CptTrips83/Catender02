@@ -80,6 +80,7 @@ protected:
 	 */
 	FResourceData* GetResourceData(const EResourceType ResourceType);
 public:
+	UFUNCTION(BlueprintCallable)
 	virtual FResourceData CreateResourceData(const FResource& Resource);
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;

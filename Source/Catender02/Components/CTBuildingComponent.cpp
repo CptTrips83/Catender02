@@ -420,6 +420,8 @@ void UCTBuildingComponent::BeginPlay()
 		this,
 		&UCTBuildingComponent::ConstructionFailed
 	);
+
+	OnBuildingStateChanged.Broadcast(OwningBuildable, Inactive, Inactive);
 }
 
 void UCTBuildingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
